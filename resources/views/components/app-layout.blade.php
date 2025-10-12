@@ -1,5 +1,14 @@
 @php
-    $portalLogo = \App\Models\File::where('filename', $portal->name . '.jpg')->first();
+    use Illuminate\Support\Facades\Storage;
+@endphp
+@php
+    $logoPath = null;
+
+    if (Storage::disk('public')->exists('profile-pictures/' . $portal->name . '.jpg')) {
+        $logoPath = Storage::url('profile-pictures/' . $portal->name . '.jpg');
+    } elseif (Storage::disk('public')->exists('profile-pictures/' . $portal->name . '.png')) {
+        $logoPath = Storage::url('profile-pictures/' . $portal->name . '.png');
+    }
 @endphp
     <!DOCTYPE html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
@@ -9,7 +18,6 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
     <title>{{ $portal->name ?? 'Dashboard' }}</title>
-
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.bunny.net">
     <link href="https://fonts.bunny.net/css?family=instrument-sans:400,500,600" rel="stylesheet"/>
@@ -19,18 +27,17 @@
         @vite(['resources/css/app.css', 'resources/js/app.js'])
     @endif
 
-    <link rel="icon" type="image/jpg" href="{{ optional($portalLogo)->url ?? asset('default_icon.jpg') }}">
+    <link rel="icon" type="image/png" href="{{ $logoPath ?? asset('default_icon.jpg') }}">
 </head>
 
 <body class="bg-gray-100 text-[#1b1b18] min-h-screen flex font-sans">
-
 <!-- Sidebar -->
-<aside class="w-64 text-white p-6 flex flex-col shadow-lg" style="background-color: {{ $portal->branding_color }}">
+<aside class="w-64 text-white p-6 flex flex-col shadow-lg sm" style="background-color: {{ $portal->branding_color }}">
     <nav class="flex flex-col space-y-4 flex-grow">
         <!-- Logo -->
         <a href="{{ route('portal.show', ['portal' => $portal]) }}" class="self-center mb-4">
-            <img src="{{ optional($portalLogo)->url ?? asset('portalEaseLogo.png') }}"
-                 alt="{{ $portalLogo->filename ?? "logo" }}" class="max-h-12">
+            <img src="{{ $logoPath ?? asset('portalEaseLogo.png') }}"
+                 alt="{{ $portal->name ?? "logo" }}" class="max-h-12">
         </a>
 
         <!-- Dashboard -->
@@ -54,24 +61,25 @@
                 Customers
             </a>
 
-            <a href="{{ route('portal.invoice.index', $portal) }}"
-               class="flex items-center gap-2 text-lg focus-visible:outline focus-visible:outline-2 focus-visible:outline-white transition
+            @if($portal->subscription_status === "active")
+                <a href="{{ route('portal.invoice.index', $portal) }}"
+                   class="flex items-center gap-2 text-lg focus-visible:outline focus-visible:outline-2 focus-visible:outline-white transition
                {{ request()->routeIs('portal.invoice.*') ? 'border-l-4 border-white pl-3' : 'pl-3 hover:border-l-4 hover:border-white' }}">
-                <svg class="w-5 h-5">
-                    <use href="#icon-document-text"/>
-                </svg>
-                Invoices
-            </a>
+                    <svg class="w-5 h-5">
+                        <use href="#icon-document-text"/>
+                    </svg>
+                    Invoices
+                </a>
 
-            <a href="{{ route('portal.chat.index', $portal) }}"
-               class="flex items-center gap-2 text-lg focus-visible:outline focus-visible:outline-2 focus-visible:outline-white transition
+                <a href="{{ route('portal.chat.index', $portal) }}"
+                   class="flex items-center gap-2 text-lg focus-visible:outline focus-visible:outline-2 focus-visible:outline-white transition
                {{ request()->routeIs('portal.chat.*') ? 'border-l-4 border-white pl-3' : 'pl-3 hover:border-l-4 hover:border-white' }}">
-                <svg class="w-5 h-5">
-                    <use href="#icon-chat"/>
-                </svg>
-                Chats
-            </a>
-
+                    <svg class="w-5 h-5">
+                        <use href="#icon-chat"/>
+                    </svg>
+                    Chats
+                </a>
+            @endif
             <a href="{{ route('portal.project.index', $portal) }}"
                class="flex items-center gap-2 text-lg focus-visible:outline focus-visible:outline-2 focus-visible:outline-white transition
                {{ request()->routeIs('portal.project.*') ? 'border-l-4 border-white pl-3' : 'pl-3 hover:border-l-4 hover:border-white' }}">
@@ -89,7 +97,12 @@
                 </svg>
                 Share files/documents
             </a>
-
+            <a href="{{ route('portal.edit', $portal) }}"
+               class="flex items-center gap-2 text-lg focus-visible:outline focus-visible:outline-2 focus-visible:outline-white transition
+               {{ request()->routeIs('portal.edit') ? 'border-l-4 border-white pl-3' : 'pl-3 hover:border-l-4 hover:border-white' }}">
+                <img class="w-5 h-5" alt="logo" src="{{ asset('portalEaseLogo.png') }}"/>
+                Portal
+            </a>
         @else
             <a href="{{ route('portal.file.index', $portal) }}"
                class="flex items-center gap-2 text-lg focus-visible:outline focus-visible:outline-2 focus-visible:outline-white transition
@@ -136,14 +149,6 @@
                 @endif
             @endforeach
         @endif
-        @if(Auth::user()->role == "service_provider")
-            <a href="{{ route('portal.edit', $portal) }}"
-               class="flex items-center gap-2 text-lg focus-visible:outline focus-visible:outline-2 focus-visible:outline-white transition
-               {{ request()->routeIs('portal.edit') ? 'border-l-4 border-white pl-3' : 'pl-3 hover:border-l-4 hover:border-white' }}">
-                <img class="w-5 h-5" alt="logo" src="{{ asset('portalEaseLogo.png') }}"/>
-                Portal
-            </a>
-        @endif
     </nav>
 
     <!-- Logout Button -->
@@ -160,16 +165,17 @@
     <div class="max-w-5xl mx-auto">
         <!-- Header tools -->
         <div class="flex justify-end items-center space-x-4 mb-6">
-            <!-- Bell Icon -->
-            <a href="{{ route('portal.notification.index', $portal) }}" type="button"
-               class="focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-300 rounded transition">
-                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
-                     stroke-width="1.5" stroke="currentColor" class="w-6 h-6 text-black hover:text-gray-300">
-                    <path stroke-linecap="round" stroke-linejoin="round"
-                          d="M14.857 17.082a23.848 23.848 0 0 0 5.454-1.31A8.967 8.967 0 0 1 18 9.75V9A6 6 0 0 0 6 9v.75a8.967 8.967 0 0 1-2.312 6.022c1.733.64 3.56 1.085 5.455 1.31m5.714 0a24.255 24.255 0 0 1-5.714 0m5.714 0a3 3 0 1 1-5.714 0"/>
-                </svg>
-            </a>
-
+            @if($portal->subscription_status === "active")
+                <!-- Bell Icon -->
+                <a href="{{ route('portal.notification.index', $portal) }}" type="button"
+                   class="focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-300 rounded transition">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                         stroke-width="1.5" stroke="currentColor" class="w-6 h-6 text-black hover:text-gray-300">
+                        <path stroke-linecap="round" stroke-linejoin="round"
+                              d="M14.857 17.082a23.848 23.848 0 0 0 5.454-1.31A8.967 8.967 0 0 1 18 9.75V9A6 6 0 0 0 6 9v.75a8.967 8.967 0 0 1-2.312 6.022c1.733.64 3.56 1.085 5.455 1.31m5.714 0a24.255 24.255 0 0 1-5.714 0m5.714 0a3 3 0 1 1-5.714 0"/>
+                    </svg>
+                </a>
+            @endif
             <!-- Settings Icon -->
             <a href="{{ route('portal.user.edit', ["portal" => $portal, "user" => \Illuminate\Support\Facades\Auth::user()]) }}"
                type="button"

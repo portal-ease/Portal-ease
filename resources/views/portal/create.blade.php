@@ -1,42 +1,55 @@
 <x-guestLayout>
-    <div class="max-w-md mx-auto bg-white shadow-2xl rounded-2xl p-8 space-y-6">
-        <h2 class="text-2xl font-semibold text-center text-gray-800">Create New Portal</h2>
+    <section class="bg-blue-50 py-16 px-6 md:px-28 text-center">
+        <h1 class="text-4xl md:text-5xl font-extrabold text-blue-900 mb-4">
+            Create Your Client Portal
+        </h1>
+        <p class="text-lg md:text-xl text-blue-800 max-w-2xl mx-auto">
+            Step 1 of 3 — Portal Setup
+        </p>
+    </section>
 
-        <form method="POST" action="{{ route('portal.store') }}" class="space-y-4" enctype="multipart/form-data">
-            @csrf
-            <div class="grid grid-cols-2 gap-7 items-center">
+    <section class="max-w-2xl mx-auto px-6 md:px-12 py-12">
+        <div class="bg-white rounded-2xl shadow-2xl p-8">
+            <form method="POST" action="{{ route('portal.store') }}" enctype="multipart/form-data" class="space-y-6">
+                @csrf
+
+                <!-- Portal Name -->
                 <div>
-                    <label for="name" class="block font-medium text-gray-700">Portal Name</label>
+                    <label for="name" class="block font-medium text-gray-700 mb-1">Portal Name</label>
                     <input type="text" id="name" name="name" required
-                           class="w-full border border-gray-300 rounded-md p-2 mt-1 focus:ring focus:ring-blue-200"
-                           placeholder="Enter portal name">
+                           class="w-full border border-gray-300 rounded-lg p-3 focus:ring-2 focus:ring-blue-300 focus:outline-none"
+                           placeholder="e.g. Acme Client Portal">
                 </div>
 
+                <!-- Email -->
                 <div>
-                    <label for="email" class="block font-medium text-gray-700">Email Address</label>
+                    <label for="email" class="block font-medium text-gray-700 mb-1">Contact Email</label>
                     <input type="email" id="email" name="email" required
-                           class="w-full border border-gray-300 rounded-md p-2 mt-1 focus:ring focus:ring-blue-200"
-                           placeholder="Enter email address">
+                           class="w-full border border-gray-300 rounded-lg p-3 focus:ring-2 focus:ring-blue-300 focus:outline-none"
+                           placeholder="e.g. contact@yourbusiness.com">
                 </div>
 
+                <!-- Username -->
                 <div>
-                    <label for="username" class="block font-medium text-gray-700">Username</label>
+                    <label for="username" class="block font-medium text-gray-700 mb-1">Username</label>
                     <input type="text" id="username" name="username" required
-                           class="w-full border border-gray-300 rounded-md p-2 mt-1 focus:ring focus:ring-blue-200"
-                           placeholder="Enter user name">
+                           class="w-full border border-gray-300 rounded-lg p-3 focus:ring-2 focus:ring-blue-300 focus:outline-none"
+                           placeholder="Choose a username">
                 </div>
 
+                <!-- Password -->
                 <div>
-                    <label for="password" class="block font-medium text-gray-700">Password</label>
+                    <label for="password" class="block font-medium text-gray-700 mb-1">Password</label>
                     <input type="password" id="password" name="password" required
-                           class="w-full border border-gray-300 rounded-md p-2 mt-1 focus:ring focus:ring-blue-200"
-                           placeholder="Enter password">
+                           class="w-full border border-gray-300 rounded-lg p-3 focus:ring-2 focus:ring-blue-300 focus:outline-none"
+                           placeholder="Create a secure password">
                 </div>
 
+                <!-- Branding Color -->
                 <div>
-                    <label for="branding" class="block font-medium text-gray-700">Branding Colour</label>
+                    <label for="branding" class="block font-medium text-gray-700 mb-1">Branding Colour</label>
                     <select id="branding" name="branding_color" required
-                            class="w-full border border-gray-300 rounded-md p-2 mt-1 focus:ring focus:ring-blue-200"
+                            class="w-full border border-gray-300 rounded-lg p-3 focus:ring-2 focus:ring-blue-300 focus:outline-none"
                             onchange="updateColorPreview(this.value)">
                         <option value="">Select a color</option>
                         <option value="#FF5733">Red</option>
@@ -45,8 +58,8 @@
                         <option value="#FFC107">Yellow</option>
                         <option value="#6F42C1">Purple</option>
                     </select>
-
-                    <div id="colorPreview" class="w-full h-10 mt-2 rounded-md border border-gray-300"
+                    <div id="colorPreview"
+                         class="w-full h-12 mt-3 rounded-lg border border-gray-300 shadow-sm"
                          style="background-color: transparent;">
                     </div>
                 </div>
@@ -57,17 +70,20 @@
                         previewBox.style.backgroundColor = color || 'transparent';
                     }
                 </script>
+
+                <!-- Logo Upload -->
                 <div>
-                    <label for="logo" class="block font-medium text-gray-700">Portal Logo</label>
+                    <label for="logo" class="block font-medium text-gray-700 mb-1">Portal Logo</label>
                     <input type="file" id="logo" name="logo" required
-                           class="w-full border border-gray-300 rounded-md p-3 mt-1 focus:ring focus:ring-blue-200 focus:outline-none">
+                           class="w-full border border-gray-300 rounded-lg p-3 focus:ring-2 focus:ring-blue-300 focus:outline-none">
                 </div>
 
-            </div>
-            <button type="submit"
-                    class="w-full bg-green-500 hover:bg-blue-600 text-white rounded-xl p-3 transition">
-                Create Portal
-            </button>
-        </form>
-    </div>
+                <!-- Submit Button -->
+                <button type="submit"
+                        class="w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3 px-6 rounded-xl shadow-lg transition">
+                    -> Next step
+                </button>
+            </form>
+        </div>
+    </section>
 </x-guestLayout>
