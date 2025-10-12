@@ -1,9 +1,23 @@
 <x-app-layout :portal="$portal">
     <div class="flex justify-end mb-6">
-        <a href="{{ route('portal.user.create', ['portal' => $portal]) }}"
-           class="inline-flex items-center bg-green-500 hover:bg-green-600 text-white text-sm font-medium py-2 px-4 rounded-2xl transition">
-            + New Customer
-        </a>
+        @if($portal->subscription_status === "active")
+            {{-- Active subscription: Always allow --}}
+            <a href="{{ route('portal.user.create', ['portal' => $portal]) }}"
+               class="inline-flex items-center bg-green-500 hover:bg-green-600 text-white text-sm font-medium py-2 px-4 rounded-2xl transition">
+                + New Customer
+            </a>
+        @elseif(count($portal->users) < 3)
+            {{-- No subscription, but fewer than 3 users: Allow --}}
+            <a href="{{ route('portal.user.create', ['portal' => $portal]) }}"
+               class="inline-flex items-center bg-green-500 hover:bg-green-600 text-white text-sm font-medium py-2 px-4 rounded-2xl transition">
+                + New Customer
+            </a>
+        @else
+            {{-- No subscription & already 3 users: Block --}}
+            <p class="text-red-500 text-sm font-medium">
+                You need a subscription to add more than 3 customers.
+            </p>
+        @endif
     </div>
 
     <div class="bg-white shadow-xl rounded-2xl p-6 md:p-8 space-y-6">

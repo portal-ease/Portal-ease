@@ -3,18 +3,18 @@
         <!-- File Header -->
         <div class="text-center">
             <h2 class="text-3xl font-bold text-gray-800">{{ $file->filename }}</h2>
-            <p class="text-sm text-gray-500 mt-2">Gedeeld bestand</p>
+            <p class="text-sm text-gray-500 mt-2">Shared file</p>
         </div>
 
         <!-- File Info -->
         <div class="space-y-2 text-gray-700">
-            <p><span class="font-semibold">Bestandsnaam:</span> {{ $file->filename }}</p>
+            <p><span class="font-semibold">File name:</span> {{ $file->filename }}</p>
             <p>
-                <span class="font-semibold">Zichtbaarheid:</span>
+                <span class="font-semibold">Visibility:</span>
                 @if(!$file->visibility)
-                    <span class="text-green-600 font-medium">Zichtbaar</span>
+                    <span class="text-green-600 font-medium">Visible</span>
                 @else
-                    <span class="text-red-500 font-medium">Niet zichtbaar</span>
+                    <span class="text-red-500 font-medium">Not visible</span>
                 @endif
             </p>
         </div>
@@ -23,7 +23,7 @@
         <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 text-center">
             <a href="{{ route('portal.file.download', $file) }}"
                class="bg-blue-600 hover:bg-blue-700 transition text-white py-3 rounded-xl font-medium shadow">
-                📥 Download bestand
+                📥 Download file
             </a>
         </div>
     </div>

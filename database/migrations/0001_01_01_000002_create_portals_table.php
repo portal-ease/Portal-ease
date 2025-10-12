@@ -14,8 +14,11 @@ return new class extends Migration
         Schema::create('portals', function (Blueprint $table) {
             $table->id();
             $table->string('name')->unique();
-            $table->boolean('licence')->default(false);
             $table->string('email')->unique();
+            $table->string('stripe_customer_id')->nullable();
+            $table->string('stripe_subscription_id')->nullable();
+            $table->string('subscription_status')->default('inactive');
+            $table->timestamp('subscription_end_date')->nullable();
             $table->string('branding_color');
             $table->timestamps();
         });

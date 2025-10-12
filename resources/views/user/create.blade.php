@@ -33,7 +33,9 @@
                 <select name="role" id="role"
                         class="w-full border border-gray-300 rounded-md p-2 mt-1 bg-white focus:ring focus:ring-blue-200">
                     @foreach(\Spatie\Permission\Models\Role::all() as $role)
-                        <option value="{{ $role->name }}">{{ ucfirst($role->name) }}</option>
+                        @if($role->name != "admin")
+                            <option value="{{ $role->name }}">{{ ucfirst($role->name) }}</option>
+                        @endif
                     @endforeach
                 </select>
             </div>
