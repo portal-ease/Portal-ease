@@ -70,39 +70,6 @@
                 </div>
 
             @endif
-            @if(\Illuminate\Support\Facades\Auth::user()->hasRole('service_provider') && $portal->subscription_status == "active")
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                    <!-- Latest Messages -->
-                    <div
-                        class="bg-white rounded-xl shadow-md p-5 hover:shadow-lg transition flex flex-col gap-3">
-                        <div class="flex flex-row gap-5">
-                            <x-heroicon-o-chat-bubble-left-right class="w-6 h-6 text-pink-500"/>
-                            <h2 class="text-lg font-semibold text-gray-700">Latest Messages</h2>
-                        </div>
-                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                            @foreach($portal->chats as $chat)
-                                @foreach($chat->messages->sortByDesc('created_at')->take(2)->reverse() as $message)
-                                    <a href="{{ route('portal.chat.show', ['chat' => $chat, 'portal' => $portal]) }}"
-                                       class="block">
-                                        <div class="bg-blue-100 hover:bg-blue-200 transition rounded-xl p-4 shadow-sm">
-                                            <div class="text-sm text-blue-700 font-semibold mb-1">
-                                                {{ $message->user->name }}
-                                            </div>
-                                            <div class="text-gray-800 text-sm">
-                                                {{ Str::limit($message->content, 50) }}
-                                            </div>
-                                            <div class="text-gray-500 text-xs text-right mt-2">
-                                                {{ $message->created_at->format('H:i') }}
-                                            </div>
-                                        </div>
-                                    </a>
-                                @endforeach
-                            @endforeach
-                        </div>
-
-                    </div>
-                </div>
-            @endif
         </div>
     </x-app-layout>
 @else

@@ -11,11 +11,10 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('chats', function (Blueprint $table) {
+        Schema::create('conversations', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('portal_id')->constrained('portals')->onDelete('cascade');
-            $table->foreignId('user1_id')->constrained('users')->onDelete('cascade');
-            $table->foreignId('user2_id')->constrained('users')->onDelete('cascade');
+            $table->string('title')->nullable();
+            $table->enum('type', ['group', 'p2p'])->default('p2p');
             $table->timestamps();
         });
     }
@@ -25,6 +24,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('chats');
+        Schema::dropIfExists('conversations');
     }
 };

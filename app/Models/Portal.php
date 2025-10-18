@@ -20,9 +20,9 @@ class Portal extends Model
     {
         return $this->hasMany(Invoice::class);
     }
-    public function chats()
+    public function conversations()
     {
-        return $this->hasMany(Chat::class);
+        return $this->hasMany(Conversation::class);
     }
     public function projects()
     {
