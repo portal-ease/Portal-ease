@@ -21,6 +21,7 @@
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.bunny.net">
     <link href="https://fonts.bunny.net/css?family=instrument-sans:400,500,600" rel="stylesheet"/>
+    @livewireStyles
 
     <!-- Styles / Scripts -->
     @if (file_exists(public_path('build/manifest.json')) || file_exists(public_path('hot')))
@@ -41,7 +42,7 @@
         </a>
 
         <!-- Dashboard -->
-        <a href="{{ route('portal.show', ['portal' => $portal]) }}"
+        <a href="{{ route('portal.show', ['portal' => $portal]) }}" wire:navigate.hover
            class="flex items-center gap-2 text-xl font-bold focus-visible:outline focus-visible:outline-2 focus-visible:outline-white transition
            {{ request()->routeIs('portal.show') ? 'border-l-4 border-white pl-3' : 'pl-3 hover:border-l-4 hover:border-white' }}">
             <svg class="w-5 h-5">
@@ -51,7 +52,7 @@
         </a>
 
         @if(Auth::user()->hasRole('service_provider'))
-            <a href="{{ route('portal.user.index', $portal) }}"
+            <a href="{{ route('portal.user.index', $portal) }}" wire:navigate.hover
                class="flex items-center gap-2 text-lg focus-visible:outline focus-visible:outline-2 focus-visible:outline-white transition
                {{ request()->routeIs('portal.user.*') ? 'border-l-4 border-white pl-3' : 'pl-3 hover:border-l-4 hover:border-white' }}">
                 <svg class="w-5 h-5">
@@ -62,7 +63,7 @@
             </a>
 
             @if($portal->subscription_status === "active")
-                <a href="{{ route('portal.invoice.index', $portal) }}"
+                <a href="{{ route('portal.invoice.index', $portal) }}" wire:navigate.hover
                    class="flex items-center gap-2 text-lg focus-visible:outline focus-visible:outline-2 focus-visible:outline-white transition
                {{ request()->routeIs('portal.invoice.*') ? 'border-l-4 border-white pl-3' : 'pl-3 hover:border-l-4 hover:border-white' }}">
                     <svg class="w-5 h-5">
@@ -70,7 +71,7 @@
                     </svg>
                     Invoices
                 </a>
-                <a href="{{ route('portal.user.chat', ["portal" => $portal, "user" => \Illuminate\Support\Facades\Auth::user()]) }}"
+                <a href="{{ route('portal.user.chat', ["portal" => $portal, "user" => \Illuminate\Support\Facades\Auth::user()]) }}" wire:navigate.hover
                    class="flex items-center gap-2 text-lg focus-visible:outline focus-visible:outline-2 focus-visible:outline-white transition
                {{ request()->routeIs('portal.user.chat') ? 'border-l-4 border-white pl-3' : 'pl-3 hover:border-l-4 hover:border-white' }}">
                     <svg class="w-5 h-5">
@@ -79,7 +80,7 @@
                     Chats
                 </a>
             @endif
-            <a href="{{ route('portal.project.index', $portal) }}"
+            <a href="{{ route('portal.project.index', $portal) }}" wire:navigate.hover
                class="flex items-center gap-2 text-lg focus-visible:outline focus-visible:outline-2 focus-visible:outline-white transition
                {{ request()->routeIs('portal.project.*') ? 'border-l-4 border-white pl-3' : 'pl-3 hover:border-l-4 hover:border-white' }}">
                 <svg class="w-5 h-5">
@@ -88,7 +89,7 @@
                 Projects
             </a>
 
-            <a href="{{ route('portal.file.create', $portal) }}"
+            <a href="{{ route('portal.file.create', $portal) }}" wire:navigate.hover
                class="flex items-center gap-2 text-lg focus-visible:outline focus-visible:outline-2 focus-visible:outline-white transition
                {{ request()->routeIs('portal.file.create') ? 'border-l-4 border-white pl-3' : 'pl-3 hover:border-l-4 hover:border-white' }}">
                 <svg class="w-5 h-5">
@@ -96,14 +97,14 @@
                 </svg>
                 Share files/documents
             </a>
-            <a href="{{ route('portal.edit', $portal) }}"
+            <a href="{{ route('portal.edit', $portal) }}" wire:navigate.hover
                class="flex items-center gap-2 text-lg focus-visible:outline focus-visible:outline-2 focus-visible:outline-white transition
                {{ request()->routeIs('portal.edit') ? 'border-l-4 border-white pl-3' : 'pl-3 hover:border-l-4 hover:border-white' }}">
                 <img class="w-5 h-5" alt="logo" src="{{ asset('portalEaseLogo.png') }}"/>
                 Portal
             </a>
         @else
-            <a href="{{ route('portal.file.index', $portal) }}"
+            <a href="{{ route('portal.file.index', $portal) }}" wire:navigate.hover
                class="flex items-center gap-2 text-lg focus-visible:outline focus-visible:outline-2 focus-visible:outline-white transition
                {{ request()->routeIs('portal.file.index') ? 'border-l-4 border-white pl-3' : 'pl-3 hover:border-l-4 hover:border-white' }}">
                 <svg class="w-5 h-5">
@@ -114,7 +115,7 @@
 
             @foreach($portal->invoices as $invoice)
                 @if($invoice->user->id === auth()->id())
-                    <a href="{{ route('portal.invoice.show', [$portal, $invoice]) }}"
+                    <a href="{{ route('portal.invoice.show', [$portal, $invoice]) }}" wire:navigate.hover
                        class="text-lg pl-3 hover:border-l-4 hover:border-white flex items-center gap-2 focus-visible:outline focus-visible:outline-2 focus-visible:outline-white">
                         <svg class="w-5 h-5">
                             <use href="#icon-receipt"/>
@@ -126,7 +127,7 @@
 
             @foreach($portal->projects as $project)
                 @if($project->customer->id === auth()->id())
-                    <a href="{{ route('portal.project.show', [$portal, $project]) }}?status=all"
+                    <a href="{{ route('portal.project.show', [$portal, $project]) }}?status=all" wire:navigate.hover
                        class="text-lg pl-3 hover:border-l-4 hover:border-white flex items-center gap-2 focus-visible:outline focus-visible:outline-2 focus-visible:outline-white">
                         <svg class="w-5 h-5">
                             <use href="#icon-clipboard"/>
@@ -140,12 +141,13 @@
 
     <!-- Logout Button -->
     <div class="mt-6">
-        <a href="{{ route('logout.request') }}"
+        <a href="{{ route('logout.request') }}" wire:navigate.hover
            class="block bg-white hover:bg-gray-100 text-blue-600 font-semibold text-center py-2 rounded-3xl transition duration-200">
             Logout
         </a>
     </div>
 </aside>
+@livewireScripts
 
 
 <main>

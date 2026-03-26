@@ -22,4 +22,8 @@ class Conversation extends Model
     {
         return $this->belongsToMany(User::class, 'conversation_user');
     }
+    public function portal()
+    {
+       return $this->belongsTo(Portal::class, 'portal_id');
+    }
 }

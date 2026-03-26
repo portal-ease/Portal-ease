@@ -6,6 +6,7 @@
 
     <title>Portal ease</title>
     <link rel="icon" href="{{ asset('portalEaseLogo.png') }}">
+    @livewireStyles
 
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.bunny.net">
@@ -116,6 +117,8 @@
     <div class="border-t border-blue-700 mt-12 pt-6 text-center text-blue-200 text-sm">
         © {{ date('Y') }} Portalease. All rights reserved.
     </div>
+    @livewireScripts
+
 </footer>
 <!-- Login Spacer -->
 @if (Route::has('login'))
