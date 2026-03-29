@@ -11,7 +11,7 @@ class ChatWindow extends Component
     public ?Conversation $conversation = null;
     public $otherUsers = [];
     protected $listeners = ['conversationSelected' => 'loadConversation'];
-    public Portal $portal;
+    public ?Portal $portal;
 
     public function loadConversation($conversationId): void
     {
