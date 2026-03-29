@@ -3,7 +3,7 @@
         @if(\Illuminate\Support\Facades\Auth::user()->hasRole('service_provider'))
             <h2 class="text-3xl font-bold">Chats</h2>
         @else
-            <h2 class="text-3xl font-bold">Chat with: <b class="text-blue-400">{{ $chat->user2->name }}</b></h2>
+            <h2 class="text-3xl font-bold">Chat with: <b class="text-blue-400"><a href="{{ route('portal.user.show', ["portal" => $portal, "user" => $chat->user2]) }}">{{ $chat->user2->name }}</a></b></h2>
         @endif
         @if(\Illuminate\Support\Facades\Auth::user()->hasRole('service_provider'))
             <a href="{{ route('portal.chat.create', $portal) }}"
@@ -50,7 +50,7 @@
                     <!-- Chat Panel -->
                     <section class="flex flex-col bg-white rounded-xl p-4 shadow-sm h-full">
                         <div class="flex-grow overflow-y-auto space-y-3 pr-2">
-                            @forelse($chat->messages as $message)
+                            @forelse($chat->messages->take(-5) as $message)
                                 @if($message->user->id == auth()->id())
                                     <div class="flex justify-end">
                                         <div class="bg-blue-100 rounded-xl px-4 py-2 max-w-xs text-sm text-right">

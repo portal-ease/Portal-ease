@@ -1,5 +1,5 @@
 <x-app-layout :portal="$portal">
-    <div class="max-w-4xl mx-auto grid grid-cols-1 md:grid-cols-2 items-center gap-6 p-4">
+    <div class="max-w-4xl mx-auto grid grid-cols-1 items-center gap-6 p-4">
 
         {{-- Update User Form --}}
         <form action="{{ route('portal.invoice.update', ['invoice' => $invoice, 'portal' => $portal]) }}"

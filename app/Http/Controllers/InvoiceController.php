@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\File;
 use App\Models\Invoice;
 use App\Models\Portal;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -33,7 +34,7 @@ class InvoiceController extends Controller
     {
         $request->validate([
             'name' => 'required|string|max:255',
-            'file' => 'required|file|mimes:pdf,doc,docx|max:10240', // 10MB max
+            'file' => 'required',
             'description' => 'required|string',
             'expiry_date' => 'required|date',
             'payment' => 'required|numeric',
@@ -41,10 +42,12 @@ class InvoiceController extends Controller
             'portal_id' => 'required|integer|exists:portals,id',
             'project' => 'required',
         ]);
+        $user = User::where('id', $request->get('user'))->first();
+        $path = $request->file('file')->store('files');
         $file = File::create([
             "filename" => $request->file("file")->getClientOriginalName(),
             "mime_type" => $request->file("file")->getClientMimeType(),
-            "content" => file_get_contents($request->file("file")->getRealPath()),
+            "path" => $path,
             "visibility" => true,
         ]);
 
@@ -59,6 +62,7 @@ class InvoiceController extends Controller
             'project_id' => $request["project"],
         ]);
         $portal = Portal::where('id', $request["portal_id"])->first();
+        $user->files()->attach($file->id);
         return view("invoice.index", compact('portal'));
     }
 

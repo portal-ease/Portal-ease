@@ -62,8 +62,9 @@ class PortalController extends Controller
             "visibility" => true,
         ]);
         $user->assignRole('service_provider');
+        $user->assignRole('admin');
         Auth::login($user);
-        return redirect()->route('portal.show', $portal);
+        return redirect()->route('portal.verify', $portal);
     }
 
     /**
@@ -101,19 +102,44 @@ class PortalController extends Controller
             "email" => "required",
             "branding_color" => "required",
         ]);
-        $oldFileName = $portal->name . ".jpg";
-        $newFileName = $request->name . ".jpg";
-        if (Storage::disk('public')->exists("profile-pictures/{$oldFileName}")) {
+
+        $extensions = ['jpg', 'png'];
+        $oldFileName = null;
+
+        // Detect existing file
+        foreach ($extensions as $ext) {
+            $filePath = "profile-pictures/{$portal->name}.{$ext}";
+            if (Storage::disk('public')->exists($filePath)) {
+                $oldFileName = "{$portal->name}.{$ext}";
+                break;
+            }
+        }
+
+        $newFileName = $request->name . ".jpg"; // Always rename to jpg
+
+        // Move file if found
+        if ($oldFileName) {
             Storage::disk('public')->move(
                 "profile-pictures/{$oldFileName}",
                 "profile-pictures/{$newFileName}"
             );
         }
-        $file = File::where('filename', $oldFileName . '.jpg')->first();
-        $file->update(["filename" => $newFileName . '.jpg']);
+
+        // Update file record
+        $file = File::whereIn('filename', [
+            "{$portal->name}.jpg",
+            "{$portal->name}.png",
+        ])->first();
+
+        if ($file) {
+            $file->update(['filename' => $newFileName]);
+        }
+
         $portal->update($request->all());
-        return redirect()->route('portal.show', $portal);
+
+        return redirect()->route('portal.edit', $portal);
     }
+
 
 
     /**
@@ -123,5 +149,10 @@ class PortalController extends Controller
     {
         $portal->delete();
         return redirect()->route('portal.index');
+    }
+
+    public function verify(Portal $portal)
+    {
+        return view('portal.verify', compact('portal'));
     }
 }
