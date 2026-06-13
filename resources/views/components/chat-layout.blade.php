@@ -36,7 +36,7 @@
 <aside class="w-64 text-white p-6 flex flex-col shadow-lg sm" style="background-color: {{ $portal->branding_color }}">
     <nav class="flex flex-col space-y-4 flex-grow">
         <!-- Logo -->
-        <a href="{{ route('portal.show', ['portal' => $portal]) }}" class="self-center mb-4">
+        <a href="{{ route('portal.show', ['portal' => $portal]) }}" class="self-center mb-4" wire:navigate.hover>
             <img src="{{ $logoPath ?? asset('portalEaseLogo.png') }}"
                  alt="{{ $portal->name ?? "logo" }}" class="max-h-12">
         </a>
@@ -62,24 +62,22 @@
                 Customers
             </a>
 
-            @if($portal->subscription_status === "active")
-                <a href="{{ route('portal.invoice.index', $portal) }}" wire:navigate.hover
-                   class="flex items-center gap-2 text-lg focus-visible:outline focus-visible:outline-2 focus-visible:outline-white transition
+            <a href="{{ route('portal.invoice.index', $portal) }}" wire:navigate.hover
+               class="flex items-center gap-2 text-lg focus-visible:outline focus-visible:outline-2 focus-visible:outline-white transition
                {{ request()->routeIs('portal.invoice.*') ? 'border-l-4 border-white pl-3' : 'pl-3 hover:border-l-4 hover:border-white' }}">
-                    <svg class="w-5 h-5">
-                        <use href="#icon-document-text"/>
-                    </svg>
-                    Invoices
-                </a>
-                <a href="{{ route('portal.user.chat', ["portal" => $portal, "user" => \Illuminate\Support\Facades\Auth::user()]) }}" wire:navigate.hover
-                   class="flex items-center gap-2 text-lg focus-visible:outline focus-visible:outline-2 focus-visible:outline-white transition
+                <svg class="w-5 h-5">
+                    <use href="#icon-document-text"/>
+                </svg>
+                Invoices
+            </a>
+            <a href="{{ route('portal.user.chat', ["portal" => $portal, "user" => \Illuminate\Support\Facades\Auth::user()]) }}" wire:navigate.hover
+               class="flex items-center gap-2 text-lg focus-visible:outline focus-visible:outline-2 focus-visible:outline-white transition
                {{ request()->routeIs('portal.user.chat') ? 'border-l-4 border-white pl-3' : 'pl-3 hover:border-l-4 hover:border-white' }}">
-                    <svg class="w-5 h-5">
-                        <use href="#icon-chat"/>
-                    </svg>
-                    Chats
-                </a>
-            @endif
+                <svg class="w-5 h-5">
+                    <use href="#icon-chat-ellipsis"/>
+                </svg>
+                Conversations
+            </a>
             <a href="{{ route('portal.project.index', $portal) }}" wire:navigate.hover
                class="flex items-center gap-2 text-lg focus-visible:outline focus-visible:outline-2 focus-visible:outline-white transition
                {{ request()->routeIs('portal.project.*') ? 'border-l-4 border-white pl-3' : 'pl-3 hover:border-l-4 hover:border-white' }}">

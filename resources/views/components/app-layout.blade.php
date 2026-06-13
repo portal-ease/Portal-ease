@@ -62,7 +62,6 @@
                 Customers
             </a>
 
-            @if($portal->subscription_status === "active")
                 <a href="{{ route('portal.invoice.index', $portal) }}" wire:navigate.hover
                    class="flex items-center gap-2 text-lg focus-visible:outline focus-visible:outline-2 focus-visible:outline-white transition
                {{ request()->routeIs('portal.invoice.*') ? 'border-l-4 border-white pl-3' : 'pl-3 hover:border-l-4 hover:border-white' }}">
@@ -75,11 +74,10 @@
                    class="flex items-center gap-2 text-lg focus-visible:outline focus-visible:outline-2 focus-visible:outline-white transition
                {{ request()->routeIs('portal.user.chat') ? 'border-l-4 border-white pl-3' : 'pl-3 hover:border-l-4 hover:border-white' }}">
                     <svg class="w-5 h-5">
-                        <use href="#icon-chat"/>
+                        <use href="#icon-chat-ellipsis"/>
                     </svg>
-                    Chats
+                    Conversations
                 </a>
-            @endif
             <a href="{{ route('portal.project.index', $portal) }}" wire:navigate.hover
                class="flex items-center gap-2 text-lg focus-visible:outline focus-visible:outline-2 focus-visible:outline-white transition
                {{ request()->routeIs('portal.project.*') ? 'border-l-4 border-white pl-3' : 'pl-3 hover:border-l-4 hover:border-white' }}">
@@ -153,7 +151,6 @@
     <div class="max-w-5xl mx-auto">
         <!-- Header tools -->
         <div class="flex justify-end items-center space-x-4 mb-6">
-            @if($portal->subscription_status === "active")
                 <!-- Bell Icon -->
                 <a href="{{ route('portal.notification.index', $portal) }}" type="button" wire:navigate.hover
                    class="focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-300 rounded transition">
@@ -163,7 +160,6 @@
                               d="M14.857 17.082a23.848 23.848 0 0 0 5.454-1.31A8.967 8.967 0 0 1 18 9.75V9A6 6 0 0 0 6 9v.75a8.967 8.967 0 0 1-2.312 6.022c1.733.64 3.56 1.085 5.455 1.31m5.714 0a24.255 24.255 0 0 1-5.714 0m5.714 0a3 3 0 1 1-5.714 0"/>
                     </svg>
                 </a>
-            @endif
             <!-- Settings Icon -->
             <a href="{{ route('portal.user.edit', ["portal" => $portal, "user" => \Illuminate\Support\Facades\Auth::user()]) }}"
                type="button" wire:navigate.hover
