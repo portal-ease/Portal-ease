@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Conversation;
 use App\Models\File;
 use App\Models\Portal;
 use App\Models\User;
@@ -58,6 +59,7 @@ class UserController extends Controller
      */
     public function show(Portal $portal, User $user)
     {
+        $conversationP2p = Conversation::query()->first();
         return view('user.show', compact('user', 'portal', 'conversationP2p'));
     }
 

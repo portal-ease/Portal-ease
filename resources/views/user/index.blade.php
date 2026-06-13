@@ -32,10 +32,19 @@
                                class="text-lg text-gray-700 hover:underline">
                                 {{ $user->name }}
                             </a>
-                            <a href="{{ route('portal.user.edit', ['portal' => $portal, 'user' => $user]) }}"
-                               class="inline-flex items-center bg-blue-500 hover:bg-blue-600 text-white text-sm font-medium py-2 px-4 rounded-xl transition">
-                                Edit Customer
-                            </a>
+                            <div>
+                                <div class="flex gap-2">
+                                    <a href="{{ route('portal.user.chat', ['portal' => $portal, 'user' => $user]) }}"
+                                       class="inline-flex items-center gap-2 bg-blue-500 hover:bg-blue-600 text-white text-sm font-medium py-2 px-4 rounded-xl transition">
+                                        Chat
+                                    </a>
+
+                                    <a href="{{ route('portal.user.edit', ['portal' => $portal, 'user' => $user]) }}"
+                                       class="inline-flex items-center gap-2 bg-yellow-500 hover:bg-yellow-600 text-white text-sm font-medium py-2 px-4 rounded-xl transition">
+                                        Edit
+                                    </a>
+                                </div>
+                            </div>
                         </div>
                     @endif
                 @endforeach
