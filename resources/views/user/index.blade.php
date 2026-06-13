@@ -1,40 +1,49 @@
 <x-app-layout :portal="$portal">
-    <div class="flex justify-end mb-6">
-        @if($portal->subscription_status === "active")
-            {{-- Active subscription: Always allow --}}
-            <a href="{{ route('portal.user.create', ['portal' => $portal]) }}"
-               class="inline-flex items-center bg-green-500 hover:bg-green-600 text-white text-sm font-medium py-2 px-4 rounded-2xl transition">
-                + New Customer
-            </a>
-        @elseif(count($portal->users) < 3)
-            {{-- No subscription, but fewer than 3 users: Allow --}}
-            <a href="{{ route('portal.user.create', ['portal' => $portal]) }}"
-               class="inline-flex items-center bg-green-500 hover:bg-green-600 text-white text-sm font-medium py-2 px-4 rounded-2xl transition">
-                + New Customer
-            </a>
-        @else
-            {{-- No subscription & already 3 users: Block --}}
-            <p class="text-red-500 text-sm font-medium">
-                You need a subscription to add more than 3 customers.
-            </p>
-        @endif
-    </div>
+    <div class="max-w-6xl mx-auto">
 
-    <div class="bg-white shadow-xl rounded-2xl p-6 md:p-8 space-y-6">
-        <h2 class="text-2xl font-semibold text-gray-800">Customers</h2>
+        {{-- Header --}}
+        <div class="flex items-center justify-between mb-6">
+            <div>
+                <h1 class="text-3xl font-bold text-gray-800">Customers</h1>
+                <p class="text-gray-500 text-sm">
+                    Manage your customer accounts.
+                </p>
+            </div>
 
-        @if($portal->users->count())
-            <div class="divide-y divide-gray-200">
+            @if($portal->subscription_status === "active" || $portal->users->count() < 3)
+                <a href="{{ route('portal.user.create', ['portal' => $portal]) }}"
+                   class="inline-flex items-center gap-2 bg-green-500 hover:bg-green-600 text-white px-5 py-3 rounded-xl shadow transition">
+                    <i class="fa-solid fa-plus"></i>
+                    New Customer
+                </a>
+            @endif
+        </div>
+        @if($portal->users->where(fn($u) => $u->hasRole('client'))->count())
+            <div class="grid gap-4">
                 @foreach($portal->users as $user)
                     @if($user->hasRole('client'))
-                        <div class="flex flex-col md:flex-row md:items-center justify-between py-4 gap-3">
-                            <a href="{{ route('portal.user.show', ['user' => $user, 'portal' => $portal]) }}"
-                               class="text-lg text-gray-700 hover:underline">
-                                {{ $user->name }}
-                            </a>
-                            <div>
-                                <div class="flex gap-2">
-                                    <a href="{{ route('portal.user.chat', ['portal' => $portal, 'user' => $user]) }}"
+                        <div class="bg-white rounded-2xl shadow-sm hover:shadow-md transition p-5">
+                            <div class="flex items-center justify-between">
+
+                                <div class="flex items-center gap-4">
+                                    <div class="h-12 w-12 rounded-full bg-gray-200 flex items-center justify-center font-semibold text-gray-700">
+                                        {{ strtoupper(substr($user->name, 0, 1)) }}
+                                    </div>
+
+                                    <div>
+                                        <a href="{{ route('portal.user.show', ['user' => $user, 'portal' => $portal]) }}"
+                                           class="font-semibold text-lg text-gray-800 hover:text-blue-600">
+                                            {{ $user->name }}
+                                        </a>
+
+                                        <p class="text-sm text-gray-500">
+                                            Customer
+                                        </p>
+                                    </div>
+                                </div>
+
+                                <div class="flex items-center gap-2">
+                                    <a href="{{ route('portal.user.show', ['portal' => $portal, 'user' => $user]) }}"
                                        class="inline-flex items-center gap-2 bg-blue-500 hover:bg-blue-600 text-white text-sm font-medium py-2 px-4 rounded-xl transition">
                                         Chat
                                     </a>
@@ -44,16 +53,19 @@
                                         Edit
                                     </a>
                                 </div>
+
                             </div>
                         </div>
                     @endif
                 @endforeach
             </div>
         @else
-            <p class="text-gray-500 italic text-sm">
-                There are currently no customers.
-            </p>
+            <div class="bg-white rounded-2xl shadow-sm p-10 text-center">
+                <i class="fa-solid fa-users text-4xl text-gray-300 mb-4"></i>
+                <p class="text-gray-500">
+                    No customers found.
+                </p>
+            </div>
         @endif
     </div>
 </x-app-layout>
-
