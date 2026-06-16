@@ -87,6 +87,14 @@
                 </svg>
                 Share files/documents
             </a>
+            <a href="{{ route('portal.user.chat', ["portal" => $portal, "user" => \Illuminate\Support\Facades\Auth::user()]) }}" wire:navigate.hover
+               class="flex items-center gap-2 text-lg focus-visible:outline focus-visible:outline-2 focus-visible:outline-white transition
+               {{ request()->routeIs('portal.user.chat') ? 'border-l-4 border-white pl-3' : 'pl-3 hover:border-l-4 hover:border-white' }}">
+                <svg class="w-5 h-5">
+                    <use href="#icon-chat-ellipsis"/>
+                </svg>
+                Conversations
+            </a>
             <a href="{{ route('portal.edit', $portal) }}" wire:navigate.hover
                class="flex items-center gap-2 text-lg focus-visible:outline focus-visible:outline-2 focus-visible:outline-white transition
                {{ request()->routeIs('portal.edit') ? 'border-l-4 border-white pl-3' : 'pl-3 hover:border-l-4 hover:border-white' }}">
