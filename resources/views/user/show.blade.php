@@ -1,33 +1,46 @@
-<x-app-layout :portal="$portal">
-    <div class="max-w-6xl mx-auto grid grid-cols-1 gap-8 p-6">
-                    <!-- Profile Panel -->
-                    <div class="flex flex-col items-center bg-white rounded-2xl p-6 shadow-md">
-                        @php
-                            $baseName = $user->name . $user->id;
-                            $file = \App\Models\File::whereIn('filename', [
-                                $baseName . '.jpg',
-                                $baseName . '.png',
-                                $baseName . '.jpeg',
-                            ])->first();
-                        @endphp
+<x-chat-layout :portal="$portal">
+    <div class="grid grid-cols-[0.25fr_0.75fr] h-screen ml-6">
+        <livewire:chat-window :portal="$portal" :conversation="$conversationP2p"/>
+        <div class="bg-white h-min-content p-6 py-15 space-y-4">
 
-                        @if($file)
-                            <img src="{{ $file->url }}" alt="{{ $file->filename }}"
-                                 class="rounded-full w-32 h-32 object-cover">
-                        @else
-                            <img src="{{ asset('anonymous_picture.jpg') }}" alt="{{ $user->name }}"
-                                 class="rounded-full w-32 h-32 object-cover">
-                        @endif
+            <div>
+                <h3 class="text-sm font-semibold text-gray-500 uppercase">
+                    Email
+                </h3>
+                <p class="text-gray-700">
+                    {{ $user->email }}
+                </p>
+            </div>
 
-                        <h1 class="text-2xl font-bold mt-4">{{ $user->name }}</h1>
-                        <a class="text-sm text-gray-500" href="mailto:{{ $user->email }}">{{ $user->email }}</a>
+            <div>
+                <h3 class="text-sm font-semibold text-gray-500 uppercase">
+                    Joined
+                </h3>
+                <p class="text-gray-700">
+                    {{ $user->created_at->format('M d, Y') }}
+                </p>
+            </div>
 
-                        @if($user == Auth::user())
-                            <a href="{{ route('portal.user.edit', ['portal' => $portal, 'user' => $user]) }}"
-                               class="bg-blue-500 hover:bg-blue-600 text-white rounded-xl px-5 py-2 text-sm transition">
-                                Edit profile
-                            </a>
-                        @endif
-                    </div>
+            <div>
+                <h3 class="text-sm font-semibold text-gray-500 uppercase">
+                    Status
+                </h3>
+                <span class="inline-flex px-3 py-1 rounded-full bg-green-100 text-green-700 text-xs">
+                        Active
+                    </span>
+            </div>
+            <div class="mt-8">
+                <h3 class="text-sm font-semibold text-gray-500 uppercase mb-3">
+                    Quick Actions
+                </h3>
+
+                <div class="space-y-2">
+                    <a href="{{ route('portal.user.edit', ['portal' => $portal, 'user' => $user]) }}"
+                       class="block w-full text-center bg-yellow-500 hover:bg-yellow-600 text-white rounded-xl py-2">
+                        Edit Customer
+                    </a>
                 </div>
-</x-app-layout>
+            </div>
+        </div>
+    </div>
+</x-chat-layout>

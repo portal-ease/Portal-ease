@@ -2,13 +2,12 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Chat;
+use App\Models\Conversation;
 use App\Models\File;
 use App\Models\Portal;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Hash;
 
 class UserController extends Controller
 {
@@ -60,8 +59,8 @@ class UserController extends Controller
      */
     public function show(Portal $portal, User $user)
     {
-        $chat = Chat::where('user1_id', $user->id)->first();
-        return view('user.show', compact('user', 'portal', 'chat'));
+        $conversationP2p = Conversation::query()->first();
+        return view('user.show', compact('user', 'portal', 'conversationP2p'));
     }
 
     /**

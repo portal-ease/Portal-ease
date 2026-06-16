@@ -6,6 +6,7 @@ use App\Http\Controllers\StripeController;
 use App\Http\Controllers\StripeWebhookController;
 use App\Http\Controllers\SubscriptionController;
 use App\Http\Controllers\UserController;
+use App\Livewire\ChatWindow;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PortalController;
 use App\Http\Controllers\AuthenticatedController;

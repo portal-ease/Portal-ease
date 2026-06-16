@@ -18,7 +18,7 @@ class NewUserInPortal
         foreach ($users as $userI) {
             if ($userI->id === $user->id) continue;
 
-            $existing = \App\Models\Conversation::whereHas('users', fn($q) =>
+            $existing = Conversation::whereHas('users', fn($q) =>
             $q->where('user_id', $userI->id)
             )->whereHas('users', fn($q) =>
             $q->where('user_id', $user->id)
