@@ -3,21 +3,12 @@
 namespace App\Services;
 
 use App\Models\Conversation;
+use App\Models\User;
 
 class ChatService
 {
-    protected Conversation $conversation;
-
-    public function __construct(Conversation $conversation)
+    public function getAllConversations(User $user)
     {
-        $this->conversation = $conversation;
-    }
-    public function setConversation(Conversation $conversation): void
-    {
-        $this->conversation = $conversation;
-    }
-    public static function forConversation(Conversation $conversation): ChatService
-    {
-        return new self($conversation);
+        return $user->conversations()->get()->sortByDesc('updated_at');
     }
 }

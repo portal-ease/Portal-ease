@@ -27,17 +27,6 @@
                             {{ $lastMessage?->message ?? 'No messages yet' }}
                         </div>
                     </div>
-
-                    <!-- Status dot -->
-                    <div
-                        class="absolute top-3 left-8 w-3 h-3 rounded-full bg-green-500 border-2 border-[#2e2e2e]"></div>
-
-                    <!-- Unread badge (voorbeeld) -->
-                    @if($conversation->unread_count ?? false)
-                        <div class="bg-green-500 text-white text-xs rounded-full px-2 py-0.5">
-                            {{ $conversation->unread_count }}
-                        </div>
-                    @endif
                 </div>
             @endforeach
         @endforeach

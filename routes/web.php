@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\ConversationController;
 use App\Http\Controllers\InvoiceController;
 use App\Http\Controllers\ProjectController;
 use App\Http\Controllers\StripeController;
@@ -30,9 +31,7 @@ Route::get('/about', function () {
 Route::resource('portal', PortalController::class);
 Route::middleware(['auth', 'verified'])->group(function () {
     Route::resource('portal.user', UserController::class);
-    Route::get('/portal/{portal}/user/{user}/chat', function (){
-        return view('livewire.chat');
-    })->name('portal.user.chat');
+    Route::get('/portal/{portal}/user/{user}/chat', [ConversationController::class, 'index'])->name('portal.user.chat');
     Route::resource('portal.invoice', InvoiceController::class);
     Route::get('/portal/{portal}/notifications', [UserController::class, 'notification'])->name('portal.notification.index');
     Route::resource('portal.project', ProjectController::class);

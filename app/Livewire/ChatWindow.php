@@ -29,7 +29,7 @@ class ChatWindow extends Component
         if ($this->conversation) {
             $this->loadUsers();
 
-            $this->messages = $this->conversation->messages()->get();
+            $this->messages = $this->conversation->messages()->get()->sortByDesc('created_at');
         }
     }
 

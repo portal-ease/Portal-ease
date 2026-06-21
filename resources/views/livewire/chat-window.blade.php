@@ -25,7 +25,7 @@
         <div class="flex-1 overflow-y-auto px-4 py-4 space-y-4">
 
             @foreach($messages as $message)
-                <div class="flex {{ $message->user_id == auth()->id() ? 'justify-end' : 'justify-start' }}">
+                <div class="flex {{ $message->sender_id == auth()->id() ? 'justify-end' : 'justify-start' }}">
 
                     <div class="
                 max-w-[75%]
@@ -34,7 +34,7 @@
                 shadow-md
                 break-words
 
-                {{ $message->user_id == auth()->id()
+                {{ $message->sender_id == auth()->id()
                     ? 'bg-blue-500 text-white rounded-br-sm'
                     : 'bg-white backdrop-blur text-black rounded-bl-sm'
                 }}
