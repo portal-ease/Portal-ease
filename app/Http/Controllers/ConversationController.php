@@ -17,7 +17,11 @@ class ConversationController extends Controller
         $user = auth()->user();
 
         if ($user) {
-            return view('livewire.chat', $this->chatService->getAllConversations($user));
+            $portal = $user->portal;
+
+            $conversations = $this->chatService->getConversations($user);
+
+            return view('livewire.chat', compact( 'conversations', 'user', 'portal'));
         }
         return redirect()->back();
     }
