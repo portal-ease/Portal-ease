@@ -14,9 +14,6 @@
                     @foreach($otherUsers as $user)
                         <div class="font-semibold text-sm">{{ $user->name }} ({{ $user->email }})</div>
                     @endforeach
-                    @if($conversation->type != "group")
-                        <div class="text-green-300 text-xs">Online</div>
-                    @endif
                 </div>
             </div>
         </div>

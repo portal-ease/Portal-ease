@@ -12,8 +12,13 @@
             @endphp
 
             @foreach($otherUsers as $user)
+                @if(auth()->user()->hasRole('client'))
+                    @if($user->hasRole('client'))
+                        @continue
+                    @endif
+                @endif
                 <div
-                    wire:click="conversationSelected({{ $conversation }})" wire:navigate
+                    wire:click="conversationSelected({{ $conversation }})" wire:navigate.hover
                     class="flex items-center bg-black/20 hover:bg-black/30 rounded-xl p-3 cursor-pointer transition relative"
                 >
                     <!-- Avatar -->

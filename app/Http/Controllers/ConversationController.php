@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Conversation;
 use App\Services\ChatService;
 
 class ConversationController extends Controller
@@ -21,7 +20,7 @@ class ConversationController extends Controller
 
             $conversations = $this->chatService->getConversations($user);
 
-            return view('livewire.chat', compact( 'conversations', 'user', 'portal'));
+            return view('conversation.index', compact( 'conversations', 'user', 'portal'));
         }
         return redirect()->back();
     }
