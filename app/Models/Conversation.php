@@ -26,4 +26,9 @@ class Conversation extends Model
     {
        return $this->belongsTo(Portal::class, 'portal_id');
     }
+
+    public function otherUsers()
+    {
+        return $this->users()->where('users.id', '!=', auth()->id())->get();
+    }
 }

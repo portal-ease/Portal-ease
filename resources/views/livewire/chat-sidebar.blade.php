@@ -12,8 +12,13 @@
             @endphp
 
             @foreach($otherUsers as $user)
+                @if(auth()->user()->hasRole('client'))
+                    @if($user->hasRole('client'))
+                        @continue
+                    @endif
+                @endif
                 <div
-                    wire:click="conversationSelected({{ $conversation }})" wire:navigate
+                    wire:click="conversationSelected({{ $conversation }})" wire:navigate.hover
                     class="flex items-center bg-black/20 hover:bg-black/30 rounded-xl p-3 cursor-pointer transition relative"
                 >
                     <!-- Avatar -->
@@ -27,17 +32,6 @@
                             {{ $lastMessage?->message ?? 'No messages yet' }}
                         </div>
                     </div>
-
-                    <!-- Status dot -->
-                    <div
-                        class="absolute top-3 left-8 w-3 h-3 rounded-full bg-green-500 border-2 border-[#2e2e2e]"></div>
-
-                    <!-- Unread badge (voorbeeld) -->
-                    @if($conversation->unread_count ?? false)
-                        <div class="bg-green-500 text-white text-xs rounded-full px-2 py-0.5">
-                            {{ $conversation->unread_count }}
-                        </div>
-                    @endif
                 </div>
             @endforeach
         @endforeach

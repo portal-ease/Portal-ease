@@ -3,21 +3,18 @@
 namespace App\Services;
 
 use App\Models\Conversation;
+use App\Models\User;
+use Illuminate\Support\Collection;
 
 class ChatService
 {
-    protected Conversation $conversation;
+    public function getConversations(User $user)
+    {
+        return $user->conversations()->get()->sortByDesc('updated_at');
+    }
 
-    public function __construct(Conversation $conversation)
+    public function getMessages(Conversation $conversation): Collection
     {
-        $this->conversation = $conversation;
-    }
-    public function setConversation(Conversation $conversation): void
-    {
-        $this->conversation = $conversation;
-    }
-    public static function forConversation(Conversation $conversation): ChatService
-    {
-        return new self($conversation);
+        return $conversation->messages()->get()->sortByDesc('updated_at');
     }
 }

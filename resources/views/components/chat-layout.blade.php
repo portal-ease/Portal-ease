@@ -95,12 +95,6 @@
                 </svg>
                 Conversations
             </a>
-            <a href="{{ route('portal.edit', $portal) }}" wire:navigate.hover
-               class="flex items-center gap-2 text-lg focus-visible:outline focus-visible:outline-2 focus-visible:outline-white transition
-               {{ request()->routeIs('portal.edit') ? 'border-l-4 border-white pl-3' : 'pl-3 hover:border-l-4 hover:border-white' }}">
-                <img class="w-5 h-5" alt="logo" src="{{ asset('portalEaseLogo.png') }}"/>
-                Portal
-            </a>
         @else
             <a href="{{ route('portal.file.index', $portal) }}" wire:navigate.hover
                class="flex items-center gap-2 text-lg focus-visible:outline focus-visible:outline-2 focus-visible:outline-white transition

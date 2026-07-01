@@ -5,39 +5,25 @@ namespace App\Livewire;
 use App\Models\Conversation;
 use App\Models\Portal;
 use App\Models\User;
+use App\Services\ChatService;
 use GuzzleHttp\Psr7\Request;
+use Illuminate\Support\Collection;
+use Illuminate\View\View;
 use Livewire\Component;
 
 class ChatSidebar extends Component
 {
-    public $conversations = [];
+    public Collection $conversations;
+
     public Portal $portal;
-    public Conversation $activeConversation;
-    public $selectedUsers = [];
-    public string $filledInTitle = "";
-    public function mount(User $user)
-    {
-        $this->conversations = $user->conversations;
-        $this->portal = $user->portal;
-    }
-    public function render()
+
+    public function render(): View
     {
         return view('livewire.chat-sidebar');
     }
+
     public function conversationSelected(Conversation $conversation): void
     {
-        $this->activeConversation = $conversation;
-        $this->dispatch('conversationSelected', $conversation->id);
-    }
-    public function createConversation(): void
-    {
-        if (empty($this->selectedUsers)) return;
-        $conversation = Conversation::create([
-           'type' => 'group' ,
-            'title' => $this->filledInTitle,
-        ]);
-        $conversation->users()->attach(array_merge($this->selectedUsers, [auth()->id()]));
-        $this->reset('selectedUsers');
-        $this->dispatch('conversationCreated');
+        $this->dispatch('conversationSelected', conversation: $conversation);
     }
 }
