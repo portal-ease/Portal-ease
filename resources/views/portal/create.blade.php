@@ -4,7 +4,7 @@
             Create Your Client Portal
         </h1>
         <p class="text-lg md:text-xl text-blue-800 max-w-2xl mx-auto">
-            Step 1 of 3 — Portal Setup
+            Step 1 of 2 — Portal Setup
         </p>
     </section>
 

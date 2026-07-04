@@ -5,7 +5,7 @@
     <!-- 💬 Conversations List -->
     <div class="flex-1 overflow-y-auto space-y-3 px-3 pb-6">
         <!-- Conversation Item -->
-        @foreach($conversations as $conversation)
+        @forelse($conversations as $conversation)
             @php
                 $otherUsers = $conversation->users->where('id', '!=', auth()->id());
                 $lastMessage = $conversation->messages()->latest()->first();
@@ -34,7 +34,9 @@
                     </div>
                 </div>
             @endforeach
-        @endforeach
+        @empty
+            <h2 class="pl-4 pb-4">No conversations yet...</h2>
+        @endforelse
     </div>
 
     <!-- 🌊 Bottom logo/button -->
