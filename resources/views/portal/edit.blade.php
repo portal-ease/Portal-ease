@@ -1,5 +1,5 @@
 <x-app-layout :portal="$portal">
-    <div class="grid grid-cols-2">
+    <div class="grid grid-cols-1">
         {{-- Update Portal Form --}}
         <div class="max-w-xl mx-auto bg-white shadow-2xl rounded-2xl p-8 space-y-6">
             <form method="POST" action="{{ route('portal.update', $portal) }}" enctype="multipart/form-data">
@@ -66,40 +66,6 @@
                 </button>
             </form>
         </div>
-        <div class="max-w-xl mx-auto bg-white shadow-2xl rounded-2xl p-8 space-y-6">
-            <!-- Heading -->
-            <div class="text-center space-y-2">
-                <h2 class="text-3xl font-bold text-gray-900">Edit Subscription</h2>
-                <p class="text-gray-600">Additional verification is required to edit or stop the subscription</p>
-            </div>
-
-            <!-- Subscription status -->
-            <div class="bg-gray-50 border rounded-xl p-4 text-center">
-                <h3 class="text-lg font-medium text-gray-700">
-                    Subscription status:
-                    <span class="font-semibold text-gray-900">{{ $portal->subscription_status }}</span>
-                </h3>
-            </div>
-
-            <!-- Actions -->
-            <div class="flex justify-center">
-                @if($portal->subscription_status === "active")
-                    <form action="{{ route('portal.cancelSubscription', $portal->id) }}" method="POST">
-                        @csrf
-                        <button type="submit"
-                                class="cursor-pointer px-6 py-3 bg-red-500 hover:bg-red-600 text-white font-semibold rounded-xl shadow-md transition">
-                            Cancel Subscription
-                        </button>
-                    </form>
-                @else
-                    <a href="https://buy.stripe.com/eVq6oGaz8fHh0RX3up0Fi00"
-                       class="px-6 py-3 bg-indigo-600 hover:bg-indigo-700 text-white font-semibold rounded-xl shadow-md transition">
-                        Subscribe Now
-                    </a>
-                @endif
-            </div>
-        </div>
-
     </div>
     {{-- JavaScript for live color preview --}}
     <script>

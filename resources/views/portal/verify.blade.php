@@ -5,7 +5,7 @@
             Verify Your Email
         </h1>
         <p class="text-lg md:text-xl text-blue-800 max-w-2xl mx-auto">
-            Step 3 of 3 — Confirm your email to finish setting up your portal
+            Step 2 of 2 — Confirm your email to finish setting up your portal
         </p>
     </section>
 

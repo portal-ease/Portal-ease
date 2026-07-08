@@ -3,11 +3,7 @@
 use App\Http\Controllers\ConversationController;
 use App\Http\Controllers\InvoiceController;
 use App\Http\Controllers\ProjectController;
-use App\Http\Controllers\StripeController;
-use App\Http\Controllers\StripeWebhookController;
-use App\Http\Controllers\SubscriptionController;
 use App\Http\Controllers\UserController;
-use App\Livewire\ChatWindow;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PortalController;
 use App\Http\Controllers\AuthenticatedController;
@@ -48,8 +44,3 @@ Route::middleware(['auth', 'verified'])->group(function () {
 // auth routes
 Route::post('/login/request', [AuthenticatedController::class, 'store'])->name('login.request');
 Route::get('/logout/request', [AuthenticatedController::class, 'destroy'])->name('logout.request');
-Route::post('/stripe/webhook', [StripeWebhookController::class, 'handle'])->name('stripe.webhook');
-Route::get('/stripe/callback', [StripeController::class, 'callback'])
-    ->name('stripe.callback');
-Route::post('/portal/{portal}/cancel-subscription', [SubscriptionController::class, 'cancel'])
-    ->name('portal.cancelSubscription');
