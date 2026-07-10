@@ -19,7 +19,7 @@
 </head>
 <body class="bg-white text-[#1b1b18]">
 <!-- Header -->
-    <header class="flex items-center justify-between px-6 py-4 shadow-sm">
+    <header class="flex items-center justify-between px-8 py-4 shadow-sm">
         <!-- Logo -->
         <a href="/" class="flex items-center text-xl font-semibold text-blue-700 hover:text-blue-900 transition">
             <img src="{{ asset('portalEaseLogo.png') }}" alt="PortalEase logo" class="h-10 mr-2">
@@ -29,20 +29,15 @@
         </a>
 
         <!-- Navigation -->
-        <nav class="flex items-center space-x-6">
+        <nav class="flex items-center gap-14">
             <a href="{{ route('features') }}" class="hover:text-blue-600 transition">Features</a>
-            <a href="{{ route('pricing') }}" class="hover:text-blue-600 transition">Pricing</a>
             <a href="{{ route('about') }}" class="hover:text-blue-600 transition">About</a>
             <a href="{{ route('support') }}" class="hover:text-blue-600 transition">Contact</a>
         </nav>
 
         <!-- Actions -->
         <div class="flex items-center space-x-4">
-            <a href="{{ route('portal.index') }}" class="text-blue-700 hover:text-blue-900 transition">Log in</a>
-            <a href="{{ route('pricing') }}"
-               class="px-4 py-2 bg-blue-600 text-white rounded-xl shadow hover:bg-blue-700 transition">
-                View Plans
-            </a>
+            <a href="{{ route('portal.index') }}" class="px-4 py-2 bg-blue-600 text-white rounded-xl shadow hover:bg-blue-700 transition">Log in</a>
         </div>
     </header>
 <!-- Main Content -->
@@ -67,8 +62,6 @@
             <h3 class="text-lg font-semibold mb-4">Company</h3>
             <ul class="space-y-2">
                 <li><a href="{{ route('welcome') }}" class="hover:underline">Home</a></li>
-                <li><a href="{{ route('pricing') }}" class="hover:underline">Pricing</a></li>
-                {{--                <li><a href="{{ route('community.index') }}" class="hover:underline">Community</a></li>--}}
                 <li><a href="{{ route('support') }}" class="hover:underline">Support</a></li>
             </ul>
         </div>
@@ -78,8 +71,7 @@
             <h3 class="text-lg font-semibold mb-4">Resources</h3>
             <ul class="space-y-2">
                 <li><a href="#" class="hover:underline">Documentation</a></li>
-                <li><a href="#" class="hover:underline">Tutorials</a></li>
-                <li><a href="#" class="hover:underline">Blog</a></li>
+                <li><a href="https://www.youtube.com/channel/UC-HSpoaud4ZjTlPdTBtW0Ig" class="hover:underline">Tutorials</a></li>
             </ul>
         </div>
 

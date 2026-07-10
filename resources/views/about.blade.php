@@ -1,11 +1,26 @@
 <x-guestLayout>
     <!-- Hero Section -->
-    <section class="bg-blue-50 py-20 px-6 md:px-28 text-center">
-        <h1 class="text-4xl md:text-5xl font-extrabold text-blue-900 mb-4">About Us</h1>
-        <p class="text-lg md:text-xl text-blue-800 max-w-2xl mx-auto">
-            We’re on a mission to make client communication seamless, professional,
-            and stress-free for businesses of all sizes.
-        </p>
+    <section class="bg-gradient-to-br from-blue-700 to-blue-900 text-white py-28 px-6">
+
+        <div class="max-w-5xl mx-auto text-center">
+
+        <span class="inline-block px-4 py-2 rounded-full bg-blue-500/30 text-sm font-semibold">
+            About PortalEase
+        </span>
+
+            <h1 class="text-5xl md:text-6xl font-extrabold mt-6 mb-6">
+                We're building the easiest way
+                to collaborate with your clients.
+            </h1>
+
+            <p class="text-xl text-blue-100 max-w-3xl mx-auto">
+                PortalEase helps businesses deliver a professional client experience
+                through secure communication, document sharing, and project collaboration—
+                all from one centralized portal.
+            </p>
+
+        </div>
+
     </section>
 
     <!-- Mission Section -->
@@ -13,15 +28,14 @@
         <img src="{{ asset('about.png') }}" alt="Our Mission"
              class="rounded-2xl shadow-xl w-full object-cover">
         <div class="flex flex-col gap-6">
-            <h2 class="text-3xl font-extrabold text-blue-900">Our Mission</h2>
+            <h2 class="text-3xl font-extrabold text-blue-900">Why We Built PortalEase</h2>
             <p class="text-lg text-blue-800 leading-relaxed">
-                We believe that strong client relationships start with clear communication.
-                That’s why we built a simple, secure platform that gives you a professional client portal
-                in minutes — no coding or expensive systems required.
+                Managing clients often means juggling emails, cloud storage, spreadsheets, and messaging apps.
+                We wanted a simpler solution—a single place where businesses and clients can collaborate securely and efficiently.
             </p>
             <p class="text-lg text-blue-800 leading-relaxed">
-                Our goal is to empower freelancers, agencies, and businesses to deliver an exceptional
-                experience to every client they work with.
+                PortalEase brings communication, documents, projects, and collaboration together in one intuitive platform,
+                helping businesses save time while delivering a better client experience.
             </p>
         </div>
     </section>
@@ -73,30 +87,112 @@
         </div>
     </section>
 
+    <section class="py-20 bg-white">
+
+        <div class="max-w-6xl mx-auto px-6">
+
+            <div class="text-center mb-16">
+
+                <h2 class="text-4xl font-bold text-blue-900">
+                    What You Can Do With PortalEase
+                </h2>
+
+                <p class="text-blue-700 mt-4">
+                    Everything you need to work together with your clients.
+                </p>
+
+            </div>
+
+            <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
+
+                <div class="bg-blue-50 p-8 rounded-2xl">
+                    <div class="text-4xl mb-4">📁</div>
+                    <h3 class="font-bold text-xl">Document Sharing</h3>
+                </div>
+
+                <div class="bg-blue-50 p-8 rounded-2xl">
+                    <div class="text-4xl mb-4">💬</div>
+                    <h3 class="font-bold text-xl">Messaging</h3>
+                </div>
+
+                <div class="bg-blue-50 p-8 rounded-2xl">
+                    <div class="text-4xl mb-4">📊</div>
+                    <h3 class="font-bold text-xl">Projects</h3>
+                </div>
+
+                <div class="bg-blue-50 p-8 rounded-2xl">
+                    <div class="text-4xl mb-4">🎨</div>
+                    <h3 class="font-bold text-xl">Custom Branding</h3>
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
     <!-- Team Section -->
     <section class="bg-blue-50 py-20 px-6 md:px-28">
-        <h2 class="text-3xl font-extrabold text-blue-900 text-center mb-12">Meet Our Team</h2>
+        <h2 class="text-3xl font-extrabold text-blue-900 text-center mb-12">Meet the People Behind PortalEase</h2>
         <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 gap-10 max-w-6xl mx-auto">
             <a class="flex flex-col items-center text-center" href="https://www.linkedin.com/in/stijn-janssen-ba1920287">
                 <img src="{{ asset('stijn.jpg') }}" alt="Team member" class="w-32 h-32 rounded-full mb-4 shadow-lg object-cover">
                 <h3 class="text-xl font-bold text-blue-900">Stijn Janssen</h3>
-                <p class="text-blue-700">Founder & CEO</p>
+                <p class="text-blue-700">Founder & Lead Developer</p>
             </a>
             <div class="flex flex-col items-center text-center">
                 <img src="{{ asset('anonymous_picture.jpg') }}" alt="Team member" class="w-32 h-32 rounded-full mb-4 shadow-lg object-cover">
-                <h3 class="text-xl font-bold text-blue-900">Are you next?</h3>
-                <p class="text-blue-700">We are always interested in new people <a href="{{ route('support') }}"><b>Contact us</b></a></p>
+                <h3 class="text-xl font-bold text-blue-900">Join Our Journey</h3>
+                <p class="text-blue-700">Interested in contributing or partnering with us? <br>
+                    We'd love to hear from you.</p>
             </div>
         </div>
     </section>
 
+    <section class="bg-blue-50 py-20">
+
+        <div class="max-w-6xl mx-auto grid md:grid-cols-4 text-center gap-10">
+
+            <div>
+                <h3 class="text-5xl font-bold text-blue-700">1</h3>
+                <p>Platform</p>
+            </div>
+
+            <div>
+                <h3 class="text-5xl font-bold text-blue-700">100%</h3>
+                <p>Web Based</p>
+            </div>
+
+            <div>
+                <h3 class="text-5xl font-bold text-blue-700">24/7</h3>
+                <p>Available</p>
+            </div>
+
+            <div>
+                <h3 class="text-5xl font-bold text-blue-700">∞</h3>
+                <p>Possibilities</p>
+            </div>
+
+        </div>
+
+    </section>
+
     <!-- CTA -->
-    <section class="bg-blue-600 py-20 px-6 md:px-28 text-center text-white">
-        <h2 class="text-3xl md:text-4xl font-extrabold mb-4">Join us on our journey</h2>
-        <p class="text-lg md:text-xl mb-8">Start creating professional client experiences today.</p>
+    <section class="bg-blue-700 py-24 text-center text-white">
+
+        <h2 class="text-5xl font-bold mb-6">
+            Ready to transform the way you work with clients?
+        </h2>
+
+        <p class="text-xl text-blue-100 max-w-3xl mx-auto mb-10">
+            Join businesses that are simplifying communication, organizing projects,
+            and delivering a professional client experience with PortalEase.
+        </p>
+
         <a href="{{ route('portal.create') }}"
-           class="bg-white text-blue-700 hover:bg-blue-100 font-semibold py-3 px-6 rounded-2xl shadow transition">
-            Get Started
+           class="bg-white text-blue-700 px-8 py-4 rounded-2xl font-semibold hover:bg-blue-100 transition">
+            Create Your Portal
         </a>
+
     </section>
 </x-guestLayout>

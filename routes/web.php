@@ -18,9 +18,6 @@ Route::get('/features', function () {
 Route::get('/support', function () {
     return view('support');
 })->name('support');
-Route::get('/pricing', function () {
-    return view('pricing');
-})->name('pricing');
 Route::get('/about', function () {
     return view('about');
 })->name('about');

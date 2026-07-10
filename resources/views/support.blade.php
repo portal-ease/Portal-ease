@@ -1,19 +1,95 @@
 <x-guestLayout>
     <!-- Hero Section -->
-    <section class="grid grid-cols-1 md:grid-cols-2 gap-12 px-6 md:px-28 py-20 items-center bg-blue-50">
-        <div class="flex flex-col gap-6 max-w-xl">
-            <h1 class="text-4xl md:text-5xl font-extrabold text-blue-900 leading-tight">
-                Need help? We're here for you.
-            </h1>
-            <p class="text-lg md:text-xl text-blue-800">
-                Our support team is ready to help you with any questions or issues. Get assistance quickly and easily.
-            </p>
-            <a href="#contact-form"
-               class="bg-blue-600 hover:bg-blue-700 transition text-white font-semibold py-3 px-6 rounded-2xl w-fit shadow-lg">
-                Contact Support
-            </a>
+    <section class="relative bg-gradient-to-br from-blue-700 to-blue-900 text-white py-28 px-6">
+
+        <div class="max-w-6xl mx-auto grid lg:grid-cols-2 gap-12 items-center">
+
+            <div>
+            <span class="bg-blue-500/30 text-blue-100 px-4 py-2 rounded-full text-sm font-semibold">
+                PortalEase Support
+            </span>
+
+                <h1 class="text-5xl font-extrabold mt-6 mb-6">
+                    How can we help you today?
+                </h1>
+
+                <p class="text-xl text-blue-100 mb-8">
+                    Whether you're setting up your portal, inviting clients, or troubleshooting an issue,
+                    our team is ready to help.
+                </p>
+
+                <div class="flex flex-wrap gap-4">
+                    <a href="#contact-form"
+                       class="bg-white text-blue-700 hover:bg-blue-100 px-6 py-3 rounded-2xl font-semibold transition">
+                        Contact Support
+                    </a>
+
+                    <a href="https://www.youtube.com/watch?v=7NKmIakO1vw"
+                       target="_blank"
+                       class="border border-white px-6 py-3 rounded-2xl hover:bg-white hover:text-blue-700 transition">
+                        Watch Tutorials
+                    </a>
+                </div>
+            </div>
+
+            <div>
+                <img src="{{ asset('support.png') }}"
+                     class="rounded-3xl shadow-2xl"
+                     alt="Support">
+            </div>
+
         </div>
-        <img src="{{ asset('support.png') }}" alt="Illustration of support" class="w-full rounded-xl shadow-xl">
+
+    </section>
+
+    <section class="bg-white py-20 px-6 md:px-28">
+
+        <div class="text-center mb-14">
+            <h2 class="text-4xl font-bold text-blue-900">
+                Quick Help
+            </h2>
+            <p class="text-blue-700 mt-3">
+                Find the help you need in just a few clicks.
+            </p>
+        </div>
+
+        <div class="grid md:grid-cols-3 gap-8">
+
+            <div class="bg-blue-50 rounded-2xl p-8 shadow">
+                <div class="text-4xl mb-4">📚</div>
+                <h3 class="font-bold text-xl mb-3 text-blue-900">
+                    Documentation
+                </h3>
+
+                <p class="text-blue-700">
+                    Learn how every PortalEase feature works with detailed guides.
+                </p>
+            </div>
+
+            <div class="bg-blue-50 rounded-2xl p-8 shadow">
+                <div class="text-4xl mb-4">🎥</div>
+                <h3 class="font-bold text-xl mb-3 text-blue-900">
+                    Video Tutorials
+                </h3>
+
+                <p class="text-blue-700">
+                    Watch short videos explaining setup and daily usage.
+                </p>
+            </div>
+
+            <div class="bg-blue-50 rounded-2xl p-8 shadow">
+                <div class="text-4xl mb-4">💬</div>
+                <h3 class="font-bold text-xl mb-3 text-blue-900">
+                    Contact Us
+                </h3>
+
+                <p class="text-blue-700">
+                    Can't find your answer? Send us a message and we'll help you.
+                </p>
+            </div>
+
+        </div>
+
     </section>
 
     <!-- FAQ Section -->
@@ -33,8 +109,8 @@
                 <p class="text-blue-800 text-lg">Currently, Portalease is fully accessible via any web browser on mobile devices for convenience on the go.</p>
             </div>
             <div class="bg-blue-50 rounded-xl p-6 shadow-lg">
-                <h3 class="text-2xl font-semibold text-blue-800 mb-2">How do I upgrade my plan?</h3>
-                <p class="text-blue-800 text-lg">You can upgrade your subscription anytime from your portal dashboard under "Billing & Plans".</p>
+                <h3 class="text-2xl font-semibold text-blue-800 mb-2">How do I invite clients?</h3>
+                <p class="text-blue-800 text-lg">Open your portal dashboard, go to Clients and send an invitation by email. Your client will receive a secure link to access their portal.</p>
             </div>
         </div>
     </section>
