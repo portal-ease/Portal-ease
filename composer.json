@@ -1,6 +1,6 @@
 {
     "$schema": "https://getcomposer.org/schema.json",
-    "name": "portalease",
+    "name": "portalease/portalease",
     "type": "project",
     "description": "Portal ease let's you create amazing client portals",
     "keywords": ["laravel", "framework"],
