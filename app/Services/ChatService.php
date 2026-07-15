@@ -15,6 +15,6 @@ class ChatService
 
     public function getMessages(Conversation $conversation): Collection
     {
-        return $conversation->messages()->get()->sortByDesc('updated_at');
+        return $conversation->messages()->get()->sortByDesc('updated_at')->reverse();
     }
 }
