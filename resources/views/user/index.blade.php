@@ -10,13 +10,11 @@
                 </p>
             </div>
 
-            @if($portal->subscription_status === "active" || $portal->users->count() < 3)
-                <a href="{{ route('portal.user.create', ['portal' => $portal]) }}"
-                   class="inline-flex items-center gap-2 bg-green-500 hover:bg-green-600 text-white px-5 py-3 rounded-xl shadow transition">
-                    <i class="fa-solid fa-plus"></i>
-                    New Customer
-                </a>
-            @endif
+            <a href="{{ route('portal.user.create', ['portal' => $portal]) }}"
+               class="inline-flex items-center gap-2 bg-green-500 hover:bg-green-600 text-white px-5 py-3 rounded-xl shadow transition">
+                <i class="fa-solid fa-plus"></i>
+                New Customer
+            </a>
         </div>
         @if($portal->users->where(fn($u) => $u->hasRole('client'))->count())
             <div class="grid gap-4">
@@ -26,7 +24,8 @@
                             <div class="flex items-center justify-between">
 
                                 <div class="flex items-center gap-4">
-                                    <div class="h-12 w-12 rounded-full bg-gray-200 flex items-center justify-center font-semibold text-gray-700">
+                                    <div
+                                        class="h-12 w-12 rounded-full bg-gray-200 flex items-center justify-center font-semibold text-gray-700">
                                         {{ strtoupper(substr($user->name, 0, 1)) }}
                                     </div>
 
