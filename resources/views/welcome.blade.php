@@ -5,18 +5,20 @@
 
         <!-- YouTube Background -->
         <div class="absolute inset-0 overflow-hidden">
-            <iframe
-                class="absolute top-1/2 left-1/2 w-[177.78vh] h-[56.25vw] min-w-full min-h-full -translate-x-1/2 -translate-y-1/2 pointer-events-none"
-                src="https://www.youtube.com/embed/7NKmIakO1vw?autoplay=1&mute=1&controls=0&loop=1&playlist=7NKmIakO1vw&showinfo=0&rel=0&modestbranding=1"
-                title="PortalEase Demo"
-                frameborder="0"
-                allow="autoplay; encrypted-media"
-                allowfullscreen>
-            </iframe>
+            <video
+                class="absolute inset-0 w-full h-full object-cover"
+                autoplay
+                muted
+                loop
+                playsinline
+            >
+                <source src="{{ asset('herovideo.mp4') }}" type="video/mp4">
+                Your browser does not support the video tag.
+            </video>
         </div>
 
         <!-- Overlay -->
-        <div class="absolute inset-0 bg-black/70"></div>
+        <div class="absolute inset-0 bg-black/40"></div>
 
         <!-- Content -->
         <div class="relative z-10 flex items-center justify-center h-full px-6">
