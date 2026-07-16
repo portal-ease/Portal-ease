@@ -1,21 +1,10 @@
 <x-app-layout :portal="$portal">
     <!-- Top action bar -->
     <div class="flex justify-end mb-8">
-        @if($portal->subscription_status === "active")
-            <a href="{{ route('portal.project.create', ['portal' => $portal]) }}"
-               class="inline-flex items-center bg-green-500 hover:bg-green-600 text-white text-sm font-semibold py-2 px-5 rounded-xl shadow transition duration-200">
-                + New Project
-            </a>
-        @elseif(count($portal->projects) < 1)
-            <a href="{{ route('portal.project.create', ['portal' => $portal]) }}"
-               class="inline-flex items-center bg-green-500 hover:bg-green-600 text-white text-sm font-semibold py-2 px-5 rounded-xl shadow transition duration-200">
-                + New Project
-            </a>
-        @else
-            <p class="text-red-500 text-sm font-medium">
-                You need a subscription to add more than 1 project.
-            </p>
-        @endif
+        <a href="{{ route('portal.project.create', ['portal' => $portal]) }}"
+           class="inline-flex items-center bg-green-500 hover:bg-green-600 text-white text-sm font-semibold py-2 px-5 rounded-xl shadow transition duration-200">
+            + New Project
+        </a>
     </div>
     <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
         @forelse($portal->projects as $project)

@@ -23,7 +23,6 @@
                                class="w-full border border-gray-300 rounded-md p-2 mt-1 focus:ring focus:ring-blue-200"
                                placeholder="Enter email address" aria-label="Email Address">
                     </div>
-                    @if($portal->subscription_status === "active")
                     {{-- Branding Color --}}
                     <div>
                         <label for="branding" class="block font-medium text-gray-700">Branding Colour</label>
@@ -47,9 +46,7 @@
                              style="background-color: {{ $portal->branding_color ?? 'transparent' }};">
                         </div>
                     </div>
-                    @else
-                        <input type="hidden" name="branding_color" value="{{ $portal->branding_color }}">
-                    @endif
+                    <input type="hidden" name="branding_color" value="{{ $portal->branding_color }}">
                 </div>
 
                 {{-- Submit Button --}}
