@@ -107,7 +107,9 @@
 
     </div>
     <div class="border-t border-blue-700 mt-12 pt-6 text-center text-blue-200 text-sm">
-        © {{ date('Y') }} Portalease. All rights reserved.
+        © {{ date('Y') }} {{ config('app.name') }} <br>
+        Version {{ config('portalease.version') }} <br>
+        All rights reserved.
     </div>
     @livewireScripts
 

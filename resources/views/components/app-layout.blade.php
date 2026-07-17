@@ -138,6 +138,10 @@
                 @endif
             @endforeach
         @endif
+        <div class="mt-auto pt-6 text-xs text-white/70">
+            <p>{{ config('app.name') }}</p>
+            <p>v{{ config('portalease.version') }}</p>
+        </div>
     </nav>
 
     <!-- Logout Button -->
