@@ -1,5 +1,5 @@
 <x-chat-layout :portal="$portal">
-    <div class="h-screen">
+    <div class="grid grid-cols-[0.5fr_1.5fr] h-screen">
         <livewire:chat-window :portal="$portal" :conversation="$conversationP2p"/>
         @if(auth()->user()->hasRole('service_provider'))
             <div class="bg-white h-min-content p-6 py-15 space-y-4">
