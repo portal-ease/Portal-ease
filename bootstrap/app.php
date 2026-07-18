@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Middleware\BlockClients;
 use Illuminate\Foundation\Application;
 use Illuminate\Foundation\Configuration\Exceptions;
 use Illuminate\Foundation\Configuration\Middleware;
@@ -16,7 +17,7 @@ return Application::configure(basePath: dirname(__DIR__))
             return route('portal.index');
         });
         $middleware->alias([
-            'block-clients' => \App\Http\Middleware\BlockClients::class,
+            'block-clients' => BlockClients::class,
         ]);
     })
     ->withExceptions(function (Exceptions $exceptions) {
