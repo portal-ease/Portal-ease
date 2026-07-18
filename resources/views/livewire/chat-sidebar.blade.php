@@ -1,4 +1,5 @@
-<div class="w-80 text-white flex flex-col h-screen border-r-3 solid border-white overflow-hidden" style="background-color: {{ $portal->branding_color }}">
+<div class="w-80 text-white flex flex-col h-screen border-r-3 solid border-white overflow-hidden"
+    style="background-color: {{ $portal->branding_color }}">
     <div class="flex flex-row gap-3 justify-between mt-8">
         <h2 class="text-xl font-bold pl-4 pb-4">Conversations</h2>
     </div>
@@ -11,19 +12,17 @@
                 $lastMessage = $conversation->messages()->latest()->first();
             @endphp
 
-            @foreach($otherUsers as $user)
-                @if(auth()->user()->hasRole('client'))
-                    @if($user->hasRole('client'))
+            @foreach ($otherUsers as $user)
+                @if (auth()->user()->hasRole('client'))
+                    @if ($user->hasRole('client'))
                         @continue
                     @endif
                 @endif
-                <div
-                    wire:click="conversationSelected({{ $conversation }})" wire:navigate.hover
-                    class="flex items-center bg-black/20 hover:bg-black/30 rounded-xl p-3 cursor-pointer transition relative"
-                >
+                <div wire:click="conversationSelected({{ $conversation }})" wire:navigate.hover
+                    class="flex items-center bg-black/20 hover:bg-black/30 rounded-xl p-3 cursor-pointer transition relative">
                     <!-- Avatar -->
                     <img src="{{ $user->avatar ?? 'https://ui-avatars.com/api/?name=' . urlencode($user->name) }}"
-                         alt="Avatar" class="h-10 w-10 rounded-full object-cover border-2 border-[#007bff]">
+                        alt="Avatar" class="h-10 w-10 rounded-full object-cover border-2 border-[#007bff]">
 
                     <!-- Info -->
                     <div class="ml-3 flex-1">

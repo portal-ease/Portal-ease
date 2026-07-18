@@ -4,9 +4,9 @@
 
         <div class="max-w-5xl mx-auto text-center">
 
-        <span class="inline-block px-4 py-2 rounded-full bg-blue-500/30 text-sm font-semibold">
-            About PortalEase
-        </span>
+            <span class="inline-block px-4 py-2 rounded-full bg-blue-500/30 text-sm font-semibold">
+                About PortalEase
+            </span>
 
             <h1 class="text-5xl md:text-6xl font-extrabold mt-6 mb-6">
                 We're building the easiest way
@@ -25,16 +25,17 @@
 
     <!-- Mission Section -->
     <section class="max-w-6xl mx-auto px-6 md:px-12 py-16 grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
-        <img src="{{ asset('about.png') }}" alt="Our Mission"
-             class="rounded-2xl shadow-xl w-full object-cover">
+        <img src="{{ asset('about.png') }}" alt="Our Mission" class="rounded-2xl shadow-xl w-full object-cover">
         <div class="flex flex-col gap-6">
             <h2 class="text-3xl font-extrabold text-blue-900">Why We Built PortalEase</h2>
             <p class="text-lg text-blue-800 leading-relaxed">
                 Managing clients often means juggling emails, cloud storage, spreadsheets, and messaging apps.
-                We wanted a simpler solution—a single place where businesses and clients can collaborate securely and efficiently.
+                We wanted a simpler solution—a single place where businesses and clients can collaborate securely and
+                efficiently.
             </p>
             <p class="text-lg text-blue-800 leading-relaxed">
-                PortalEase brings communication, documents, projects, and collaboration together in one intuitive platform,
+                PortalEase brings communication, documents, projects, and collaboration together in one intuitive
+                platform,
                 helping businesses save time while delivering a better client experience.
             </p>
         </div>
@@ -47,8 +48,7 @@
             <div class="bg-blue-50 rounded-2xl shadow-md p-8 text-center hover:shadow-xl transition">
                 <div class="w-16 h-16 mx-auto bg-blue-100 rounded-full flex items-center justify-center mb-6">
                     <svg class="w-8 h-8 text-blue-700" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                              d="M5 13l4 4L19 7" />
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
                     </svg>
                 </div>
                 <h3 class="text-xl font-bold text-blue-900 mb-3">Simplicity</h3>
@@ -61,22 +61,22 @@
                 <div class="w-16 h-16 mx-auto bg-blue-100 rounded-full flex items-center justify-center mb-6">
                     <svg class="w-8 h-8 text-blue-700" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                              d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3-.895 3-2-1.343-2-3-2z" />
+                            d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3-.895 3-2-1.343-2-3-2z" />
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                              d="M12 14v4m0 0H8m4 0h4" />
+                            d="M12 14v4m0 0H8m4 0h4" />
                     </svg>
                 </div>
                 <h3 class="text-xl font-bold text-blue-900 mb-3">Transparency</h3>
                 <p class="text-blue-800">
-                    Clear pricing, clear communication, clear results. We believe in being open and honest with our users.
+                    Clear pricing, clear communication, clear results. We believe in being open and honest with our
+                    users.
                 </p>
             </div>
 
             <div class="bg-blue-50 rounded-2xl shadow-md p-8 text-center hover:shadow-xl transition">
                 <div class="w-16 h-16 mx-auto bg-blue-100 rounded-full flex items-center justify-center mb-6">
                     <svg class="w-8 h-8 text-blue-700" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                              d="M12 4v16m8-8H4" />
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4" />
                     </svg>
                 </div>
                 <h3 class="text-xl font-bold text-blue-900 mb-3">Growth</h3>
@@ -135,13 +135,16 @@
     <section class="bg-blue-50 py-20 px-6 md:px-28">
         <h2 class="text-3xl font-extrabold text-blue-900 text-center mb-12">Meet the People Behind PortalEase</h2>
         <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 gap-10 max-w-6xl mx-auto">
-            <a class="flex flex-col items-center text-center" href="https://www.linkedin.com/in/stijn-janssen-ba1920287">
-                <img src="{{ asset('stijn.jpg') }}" alt="Team member" class="w-32 h-32 rounded-full mb-4 shadow-lg object-cover">
+            <a class="flex flex-col items-center text-center"
+                href="https://www.linkedin.com/in/stijn-janssen-ba1920287">
+                <img src="{{ asset('stijn.jpg') }}" alt="Team member"
+                    class="w-32 h-32 rounded-full mb-4 shadow-lg object-cover">
                 <h3 class="text-xl font-bold text-blue-900">Stijn Janssen</h3>
                 <p class="text-blue-700">Founder & Lead Developer</p>
             </a>
             <div class="flex flex-col items-center text-center">
-                <img src="{{ asset('anonymous_picture.jpg') }}" alt="Team member" class="w-32 h-32 rounded-full mb-4 shadow-lg object-cover">
+                <img src="{{ asset('anonymous_picture.jpg') }}" alt="Team member"
+                    class="w-32 h-32 rounded-full mb-4 shadow-lg object-cover">
                 <h3 class="text-xl font-bold text-blue-900">Join Our Journey</h3>
                 <p class="text-blue-700">Interested in contributing or partnering with us? <br>
                     We'd love to hear from you.</p>
@@ -190,7 +193,7 @@
         </p>
 
         <a href="{{ route('portal.create') }}"
-           class="bg-white text-blue-700 px-8 py-4 rounded-2xl font-semibold hover:bg-blue-100 transition">
+            class="bg-white text-blue-700 px-8 py-4 rounded-2xl font-semibold hover:bg-blue-100 transition">
             Create Your Portal
         </a>
 

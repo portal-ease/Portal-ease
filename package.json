@@ -3,7 +3,10 @@
     "type": "module",
     "scripts": {
         "build": "vite build",
-        "dev": "vite"
+        "dev": "vite",
+        "format": "npm run format:blade && npm run format:php",
+        "format:blade": "blade-formatter --write \"resources/views/**/*.blade.php\"",
+        "format:php": "vendor/bin/pint"
     },
     "devDependencies": {
         "@tailwindcss/vite": "^4.3.1",

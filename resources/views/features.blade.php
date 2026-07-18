@@ -6,9 +6,9 @@
 
             <div>
 
-            <span class="inline-block px-4 py-2 rounded-full bg-blue-500/30 text-sm font-semibold">
-                Everything in one workspace
-            </span>
+                <span class="inline-block px-4 py-2 rounded-full bg-blue-500/30 text-sm font-semibold">
+                    Everything in one workspace
+                </span>
 
                 <h1 class="text-5xl md:text-6xl font-extrabold mt-6 mb-6 leading-tight">
                     Powerful features built for client collaboration.
@@ -23,13 +23,12 @@
                 <div class="flex gap-4 flex-wrap">
 
                     <a href="{{ route('portal.create') }}"
-                       class="bg-white text-blue-700 px-8 py-4 rounded-2xl font-semibold hover:bg-blue-100 transition">
+                        class="bg-white text-blue-700 px-8 py-4 rounded-2xl font-semibold hover:bg-blue-100 transition">
                         Create Your Portal
                     </a>
 
-                    <a href="https://www.youtube.com/watch?v=7NKmIakO1vw"
-                       target="_blank"
-                       class="border border-white px-8 py-4 rounded-2xl hover:bg-white hover:text-blue-700 transition">
+                    <a href="https://www.youtube.com/watch?v=7NKmIakO1vw" target="_blank"
+                        class="border border-white px-8 py-4 rounded-2xl hover:bg-white hover:text-blue-700 transition">
                         Watch Demo
                     </a>
 
@@ -38,9 +37,7 @@
             </div>
 
             <div>
-                <img src="{{ asset('creativeagency.jpg') }}"
-                     class="rounded-3xl shadow-2xl"
-                     alt="PortalEase Features">
+                <img src="{{ asset('creativeagency.jpg') }}" class="rounded-3xl shadow-2xl" alt="PortalEase Features">
             </div>
 
         </div>
@@ -119,11 +116,12 @@
                     <li>🔹 Mobile-friendly experience for clients on the go</li>
                 </ul>
                 <a href="{{ route('portal.index') }}"
-                   class="bg-blue-600 hover:bg-blue-700 transition text-white font-semibold py-3 px-6 rounded-2xl w-fit shadow">
+                    class="bg-blue-600 hover:bg-blue-700 transition text-white font-semibold py-3 px-6 rounded-2xl w-fit shadow">
                     Try it free
                 </a>
             </div>
-            <img src="{{ asset('collaboration.png') }}" alt="Collaboration illustration" class="w-full rounded-xl shadow-lg">
+            <img src="{{ asset('collaboration.png') }}" alt="Collaboration illustration"
+                class="w-full rounded-xl shadow-lg">
         </div>
     </section>
 
@@ -186,7 +184,7 @@
         </p>
 
         <a href="{{ route('portal.create') }}"
-           class="bg-white text-blue-700 px-8 py-4 rounded-2xl font-semibold hover:bg-blue-100 transition">
+            class="bg-white text-blue-700 px-8 py-4 rounded-2xl font-semibold hover:bg-blue-100 transition">
             Create Your Portal
         </a>
 

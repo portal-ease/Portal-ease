@@ -11,15 +11,15 @@
                 <p><span class="font-medium">Name:</span> {{ $project->name }}</p>
                 <p><span class="font-medium">Status:</span> {{ $project->status }}</p>
                 <p><span class="font-medium">Deadline:</span> {{ $project->end_date }}</p>
-            @if(\Illuminate\Support\Facades\Auth::user()->hasRole('service_provider'))
+                @if (\Illuminate\Support\Facades\Auth::user()->hasRole('service_provider'))
                     <p><span class="font-medium">Customer:</span> {{ $project->customer->name }}</p>
                     <div class="flex flex-row gap-12">
                         <form method="POST"
-                              action="{{ route('portal.project.destroy', ['project' => $project, 'portal' => $portal]) }}">
+                            action="{{ route('portal.project.destroy', ['project' => $project, 'portal' => $portal]) }}">
                             @csrf
                             @method('DELETE')
                             <button type="submit" onclick="return confirm('Are you sure?')"
-                                    class="bg-green-600 cursor-pointer hover:bg-green-800 text-white text-sm font-medium py-2 px-4 rounded-lg shadow transition duration-200">
+                                class="bg-green-600 cursor-pointer hover:bg-green-800 text-white text-sm font-medium py-2 px-4 rounded-lg shadow transition duration-200">
                                 Finish Project
                             </button>
                         </form>
@@ -30,8 +30,8 @@
         <div class="grid grid-cols-2 gap-8">
             <div class="bg-white p-6 rounded-xl shadow-md">
                 <h2 class="text-xl font-semibold mb-4 text-gray-800">Payment
-                    @foreach($portal->invoices as $invoice)
-                        @if($invoice->project_id == $project->id)
+                    @foreach ($portal->invoices as $invoice)
+                        @if ($invoice->project_id == $project->id)
                             <h2>${{ $invoice->price }}</h2>
                         @endif
                     @endforeach
@@ -40,9 +40,10 @@
             </div>
             <div class="bg-white p-6 rounded-xl shadow-md">
                 <h2 class="text-xl font-semibold mb-4 text-gray-800">Invoice(s)</h2>
-                @foreach($portal->invoices as $invoice)
-                    @if($invoice->project_id == $project->id)
-                       <a href="{{ route('portal.invoice.show', ["portal" => $portal, "invoice" => $invoice ]) }}" class="hover:text-blue-300">{{ $invoice->name }}</a>
+                @foreach ($portal->invoices as $invoice)
+                    @if ($invoice->project_id == $project->id)
+                        <a href="{{ route('portal.invoice.show', ['portal' => $portal, 'invoice' => $invoice]) }}"
+                            class="hover:text-blue-300">{{ $invoice->name }}</a>
                     @endif
                 @endforeach
             </div>

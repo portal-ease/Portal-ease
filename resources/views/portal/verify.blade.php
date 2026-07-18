@@ -26,7 +26,7 @@
                 Please click the link in the email to activate your portal.
             </p>
             <a href="{{ route('portal.show', $portal) }}"
-               class="w-full bg-green-600 hover:bg-green-700 text-white font-semibold py-3 px-6 rounded-xl shadow-lg transition">
+                class="w-full bg-green-600 hover:bg-green-700 text-white font-semibold py-3 px-6 rounded-xl shadow-lg transition">
                 Skip step and verify later
             </a>
 

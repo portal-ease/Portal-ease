@@ -11,7 +11,7 @@
             <p><span class="font-semibold">File name:</span> {{ $file->filename }}</p>
             <p>
                 <span class="font-semibold">Visibility:</span>
-                @if(!$file->visibility)
+                @if (!$file->visibility)
                     <span class="text-green-600 font-medium">Visible</span>
                 @else
                     <span class="text-red-500 font-medium">Not visible</span>
@@ -22,10 +22,9 @@
         <!-- Actions -->
         <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 text-center">
             <a href="{{ route('portal.file.download', $file) }}"
-               class="bg-blue-600 hover:bg-blue-700 transition text-white py-3 rounded-xl font-medium shadow">
+                class="bg-blue-600 hover:bg-blue-700 transition text-white py-3 rounded-xl font-medium shadow">
                 📥 Download file
             </a>
         </div>
     </div>
 </x-app-layout>
-
