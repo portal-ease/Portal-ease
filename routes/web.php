@@ -1,13 +1,13 @@
 <?php
 
+use App\Http\Controllers\AuthenticatedController;
 use App\Http\Controllers\ConversationController;
+use App\Http\Controllers\FileController;
 use App\Http\Controllers\InvoiceController;
+use App\Http\Controllers\PortalController;
 use App\Http\Controllers\ProjectController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\PortalController;
-use App\Http\Controllers\AuthenticatedController;
-use App\Http\Controllers\FileController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -30,10 +30,10 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::resource('portal.project', ProjectController::class);
     Route::resource('portal.file', FileController::class);
     Route::post('/portal/{portal}/user/{user}/picture', [UserController::class, 'editProfilePicture'])->name('portal.user.profile');
-    //File download
+    // File download
     Route::get('/portal/{file}/download', [FileController::class, 'download'])->name('portal.file.download');
     Route::get('/portal/{portal}/verify', [PortalController::class, 'verify'])->name('portal.verify');
-    //Downloading invoice file and paying invoice
+    // Downloading invoice file and paying invoice
     Route::get('/portal/{invoice}/download', [InvoiceController::class, 'download'])->name('portal.invoice.download');
     Route::patch('/{portal}/{invoice}/payment', [InvoiceController::class, 'payment'])->name('portal.invoice.payment');
 });

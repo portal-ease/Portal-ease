@@ -3,7 +3,7 @@
         <!-- New Invoice Button -->
         <div class="flex justify-end mb-4">
             <a href="{{ route('portal.invoice.create', ['portal' => $portal]) }}"
-               class="text-sm bg-green-500 hover:bg-green-600 text-white px-5 py-3 rounded-xl transition-all duration-200">
+                class="text-sm bg-green-500 hover:bg-green-600 text-white px-5 py-3 rounded-xl transition-all duration-200">
                 + New Invoice
             </a>
         </div>
@@ -13,7 +13,8 @@
             <h2 class="text-2xl font-semibold text-gray-800">Invoices</h2>
 
             @forelse($portal->invoices as $invoice)
-                <div class="flex flex-col sm:flex-row sm:items-center justify-between p-4 rounded-2xl
+                <div
+                    class="flex flex-col sm:flex-row sm:items-center justify-between p-4 rounded-2xl
                             {{ $invoice->price == 0 ? 'bg-green-100' : 'bg-red-100' }}">
 
                     <div class="flex flex-col sm:flex-row sm:items-center gap-2 text-gray-800">
@@ -24,7 +25,7 @@
                     </div>
 
                     <a href="{{ route('portal.invoice.show', ['portal' => $portal, 'invoice' => $invoice]) }}"
-                       class="mt-3 sm:mt-0 bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-xl text-sm transition">
+                        class="mt-3 sm:mt-0 bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-xl text-sm transition">
                         View Invoice
                     </a>
                 </div>
@@ -34,4 +35,3 @@
         </div>
     </div>
 </x-app-layout>
-

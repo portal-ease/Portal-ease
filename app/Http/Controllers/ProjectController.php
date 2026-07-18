@@ -36,12 +36,13 @@ class ProjectController extends Controller
             'end_date' => 'required',
         ]);
         Project::create([
-            "name" => $request->get('name'),
-            "user_id" => $request->get('customer_id'),
-            "start_date" => $request->get('start_date'),
-            "end_date" => $request->get('end_date'),
-            "portal_id" => $portal->id,
+            'name' => $request->get('name'),
+            'user_id' => $request->get('customer_id'),
+            'start_date' => $request->get('start_date'),
+            'end_date' => $request->get('end_date'),
+            'portal_id' => $portal->id,
         ]);
+
         return redirect()->back();
     }
 
@@ -50,8 +51,9 @@ class ProjectController extends Controller
      */
     public function show(Portal $portal, Project $project)
     {
-        $statusCollection = ["all", "to do", "in progress", "completed"];
+        $statusCollection = ['all', 'to do', 'in progress', 'completed'];
         $status = request()->query('status', 'default');
+
         return view('project.show', compact('portal', 'project', 'status', 'statusCollection'));
     }
 
@@ -77,6 +79,7 @@ class ProjectController extends Controller
     public function destroy(Portal $portal, Project $project)
     {
         $project->delete();
+
         return view('project.index', compact('portal'));
     }
 }

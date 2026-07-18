@@ -51,6 +51,7 @@ class UserController extends Controller
             $user->assignRole('client');
         }
         Auth::login($user);
+
         return redirect()->back();
     }
 
@@ -60,6 +61,7 @@ class UserController extends Controller
     public function show(Portal $portal, User $user)
     {
         $conversationP2p = Conversation::query()->first();
+
         return view('user.show', compact('user', 'portal', 'conversationP2p'));
     }
 
@@ -89,6 +91,7 @@ class UserController extends Controller
             $user->removeRole($role);
         }
         $user->assignRole($request->get('role'));
+
         return redirect()->back();
     }
 
@@ -98,26 +101,30 @@ class UserController extends Controller
     public function destroy(Portal $portal, User $user)
     {
         $user->delete();
+
         return redirect('/');
     }
-    public function notification (Portal $portal)
+
+    public function notification(Portal $portal)
     {
         return view('notification.index', compact('portal'));
     }
+
     public function editProfilePicture(Request $request, Portal $portal, User $user)
     {
         $request->validate([
             'file' => 'required|image',
         ]);
         $file = $request->file('file');
-        $filename = $user->name . $user->id . '.' . $file->getClientOriginalExtension();
+        $filename = $user->name.$user->id.'.'.$file->getClientOriginalExtension();
         $path = $file->storeAs('profile-pictures', $filename, 'public');
         File::create([
-            "filename" => $filename,
-            "mime_type" => $request->file("file")->getClientMimeType(),
-            "path" => $path,
-            "visibility" => true,
+            'filename' => $filename,
+            'mime_type' => $request->file('file')->getClientMimeType(),
+            'path' => $path,
+            'visibility' => true,
         ]);
+
         return redirect()->back();
     }
 }

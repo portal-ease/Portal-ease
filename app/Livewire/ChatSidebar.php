@@ -4,9 +4,6 @@ namespace App\Livewire;
 
 use App\Models\Conversation;
 use App\Models\Portal;
-use App\Models\User;
-use App\Services\ChatService;
-use GuzzleHttp\Psr7\Request;
 use Illuminate\Support\Collection;
 use Illuminate\View\View;
 use Livewire\Component;

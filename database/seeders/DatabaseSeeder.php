@@ -28,7 +28,6 @@ class DatabaseSeeder extends Seeder
         $admin->assignRole('service_provider');
         $admin->assignRole('admin');
 
-
         $client = User::factory()->create([
             'name' => 'client',
             'email' => 'client@portalease.com',

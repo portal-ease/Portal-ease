@@ -8,8 +8,7 @@ class ConversationController extends Controller
 {
     public function __construct(
         private readonly ChatService $chatService,
-    )
-    {}
+    ) {}
 
     public function index()
     {
@@ -20,8 +19,9 @@ class ConversationController extends Controller
 
             $conversations = $this->chatService->getConversations($user);
 
-            return view('conversation.index', compact( 'conversations', 'user', 'portal'));
+            return view('conversation.index', compact('conversations', 'user', 'portal'));
         }
+
         return redirect()->back();
     }
 }

@@ -12,6 +12,7 @@ class AppLayout extends Component
      * Create a new component instance.
      */
     public $portal;
+
     public function __construct($portal)
     {
         $this->portal = $portal;
