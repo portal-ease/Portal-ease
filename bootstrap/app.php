@@ -15,6 +15,9 @@ return Application::configure(basePath: dirname(__DIR__))
         $middleware->redirectGuestsTo(function (Request $request) {
             return route('portal.index');
         });
+        $middleware->alias([
+            'block-clients' => \App\Http\Middleware\BlockClients::class,
+        ]);
     })
     ->withExceptions(function (Exceptions $exceptions) {
         //
