@@ -2,9 +2,7 @@
 
 namespace App\Notifications;
 
-use App\Models\User;
 use Illuminate\Bus\Queueable;
-use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Notification;
 
@@ -39,10 +37,9 @@ class NewMessage extends Notification
     {
         return (new MailMessage)
             ->line($this->message)
-            ->action('View Chat', url('/portal/' . $notifiable->portal_id . '/chat')) // optional
+            ->action('View Chat', url('/portal/'.$notifiable->portal_id.'/chat')) // optional
             ->line('Thank you for using our app!');
     }
-
 
     /**
      * Get the array representation of the notification.
