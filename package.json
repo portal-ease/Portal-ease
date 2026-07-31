@@ -3,16 +3,22 @@
     "type": "module",
     "scripts": {
         "build": "vite build",
-        "dev": "vite"
+        "dev": "vite",
+        "format": "npm run format:blade && npm run format:php",
+        "format:blade": "blade-formatter --write \"resources/views/**/*.blade.php\"",
+        "format:php": "vendor/bin/pint"
     },
     "devDependencies": {
         "@tailwindcss/vite": "^4.3.1",
         "autoprefixer": "^10.4.21",
-        "axios": "^1.16.0",
-        "concurrently": "^9.0.1",
+        "axios": "^1.18.0",
+        "concurrently": "^10.0.4",
         "laravel-vite-plugin": "^3.1.0",
         "postcss": "^8.5.6",
         "tailwindcss": "^4.1.13",
         "vite": "^8.0.16"
+    },
+    "dependencies": {
+        "blade-formatter": "^1.44.4"
     }
 }

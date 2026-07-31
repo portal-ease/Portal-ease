@@ -5,13 +5,7 @@
 
         <!-- YouTube Background -->
         <div class="absolute inset-0 overflow-hidden">
-            <video
-                class="absolute inset-0 w-full h-full object-cover"
-                autoplay
-                muted
-                loop
-                playsinline
-            >
+            <video class="absolute inset-0 w-full h-full object-cover" autoplay muted loop playsinline>
                 <source src="{{ asset('herovideo.mp4') }}" type="video/mp4">
                 Your browser does not support the video tag.
             </video>
@@ -24,9 +18,9 @@
         <div class="relative z-10 flex items-center justify-center h-full px-6">
             <div class="max-w-4xl text-center text-white">
 
-            <span class="inline-block mb-6 px-4 py-2 rounded-full bg-blue-600 text-sm font-semibold">
-                Build Professional Client Portals
-            </span>
+                <span class="inline-block mb-6 px-4 py-2 rounded-full bg-blue-600 text-sm font-semibold">
+                    Build Professional Client Portals
+                </span>
 
                 <h1 class="text-5xl md:text-7xl font-extrabold leading-tight mb-6">
                     Your Business.
@@ -42,13 +36,12 @@
 
                 <div class="flex justify-center gap-4 flex-wrap">
                     <a href="{{ route('portal.create') }}"
-                       class="bg-blue-600 hover:bg-blue-700 transition px-8 py-4 rounded-2xl font-semibold shadow-lg">
+                        class="bg-blue-600 hover:bg-blue-700 transition px-8 py-4 rounded-2xl font-semibold shadow-lg">
                         Get Started
                     </a>
 
-                    <a href="https://www.youtube.com/watch?v=7NKmIakO1vw"
-                       target="_blank"
-                       class="border-2 border-white hover:bg-white hover:text-black transition px-8 py-4 rounded-2xl font-semibold">
+                    <a href="https://www.youtube.com/watch?v=7NKmIakO1vw" target="_blank"
+                        class="border-2 border-white hover:bg-white hover:text-black transition px-8 py-4 rounded-2xl font-semibold">
                         Watch Demo
                     </a>
                 </div>
@@ -64,29 +57,29 @@
             <div class="space-y-6">
                 <div class="flex items-center gap-4">
                     <img src="{{ asset('freelancer.jpg') }}" alt="freelancers"
-                         class="w-14 h-14 rounded-full border-2 border-blue-600 object-cover">
+                        class="w-14 h-14 rounded-full border-2 border-blue-600 object-cover">
                     <span class="text-xl text-blue-800">Freelancers</span>
                 </div>
                 <div class="flex items-center gap-4">
                     <img src="{{ asset('creativeagency.jpg') }}" alt="Creative agencies"
-                         class="w-14 h-14 rounded-full border-2 border-blue-600 object-cover">
+                        class="w-14 h-14 rounded-full border-2 border-blue-600 object-cover">
                     <span class="text-xl text-blue-800">Creative agencies</span>
                 </div>
                 <div class="flex items-center gap-4">
                     <img src="{{ asset('consultant.jpg') }}" alt="Consultants"
-                         class="w-14 h-14 rounded-full border-2 border-blue-600 object-cover">
+                        class="w-14 h-14 rounded-full border-2 border-blue-600 object-cover">
                     <span class="text-xl text-blue-800">Consultants</span>
                 </div>
             </div>
             <div class="space-y-6">
                 <div class="flex items-center gap-4">
                     <img src="{{ asset('legal.jpeg') }}" alt="Legal & financial service providers"
-                         class="w-14 h-14 rounded-full border-2 border-blue-600 object-cover">
+                        class="w-14 h-14 rounded-full border-2 border-blue-600 object-cover">
                     <span class="text-xl text-blue-800">Legal & financial service providers</span>
                 </div>
                 <div class="flex items-center gap-4">
                     <img src="{{ asset('coach.jpg') }}" alt="Coaches & trainers"
-                         class="w-14 h-14 rounded-full border-2 border-blue-600 object-cover">
+                        class="w-14 h-14 rounded-full border-2 border-blue-600 object-cover">
                     <span class="text-xl text-blue-800">Coaches & trainers</span>
                 </div>
             </div>
@@ -96,8 +89,7 @@
     <!-- Problem/Solution Section -->
     <section class="bg-blue-50 py-20 px-6 md:px-28">
         <div class="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
-            <img src="{{ asset('central.png') }}" alt="Illustration of a problem"
-                 class="w-full rounded-xl shadow-lg">
+            <img src="{{ asset('central.png') }}" alt="Illustration of a problem" class="w-full rounded-xl shadow-lg">
             <div class="flex flex-col gap-8">
                 <h2 class="text-4xl font-extrabold text-blue-900">Why a client portal?</h2>
                 <p class="text-lg md:text-xl text-blue-800 leading-relaxed">
@@ -203,7 +195,7 @@
 
             <div class="mt-12">
                 <a href="{{ route('portal.create') }}"
-                   class="bg-blue-600 hover:bg-blue-700 transition text-white font-semibold py-3 px-8 rounded-2xl shadow-lg">
+                    class="bg-blue-600 hover:bg-blue-700 transition text-white font-semibold py-3 px-8 rounded-2xl shadow-lg">
                     Create Your Portal
                 </a>
             </div>
@@ -216,11 +208,11 @@
         <p class="text-lg md:text-xl mb-8">Start today with your own client portal.</p>
         <div class="flex justify-center gap-4 flex-wrap">
             <a href="{{ route('portal.index') }}"
-               class="bg-white text-blue-700 hover:bg-blue-100 transition font-semibold py-3 px-6 rounded-2xl shadow">
+                class="bg-white text-blue-700 hover:bg-blue-100 transition font-semibold py-3 px-6 rounded-2xl shadow">
                 Try for free
             </a>
             <a href="https://www.youtube.com/watch?v=7NKmIakO1vw"
-               class="bg-transparent border-2 border-white hover:bg-white hover:text-blue-700 font-semibold py-3 px-6 rounded-2xl transition">
+                class="bg-transparent border-2 border-white hover:bg-white hover:text-blue-700 font-semibold py-3 px-6 rounded-2xl transition">
                 View demo
             </a>
         </div>

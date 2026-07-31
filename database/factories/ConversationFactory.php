@@ -6,7 +6,7 @@ use App\Models\Conversation;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
- * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Conversation>
+ * @extends Factory<Conversation>
  */
 class ConversationFactory extends Factory
 {
@@ -21,6 +21,7 @@ class ConversationFactory extends Factory
             'type' => 'p2p',
         ];
     }
+
     public function withUsers(array $userIds)
     {
         return $this->afterCreating(function (Conversation $conversation) use ($userIds) {

@@ -17,6 +17,7 @@ class FileController extends Controller
     public function index(Portal $portal)
     {
         $user = auth()->user();
+
         return view('file.index', compact('user', 'portal'));
     }
 
@@ -42,27 +43,27 @@ class FileController extends Controller
         $user = User::where('id', $request->get('user'))->first();
         if ($request->get('visibility') == 'true') {
             $visibility = true;
-        }
-        else{
+        } else {
             $visibility = false;
         }
-        $user->notify(new DocumentShared(Auth::user()->name, $request->file("file")->getClientOriginalName()));
+        $user->notify(new DocumentShared(Auth::user()->name, $request->file('file')->getClientOriginalName()));
         $path = $request->file('file')->store('files');
         $file = File::create([
-            "filename" => $request->file("file")->getClientOriginalName(),
-            "mime_type" => $request->file("file")->getClientMimeType(),
-            "path" => $path,
-            "visibility" => $visibility,
+            'filename' => $request->file('file')->getClientOriginalName(),
+            'mime_type' => $request->file('file')->getClientMimeType(),
+            'path' => $path,
+            'visibility' => $visibility,
         ]);
 
         $user->files()->attach($file->id);
+
         return redirect()->back();
     }
 
     /**
      * Display the specified resource.
      */
-    public function show(Portal $portal , File $file)
+    public function show(Portal $portal, File $file)
     {
         return view('file.show', compact('file', 'portal'));
     }
@@ -90,6 +91,7 @@ class FileController extends Controller
     {
         //
     }
+
     public function download(File $file)
     {
         return response($file->content)->header('Content-Type', $file->mime_type)

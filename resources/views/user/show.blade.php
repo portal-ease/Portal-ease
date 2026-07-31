@@ -1,7 +1,7 @@
 <x-chat-layout :portal="$portal">
     <div class="grid grid-cols-[0.5fr_1.5fr] h-screen">
-        <livewire:chat-window :portal="$portal" :conversation="$conversationP2p"/>
-        @if(auth()->user()->hasRole('service_provider'))
+        <livewire:chat-window :portal="$portal" :conversation="$conversationP2p" />
+        @if (auth()->user()->hasRole('service_provider'))
             <div class="bg-white h-min-content p-6 py-15 space-y-4">
 
                 <div>
@@ -37,7 +37,7 @@
 
                     <div class="space-y-2">
                         <a href="{{ route('portal.user.edit', ['portal' => $portal, 'user' => $user]) }}"
-                           class="block w-full text-center bg-yellow-500 hover:bg-yellow-600 text-white rounded-xl py-2">
+                            class="block w-full text-center bg-yellow-500 hover:bg-yellow-600 text-white rounded-xl py-2">
                             Edit Customer
                         </a>
                     </div>

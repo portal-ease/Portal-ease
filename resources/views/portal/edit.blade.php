@@ -11,24 +11,26 @@
                     {{-- Portal Name --}}
                     <div>
                         <label for="name" class="block font-medium text-gray-700">Portal Name</label>
-                        <input type="text" id="name" name="name" value="{{ old('name', $portal->name) }}" required
-                               class="w-full border border-gray-300 rounded-md p-2 mt-1 focus:ring focus:ring-blue-200"
-                               placeholder="Enter portal name" aria-label="Portal Name">
+                        <input type="text" id="name" name="name" value="{{ old('name', $portal->name) }}"
+                            required
+                            class="w-full border border-gray-300 rounded-md p-2 mt-1 focus:ring focus:ring-blue-200"
+                            placeholder="Enter portal name" aria-label="Portal Name">
                     </div>
 
                     {{-- Email Address --}}
                     <div>
                         <label for="email" class="block font-medium text-gray-700">Email Address</label>
-                        <input type="email" id="email" name="email" value="{{ old('email', $portal->email) }}" required
-                               class="w-full border border-gray-300 rounded-md p-2 mt-1 focus:ring focus:ring-blue-200"
-                               placeholder="Enter email address" aria-label="Email Address">
+                        <input type="email" id="email" name="email" value="{{ old('email', $portal->email) }}"
+                            required
+                            class="w-full border border-gray-300 rounded-md p-2 mt-1 focus:ring focus:ring-blue-200"
+                            placeholder="Enter email address" aria-label="Email Address">
                     </div>
                     {{-- Branding Color --}}
                     <div>
                         <label for="branding" class="block font-medium text-gray-700">Branding Colour</label>
                         <select id="branding" name="branding_color" required
-                                class="w-full border border-gray-300 rounded-md p-2 mt-1 focus:ring focus:ring-blue-200"
-                                onchange="updateColorPreview(this.value)" aria-label="Branding Color">
+                            class="w-full border border-gray-300 rounded-md p-2 mt-1 focus:ring focus:ring-blue-200"
+                            onchange="updateColorPreview(this.value)" aria-label="Branding Color">
                             <option value="">Select a color</option>
                             <option value="#FF5733" {{ $portal->branding_color === '#FF5733' ? 'selected' : '' }}>Red
                             </option>
@@ -43,7 +45,7 @@
                         </select>
 
                         <div id="colorPreview" class="w-full h-10 mt-2 rounded-md border border-gray-300"
-                             style="background-color: {{ $portal->branding_color ?? 'transparent' }};">
+                            style="background-color: {{ $portal->branding_color ?? 'transparent' }};">
                         </div>
                     </div>
                     <input type="hidden" name="branding_color" value="{{ $portal->branding_color }}">
@@ -51,7 +53,7 @@
 
                 {{-- Submit Button --}}
                 <button type="submit"
-                        class="w-full bg-green-500 hover:bg-green-600 text-white rounded-xl p-3 transition">
+                    class="w-full bg-green-500 hover:bg-green-600 text-white rounded-xl p-3 transition">
                     Update Portal
                 </button>
             </form>
@@ -66,7 +68,7 @@
     </div>
     {{-- JavaScript for live color preview --}}
     <script>
-        document.addEventListener('DOMContentLoaded', function () {
+        document.addEventListener('DOMContentLoaded', function() {
             const colorSelect = document.getElementById('branding');
             updateColorPreview(colorSelect.value); // Set preview on load
         });

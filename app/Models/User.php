@@ -4,16 +4,18 @@ namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
 use App\Observers\NewUserInPortal;
+use Database\Factories\UserFactory;
 use Illuminate\Database\Eloquent\Attributes\ObservedBy;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Spatie\Permission\Traits\HasRoles;
+
 #[ObservedBy([NewUserInPortal::class])]
 class User extends Authenticatable
 {
-    /** @use HasFactory<\Database\Factories\UserFactory> */
-    use HasFactory, Notifiable, HasRoles;
+    /** @use HasFactory<UserFactory> */
+    use HasFactory, HasRoles, Notifiable;
 
     /**
      * The attributes that are mass assignable.
@@ -49,18 +51,22 @@ class User extends Authenticatable
             'password' => 'hashed',
         ];
     }
+
     public function portal()
     {
         return $this->belongsTo(Portal::class);
     }
+
     public function invoices()
     {
         return $this->hasMany(Invoice::class);
     }
+
     public function files()
     {
         return $this->belongsToMany(File::class, 'file_user');
     }
+
     public function conversations()
     {
         return $this->belongsToMany(Conversation::class, 'conversation_user');

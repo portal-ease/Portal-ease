@@ -14,7 +14,9 @@ class ChatWindow extends Component
     private ChatService $chatService;
 
     public ?Conversation $conversation = null;
+
     public $otherUsers = [];
+
     public ?Portal $portal = null;
 
     public Collection $messages;
@@ -22,7 +24,7 @@ class ChatWindow extends Component
     public string $input;
 
     protected $listeners = [
-        'conversationSelected' => 'loadConversation'
+        'conversationSelected' => 'loadConversation',
     ];
 
     public function boot(ChatService $chatService): void

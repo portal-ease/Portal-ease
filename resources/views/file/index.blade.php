@@ -3,9 +3,9 @@
         <h2 class="text-lg font-semibold text-gray-800 mb-2">Shared Documents:</h2>
 
         @forelse($user->files as $file)
-            @if(!$file->visibility)
+            @if (!$file->visibility)
                 <a href="{{ route('portal.file.show', ['file' => $file, 'portal' => $portal]) }}"
-                   class="bg-white rounded-xl shadow-md p-5 hover:shadow-lg transition flex flex-col sm:flex-row sm:items-center justify-between gap-2">
+                    class="bg-white rounded-xl shadow-md p-5 hover:shadow-lg transition flex flex-col sm:flex-row sm:items-center justify-between gap-2">
                     <div class="flex flex-col">
                         <span class="text-md font-medium text-gray-800">{{ $file->filename }}</span>
                         <span class="text-sm text-gray-500">Shared with you</span>

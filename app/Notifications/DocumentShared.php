@@ -3,7 +3,6 @@
 namespace App\Notifications;
 
 use Illuminate\Bus\Queueable;
-use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Notification;
 
@@ -15,7 +14,8 @@ class DocumentShared extends Notification
      * Create a new notification instance.
      */
     public string $message;
-    public function __construct(string $user , string $document)
+
+    public function __construct(string $user, string $document)
     {
         $this->message = "{$user} shared document {$document} with you!";
     }
