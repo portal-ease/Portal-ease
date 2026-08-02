@@ -55,7 +55,10 @@ Route::middleware('auth')->group(function () {
     Route::get('/email/verify/{id}/{hash}', function (EmailVerificationRequest $request) {
         $request->fulfill();
 
-        return redirect()->route('portal.index');
+        $portal = $request->user()->portal;
+        $user = $request->user();
+
+        return redirect()->route('portal.show', compact('portal', 'user'));
     })->middleware(['signed'])->name('verification.verify');
 
     // Resend verification email
