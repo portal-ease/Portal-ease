@@ -152,6 +152,8 @@ class PortalController extends Controller
 
     public function verify(Portal $portal)
     {
+        Auth::user()->sendEmailVerificationNotification();
+
         return view('portal.verify', compact('portal'));
     }
 }

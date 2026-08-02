@@ -7,6 +7,8 @@ use App\Http\Controllers\InvoiceController;
 use App\Http\Controllers\PortalController;
 use App\Http\Controllers\ProjectController;
 use App\Http\Controllers\UserController;
+use Illuminate\Foundation\Auth\EmailVerificationRequest;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -41,3 +43,25 @@ Route::middleware(['auth', 'verified'])->group(function () {
 // auth routes
 Route::post('/login/request', [AuthenticatedController::class, 'store'])->name('login.request');
 Route::get('/logout/request', [AuthenticatedController::class, 'destroy'])->name('logout.request');
+
+Route::middleware('auth')->group(function () {
+
+    // Show the "Please verify your email" page
+    Route::get('/email/verify', function () {
+        return view('portal.verify');
+    })->name('verification.notice');
+
+    // Handle the verification link
+    Route::get('/email/verify/{id}/{hash}', function (EmailVerificationRequest $request) {
+        $request->fulfill();
+
+        return redirect()->route('portal.index');
+    })->middleware(['signed'])->name('verification.verify');
+
+    // Resend verification email
+    Route::post('/email/verification-notification', function (Request $request) {
+        $request->user()->sendEmailVerificationNotification();
+
+        return back()->with('status', 'verification-link-sent');
+    })->middleware(['throttle:6,1'])->name('verification.send');
+});
