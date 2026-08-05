@@ -26,7 +26,7 @@
                     <a href="{{ route('portal.user.index', $portal) }}"
                         class="bg-white rounded-xl shadow-md p-5 hover:shadow-lg transition flex items-center gap-3">
                         <x-heroicon-o-user-group class="w-6 h-6 text-blue-500" />
-                        <h2 class="text-lg font-semibold text-gray-700">Customers: {{ count($portal->users) - 1 }}</h2>
+                        <h2 class="text-lg font-semibold text-gray-700">Portal Users: {{ count($portal->users) - 1 }}</h2>
                     </a>
 
                     <!-- Projects -->

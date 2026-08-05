@@ -7,6 +7,7 @@ use App\Http\Controllers\InvoiceController;
 use App\Http\Controllers\PortalController;
 use App\Http\Controllers\ProjectController;
 use App\Http\Controllers\UserController;
+use App\Notifications\EmailVerified;
 use Illuminate\Foundation\Auth\EmailVerificationRequest;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -57,6 +58,8 @@ Route::middleware('auth')->group(function () {
 
         $portal = $request->user()->portal;
         $user = $request->user();
+
+        $user->notify(new EmailVerified($user));
 
         return redirect()->route('portal.show', compact('portal', 'user'));
     })->middleware(['signed'])->name('verification.verify');
