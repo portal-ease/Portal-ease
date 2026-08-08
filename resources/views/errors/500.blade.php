@@ -14,7 +14,7 @@
 
 <body class="min-h-screen bg-gray-50 flex items-center justify-center px-6">
 
-    <div class="max-w-xl text-center">
+    <div class="flex flex-col max-w-xl text-center items-center">
 
         <img src="{{ asset('portalEaseLogo.png') }}" class="w-16" alt="logo">
 
@@ -38,7 +38,7 @@
             </a>
 
             <button onclick="location.reload()"
-                class="rounded-lg border border-gray-300 bg-white px-5 py-3 font-medium text-gray-700 transition hover:bg-gray-50">
+                class="rounded-lg border border-gray-300 bg-white px-5 py-3 font-medium text-gray-700 transition hover:bg-gray-50 cursor-pointer">
                 Try again
             </button>
         </div>
