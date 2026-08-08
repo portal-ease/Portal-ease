@@ -94,6 +94,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
     // File routes
     //
     Route::get('/portal/{portal}/file', [FileController::class, 'index'])->name('portal.file.index');
+    Route::get('/portal/{portal}/file/{file}', [FileController::class, 'show'])->name('portal.file.show');
 
     //
     // Extra routes
