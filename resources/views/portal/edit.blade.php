@@ -25,30 +25,28 @@
                             class="w-full border border-gray-300 rounded-md p-2 mt-1 focus:ring focus:ring-blue-200"
                             placeholder="Enter email address" aria-label="Email Address">
                     </div>
-                    {{-- Branding Color --}}
                     <div>
-                        <label for="branding" class="block font-medium text-gray-700">Branding Colour</label>
-                        <select id="branding" name="branding_color" required
-                            class="w-full border border-gray-300 rounded-md p-2 mt-1 focus:ring focus:ring-blue-200"
-                            onchange="updateColorPreview(this.value)" aria-label="Branding Color">
-                            <option value="">Select a color</option>
-                            <option value="#FF5733" {{ $portal->branding_color === '#FF5733' ? 'selected' : '' }}>Red
-                            </option>
-                            <option value="#33C1FF" {{ $portal->branding_color === '#33C1FF' ? 'selected' : '' }}>Blue
-                            </option>
-                            <option value="#28A745" {{ $portal->branding_color === '#28A745' ? 'selected' : '' }}>Green
-                            </option>
-                            <option value="#FFC107" {{ $portal->branding_color === '#FFC107' ? 'selected' : '' }}>Yellow
-                            </option>
-                            <option value="#6F42C1" {{ $portal->branding_color === '#6F42C1' ? 'selected' : '' }}>Purple
-                            </option>
-                        </select>
-
-                        <div id="colorPreview" class="w-full h-10 mt-2 rounded-md border border-gray-300"
-                            style="background-color: {{ $portal->branding_color ?? 'transparent' }};">
+                        <label for="branding" class="block font-medium text-gray-700 mb-1">
+                            Branding Colour
+                        </label>
+                        <div class="flex items-center gap-3">
+                            <button
+                                type="button"
+                                id="color-picker"
+                                class="w-10 h-10 rounded-lg border border-gray-300 shadow-sm"
+                                aria-label="Choose branding colour">
+                            </button>
+                            <input
+                                type="text"
+                                id="branding"
+                                name="branding_color"
+                                value="{{ old('branding_color', $portal->branding_color ?? '#3B82F6') }}"
+                                required
+                                readonly
+                                class="flex-1 border border-gray-300 rounded-md p-2 focus:ring focus:ring-blue-200"
+                            >
                         </div>
                     </div>
-                </div>
 
                 {{-- Submit Button --}}
                 <button type="submit"
@@ -65,16 +63,4 @@
             </form>
         </div>
     </div>
-    {{-- JavaScript for live color preview --}}
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            const colorSelect = document.getElementById('branding');
-            updateColorPreview(colorSelect.value); // Set preview on load
-        });
-
-        function updateColorPreview(color) {
-            const previewBox = document.getElementById('colorPreview');
-            previewBox.style.backgroundColor = color || 'transparent';
-        }
-    </script>
 </x-app-layout>
