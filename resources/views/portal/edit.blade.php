@@ -30,29 +30,22 @@
                             Branding Colour
                         </label>
                         <div class="flex items-center gap-3">
-                            <button
-                                type="button"
-                                id="color-picker"
+                            <button type="button" id="color-picker"
                                 class="w-10 h-10 rounded-lg border border-gray-300 shadow-sm"
                                 aria-label="Choose branding colour">
                             </button>
-                            <input
-                                type="text"
-                                id="branding"
-                                name="branding_color"
-                                value="{{ old('branding_color', $portal->branding_color ?? '#3B82F6') }}"
-                                required
+                            <input type="text" id="branding" name="branding_color"
+                                value="{{ old('branding_color', $portal->branding_color ?? '#3B82F6') }}" required
                                 readonly
-                                class="flex-1 border border-gray-300 rounded-md p-2 focus:ring focus:ring-blue-200"
-                            >
+                                class="flex-1 border border-gray-300 rounded-md p-2 focus:ring focus:ring-blue-200">
                         </div>
                     </div>
 
-                {{-- Submit Button --}}
-                <button type="submit"
-                    class="w-full bg-green-500 hover:bg-green-600 text-white rounded-xl p-3 transition">
-                    Update Portal
-                </button>
+                    {{-- Submit Button --}}
+                    <button type="submit"
+                        class="w-full bg-green-500 hover:bg-green-600 text-white rounded-xl p-3 transition">
+                        Update Portal
+                    </button>
             </form>
             <form method="POST" action="{{ route('portal.destroy', $portal) }}">
                 @csrf
