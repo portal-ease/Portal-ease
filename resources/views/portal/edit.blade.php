@@ -48,7 +48,6 @@
                             style="background-color: {{ $portal->branding_color ?? 'transparent' }};">
                         </div>
                     </div>
-                    <input type="hidden" name="branding_color" value="{{ $portal->branding_color }}">
                 </div>
 
                 {{-- Submit Button --}}
