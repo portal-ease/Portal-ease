@@ -27,7 +27,7 @@
                         Pay Invoice
                     </button>
                 </form>
-                <a href="{{ route('portal.invoice.download', $invoice) }}"
+                <a href="{{ route('portal.invoice.download', ['portal' => $portal, 'invoice' => $invoice]) }}"
                     class="bg-green-500 hover:bg-green-600 text-white py-3 rounded-xl">
                     Download Invoice
                 </a>
@@ -55,7 +55,7 @@
         <!-- Action Buttons -->
         @if ($user->hasRole('service_provider'))
             <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 text-center">
-                <a href="{{ route('portal.invoice.download', $invoice) }}"
+                <a href="{{ route('portal.invoice.download', ['portal' => $portal, 'invoice' => $invoice]) }}"
                     class="bg-green-500 hover:bg-green-600 text-white py-3 rounded-xl">
                     Download Invoice
                 </a>

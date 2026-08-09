@@ -92,7 +92,7 @@ class FileController extends Controller
         //
     }
 
-    public function download(File $file)
+    public function download(Portal $portal, File $file)
     {
         return response($file->content)->header('Content-Type', $file->mime_type)
             ->header('Content-Disposition', 'attachment; filename="'.$file->filename.'"');

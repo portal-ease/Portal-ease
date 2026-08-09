@@ -23,13 +23,13 @@ Route::get('/about', function () {
 })->name('about');
 
 // Resources
-include './resources/auth.php';
-include './resources/conversation.php';
-include './resources/file.php';
-include './resources/invoice.php';
-include './resources/portal.php';
-include './resources/project.php';
-include './resources/user.php';
+require __DIR__.'/resources/auth.php';
+require __DIR__.'/resources/conversation.php';
+require __DIR__.'/resources/file.php';
+require __DIR__.'/resources/invoice.php';
+require __DIR__.'/resources/portal.php';
+require __DIR__.'/resources/project.php';
+require __DIR__.'/resources/user.php';
 
 /** @todo this will be replaced with controllers/service way */
 Route::middleware('auth')->group(function () {

@@ -12,6 +12,6 @@ Route::middleware(['auth', 'verified'])->group(function () {
         Route::delete('/portal/{portal}/invoice/{invoice}', [InvoiceController::class, 'destroy'])->name('portal.invoice.destroy');
     });
     Route::get('/portal/{portal}/invoice/{invoice}', [InvoiceController::class, 'show'])->name('portal.invoice.show');
-    Route::get('/portal/{invoice}/download', [InvoiceController::class, 'download'])->name('portal.invoice.download');
-    Route::patch('/{portal}/{invoice}/payment', [InvoiceController::class, 'payment'])->name('portal.invoice.payment');
+    Route::get('/portal/{portal}/invoice/{invoice}/download', [InvoiceController::class, 'download'])->name('portal.invoice.download');
+    Route::patch('/portal/{portal}/invoice/{invoice}/payment', [InvoiceController::class, 'payment'])->name('portal.invoice.payment');
 });
