@@ -5,7 +5,7 @@ use Illuminate\Foundation\Auth\EmailVerificationRequest;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
-//Website
+// Website
 Route::get('/', function () {
     return view('welcome');
 })->name('welcome');
@@ -22,7 +22,7 @@ Route::get('/about', function () {
     return view('about');
 })->name('about');
 
-//Resources
+// Resources
 include './resources/auth.php';
 include './resources/conversation.php';
 include './resources/file.php';
