@@ -115,7 +115,7 @@ class InvoiceController extends Controller
         return view('portal.show', compact('portal', 'user'));
     }
 
-    public function download(Invoice $invoice)
+    public function download(Portal $portal, Invoice $invoice)
     {
         return response($invoice->file->content)->header('Content-Type', $invoice->file->mime_type)
             ->header('Content-Disposition', 'attachment; filename="'.$invoice->file->filename.'"');
