@@ -21,7 +21,7 @@
                     class="w-full border border-gray-300 rounded-md p-2 mt-1 focus:ring focus:ring-blue-200">
             </div>
 
-            @if ($user->hasRole('service_provider'))
+            @if (auth()->user()->hasRole('service_provider') || auth()->user()->hasRole('admin'))
                 <div>
                     <label for="role" class="block font-medium text-gray-700">Role</label>
                     <select name="role" id="role"
