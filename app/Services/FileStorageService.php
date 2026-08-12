@@ -5,7 +5,6 @@ namespace App\Services;
 use App\Models\File;
 use App\Models\Portal;
 use App\Models\User;
-use Exception;
 use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\Storage;
 use Symfony\Component\HttpFoundation\StreamedResponse;
@@ -71,43 +70,46 @@ class FileStorageService
      * @param Portal $portal
      * @return string|null
      */
-    public function portalLogoUrl(Portal $portal): string | null
+    public function portalLogoUrl(Portal $portal): ?string
     {
-        $logoPath = null;
+        foreach (['jpg', 'png', 'jpeg'] as $extension) {
+            $path = "profile-pictures/{$portal->name}.{$extension}";
 
-        if (Storage::disk('public')->exists('profile-pictures/' . $portal->name . '.jpg')) {
-            $logoPath = Storage::url('profile-pictures/' . $portal->name . '.jpg');
-        } elseif (Storage::disk('public')->exists('profile-pictures/' . $portal->name . '.png')) {
-            $logoPath = Storage::url('profile-pictures/' . $portal->name . '.png');
+            if (Storage::disk(config('filesystems.default'))->exists($path)) {
+                return Storage::disk(config('filesystems.default'))->url($path);
+            }
         }
 
-        return $logoPath;
+        return null;
     }
 
     /**
      * Rename the portal logo
-     * @param Portal $portal
+     * @param string $oldPortalName
+     * @param string $newPortalName
      * @return void
      */
-    public function renamePortalLogo(Portal $portal): void
+    public function renamePortalLogo(string $oldPortalName, string $newPortalName): void
     {
         $directory = 'profile-pictures';
-        $newFileName = "{$portal->name}.jpg";
 
-        foreach (['jpg', 'png'] as $extension) {
-            $oldPath = "{$directory}/{$portal->name}.{$extension}";
+        foreach (['jpg', 'png', 'jpeg'] as $extension) {
+            $oldPath = "{$directory}/{$oldPortalName}.{$extension}";
 
-            if (!Storage::disk('public')->exists($oldPath)) {
+            if (!Storage::disk(config('filesystems.default'))->exists($oldPath)) {
                 continue;
             }
 
-            Storage::disk('public')->move(
-                $oldPath,
-                "{$directory}/{$newFileName}"
-            );
+            $newFileName = "{$newPortalName}.{$extension}";
+            $newPath = "{$directory}/{$newFileName}";
+
+            Storage::disk(config('filesystems.default'))->move($oldPath, $newPath);
 
             File::where('filename', basename($oldPath))
-                ->update(['filename' => $newFileName]);
+                ->update([
+                    'filename' => $newFileName,
+                    'path' => $newPath,
+                ]);
 
             break;
         }
@@ -120,6 +122,8 @@ class FileStorageService
      */
     public function delete(File $file): void
     {
+        Storage::disk(config('filesystems.default'))->delete($file->path);
+
         $file->delete();
     }
 
@@ -129,22 +133,15 @@ class FileStorageService
      * @param string $mimeType
      * @param string $path
      * @param bool $visibility
-     * @return File|string
+     * @return File
      */
-    private function createFile(string $filename, string $mimeType, string $path, bool $visibility): File| string
+    private function createFile(string $filename, string $mimeType, string $path, bool $visibility): File
     {
-        try {
-            $file = File::create([
+        return File::create([
                 'filename' => $filename,
                 'mime_type' => $mimeType,
                 'path' => $path,
                 'visibility' => $visibility,
             ]);
-        }
-        catch (Exception $exception){
-            return $exception->getMessage();
-        }
-
-        return $file;
     }
 }
