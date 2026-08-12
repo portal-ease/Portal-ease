@@ -6,11 +6,19 @@ use App\Models\Conversation;
 use App\Models\File;
 use App\Models\Portal;
 use App\Models\User;
+use App\Services\FileStorageService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
 class UserController extends Controller
 {
+    private FileStorageService $fileStorageService;
+
+    public function __construct(FileStorageService $fileStorageService)
+    {
+        $this->fileStorageService = $fileStorageService;
+    }
+
     /**
      * Display a listing of the resource.
      */
@@ -70,7 +78,9 @@ class UserController extends Controller
      */
     public function edit(Portal $portal, User $user)
     {
-        return view('user.edit', compact('user', 'portal'));
+        $file = File::where('filename', $user->name.$user->id.'.jpg')->first();
+
+        return view('user.edit', compact('user', 'portal', 'file'));
     }
 
     /**
@@ -115,15 +125,8 @@ class UserController extends Controller
         $request->validate([
             'file' => 'required|image',
         ]);
-        $file = $request->file('file');
-        $filename = $user->name.$user->id.'.'.$file->getClientOriginalExtension();
-        $path = $file->storeAs('profile-pictures', $filename, 'public');
-        File::create([
-            'filename' => $filename,
-            'mime_type' => $request->file('file')->getClientMimeType(),
-            'path' => $path,
-            'visibility' => true,
-        ]);
+
+        $this->fileStorageService->storeUserProfilePicture($user, $request->file('file'));
 
         return redirect()->back();
     }

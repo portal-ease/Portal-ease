@@ -2,15 +2,22 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\File;
 use App\Models\Portal;
 use App\Models\User;
+use App\Services\FileStorageService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 
 class PortalController extends Controller
 {
+    private FileStorageService $storageService;
+
+    public function __construct(FileStorageService $storageService)
+    {
+        $this->storageService = $storageService;
+    }
+
     /**
      * Display a listing of the resource.
      */
@@ -51,15 +58,9 @@ class PortalController extends Controller
             'password' => bcrypt($request->get('password')),
             'portal_id' => $portal->id,
         ]);
-        $file = $request->file('logo');
-        $filename = $portal->name.'.'.$file->getClientOriginalExtension();
-        $path = $file->storeAs('profile-pictures', $filename, 'public');
-        File::create([
-            'filename' => $filename,
-            'mime_type' => $request->file('logo')->getClientMimeType(),
-            'path' => $path,
-            'visibility' => true,
-        ]);
+
+        $this->storageService->storePortalLogo($request->file('logo'), $portal->name);
+
         $user->assignRole('service_provider');
         $user->assignRole('admin');
         Auth::login($user);
@@ -103,37 +104,7 @@ class PortalController extends Controller
             'branding_color' => 'required',
         ]);
 
-        $extensions = ['jpg', 'png'];
-        $oldFileName = null;
-
-        // Detect existing file
-        foreach ($extensions as $ext) {
-            $filePath = "profile-pictures/{$portal->name}.{$ext}";
-            if (Storage::disk('public')->exists($filePath)) {
-                $oldFileName = "{$portal->name}.{$ext}";
-                break;
-            }
-        }
-
-        $newFileName = $request->name.'.jpg'; // Always rename to jpg
-
-        // Move file if found
-        if ($oldFileName) {
-            Storage::disk('public')->move(
-                "profile-pictures/{$oldFileName}",
-                "profile-pictures/{$newFileName}"
-            );
-        }
-
-        // Update file record
-        $file = File::whereIn('filename', [
-            "{$portal->name}.jpg",
-            "{$portal->name}.png",
-        ])->first();
-
-        if ($file) {
-            $file->update(['filename' => $newFileName]);
-        }
+        $this->storageService->renamePortalLogo($portal->name, $request->input('name'));
 
         $portal->update($request->all());
 

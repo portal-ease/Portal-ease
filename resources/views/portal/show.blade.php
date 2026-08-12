@@ -1,16 +1,11 @@
-@php use Illuminate\Support\Facades\Storage; @endphp
+@php
+    use App\Services\FileStorageService;
+
+    $logoPath = app(FileStorageService::class)->portalLogoUrl($portal);
+    $logoSrc = $logoPath ?? asset('portalEaseLogo.png');
+@endphp
 @if (\Illuminate\Support\Facades\Auth::user() && \Illuminate\Support\Facades\Auth::user()->portal == $portal)
     <x-app-layout :portal="$portal">
-        @php
-            $logoPath = null;
-
-            if (Storage::disk('public')->exists('profile-pictures/' . $portal->name . '.jpg')) {
-                $logoPath = Storage::url('profile-pictures/' . $portal->name . '.jpg');
-            } elseif (Storage::disk('public')->exists('profile-pictures/' . $portal->name . '.png')) {
-                $logoPath = Storage::url('profile-pictures/' . $portal->name . '.png');
-            }
-        @endphp
-
         <div class="max-w-4xl mx-auto w-full px-4 sm:px-6 lg:px-0">
             @if (\Illuminate\Support\Facades\Auth::user()->hasRole('service_provider'))
                 @if (\Illuminate\Support\Facades\Auth::user()->email_verified_at == null)
@@ -41,7 +36,7 @@
                 <!-- Welcome Card -->
                 <div class=" rounded-xl shadow-lg p-6 flex items-center gap-6 mt-4 text-white"
                     style="background-color: {{ $portal->branding_color }}">
-                    <img src="{{ $logoPath }}" alt="{{ $portal->name }}"
+                    <img src="{{ $logoSrc }}" alt="{{ $portal->name }}"
                         class="w-20 h-20 rounded-full bg-white p-2">
                     <h1 class="text-3xl font-bold">Welcome to {{ $portal->name }}</h1>
                 </div>
@@ -76,22 +71,12 @@
     </x-app-layout>
 @else
     <x-guestLayout>
-        @php
-            $logoPath = null;
-
-            if (Storage::disk('public')->exists('profile-pictures/' . $portal->name . '.jpg')) {
-                $logoPath = Storage::url('profile-pictures/' . $portal->name . '.jpg');
-            } elseif (Storage::disk('public')->exists('profile-pictures/' . $portal->name . '.png')) {
-                $logoPath = Storage::url('profile-pictures/' . $portal->name . '.png');
-            }
-        @endphp
 
         <!-- Login Card -->
         <div class="max-w-md mx-auto bg-white shadow-2xl rounded-2xl p-10 space-y-8 mt-12 mb-12">
             <!-- Logo -->
             <div class="flex justify-center">
-                <img src="{{ $logoPath ?? asset('portalEaseLogo.png') }}" alt="{{ $portal->name ?? 'logo' }}"
-                    class="max-h-14">
+                <img src="{{ $logoSrc }}" alt="{{ $portal->name ?? 'logo' }}" class="max-h-14">
             </div>
 
             <!-- Title -->
