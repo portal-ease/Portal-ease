@@ -70,6 +70,24 @@ class FileStorageService
     }
 
     /**
+     * Find the logo url of the given user
+     * @param User $user
+     * @return string|null
+     */
+    public function userProfilePicture(User $user): ?string
+    {
+        foreach (['jpg', 'png', 'jpeg'] as $extension) {
+            $path = "profile-pictures/{$user->name}{$user->id}.{$extension}";
+
+            if (Storage::disk('public')->exists($path)) {
+                return Storage::disk('public')->url($path);
+            }
+        }
+
+        return null;
+    }
+
+    /**
      * Rename the portal logo
      */
     public function renamePortalLogo(string $oldPortalName, string $newPortalName): void

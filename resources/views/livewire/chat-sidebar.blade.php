@@ -1,3 +1,4 @@
+@php use App\Services\FileStorageService @endphp
 <div class="w-80 text-white flex flex-col h-screen border-r-3 solid border-white overflow-hidden"
     style="background-color: {{ $portal->branding_color }}">
     <div class="flex flex-row gap-3 justify-between mt-8">
@@ -18,10 +19,13 @@
                         @continue
                     @endif
                 @endif
+            @php
+            $logoPath = app(FileStorageService::class)->userProfilePicture($user);
+            @endphp
                 <div wire:click="conversationSelected({{ $conversation }})" wire:navigate.hover
                     class="flex items-center bg-black/20 hover:bg-black/30 rounded-xl p-3 cursor-pointer transition relative">
                     <!-- Avatar -->
-                    <img src="{{ $user->avatar ?? 'https://ui-avatars.com/api/?name=' . urlencode($user->name) }}"
+                    <img src="{{ $logoPath ?? 'https://ui-avatars.com/api/?name=' . urlencode($user->name) }}"
                         alt="Avatar" class="h-10 w-10 rounded-full object-cover border-2 border-[#007bff]">
 
                     <!-- Info -->

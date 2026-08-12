@@ -1,3 +1,4 @@
+@php use App\Services\FileStorageService; @endphp
 <x-app-layout :portal="$portal">
     <div class="max-w-4xl mx-auto grid grid-cols-1 items-center gap-6 p-4">
 
@@ -66,13 +67,9 @@
             <div class="flex flex-row items-center gap-4">
                 <h2>Current profile picture</h2>
                 @php
-                    $file = \App\Models\File::where('filename', $user->name . $user->id . '.jpg')->first();
+                    $logoPath = app(FileStorageService::class)->userProfilePicture($user);
                 @endphp
-                @if ($file)
-                    <img src="{{ $file->url }}" alt="{{ $file->filename }}" class="w-12">
-                @else
-                    <img src="{{ asset('anonymous_picture.jpg') }}" alt="{{ $user->name }}" class="w-12">
-                @endif
+                <img src="{{ $logoPath ?? asset('anonymous_picture.jpg') }}" alt="{{ $user->name }}" class="w-12">
             </div>
             <form action="{{ route('portal.user.profile', ['portal' => $portal, 'user' => $user]) }}" method="POST"
                 enctype="multipart/form-data" class="space-y-6">
