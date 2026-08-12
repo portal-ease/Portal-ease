@@ -22,7 +22,7 @@
         @vite(['resources/css/app.css', 'resources/js/app.js'])
     @endif
 
-    <link rel="icon" type="image/png" href="{{ $logoPath ?? asset('default_icon.jpg') }}">
+    <link rel="icon" type="image" href="{{ $logoPath ?? asset('portalEaseLogo.png') }}">
 </head>
 
 <body class="bg-gray-100 text-[#1b1b18] min-h-screen flex font-sans">
