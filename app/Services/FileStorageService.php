@@ -22,25 +22,13 @@ class FileStorageService
     {
         $path = $upload->store('files');
 
-        try {
-            $file = File::create([
-                'filename' => $upload->getClientOriginalName(),
-                'mime_type' => $upload->getClientMimeType(),
-                'path' => $path,
-                'visibility' => $visibility,
-            ]);
-        }
-        catch (Exception $exception){
-            return $exception->getMessage();
-        }
-
-        return $file;
+        return $this->createFile($upload->getClientOriginalName(),
+            $upload->getClientMimeType(), $path, $visibility);
     }
 
     /**
      * Store a portal logo in the service
      * @param UploadedFile $image
-     * @param User $user
      * @param string $portalName
      * @return File|string
      */
@@ -49,19 +37,8 @@ class FileStorageService
         $filename = $portalName.'.'.$image->getClientOriginalExtension();
         $path = $image->storeAs('profile-pictures', $filename, 'public');
 
-        try {
-            $file = File::create([
-                'filename' => $filename,
-                'mime_type' => $image->getClientMimeType(),
-                'path' => $path,
-                'visibility' => true,
-            ]);
-        }
-        catch (Exception $exception){
-            return $exception->getMessage();
-        }
-
-        return $file;
+        return $this->createFile($filename,
+            $image->getClientMimeType(), $path, true);
     }
 
     /**
@@ -75,19 +52,8 @@ class FileStorageService
         $filename = $user->name.$user->id.'.'.$upload->getClientOriginalExtension();
         $path = $upload->storeAs('profile-pictures', $filename, 'public');
 
-        try {
-            $file = File::create([
-                'filename' => $filename,
-                'mime_type' => $upload->getClientMimeType(),
-                'path' => $path,
-                'visibility' => true,
-            ]);
-        }
-        catch (Exception $exception){
-            return $exception->getMessage();
-        }
-
-        return $file;
+        return $this->createFile($filename,
+            $upload->getClientMimeType(), $path, true);
     }
 
     /**
@@ -167,5 +133,22 @@ class FileStorageService
     public function delete(File $file): void
     {
         $file->delete();
+    }
+
+    private function createFile(string $filename, string $mimeType, string $path, bool $visibility): File| string
+    {
+        try {
+            $file = File::create([
+                'filename' => $filename,
+                'mime_type' => $mimeType,
+                'path' => $path,
+                'visibility' => $visibility,
+            ]);
+        }
+        catch (Exception $exception){
+            return $exception->getMessage();
+        }
+
+        return $file;
     }
 }
