@@ -8,6 +8,7 @@ use App\Models\User;
 use App\Notifications\DocumentShared;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
 
 class FileController extends Controller
 {
@@ -94,7 +95,6 @@ class FileController extends Controller
 
     public function download(Portal $portal, File $file)
     {
-        return response($file->content)->header('Content-Type', $file->mime_type)
-            ->header('Content-Disposition', 'attachment; filename="'.$file->filename.'"');
+        return Storage::download($file->path, $file->filename);
     }
 }
