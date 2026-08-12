@@ -1,4 +1,4 @@
-<x-applayout :portal="$portal">
+<x-app-layout :portal="$portal">
     <div class="max-w-xl mx-auto bg-white shadow-2xl rounded-2xl p-10 space-y-8">
         <h2 class="text-3xl font-bold text-center text-gray-800">Start New Project</h2>
 
@@ -47,4 +47,4 @@
             </div>
         </form>
     </div>
-</x-applayout>
+</x-app-layout>
