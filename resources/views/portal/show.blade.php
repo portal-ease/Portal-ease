@@ -1,15 +1,11 @@
-@php use Illuminate\Support\Facades\Storage; @endphp
+@php
+    use App\Services\FileStorageService;
+
+    $logoPath = app(FileStorageService::class)->portalLogoUrl($portal);
+@endphp
+
 @if (\Illuminate\Support\Facades\Auth::user() && \Illuminate\Support\Facades\Auth::user()->portal == $portal)
     <x-app-layout :portal="$portal">
-        @php
-            $logoPath = null;
-
-            if (Storage::disk('public')->exists('profile-pictures/' . $portal->name . '.jpg')) {
-                $logoPath = Storage::url('profile-pictures/' . $portal->name . '.jpg');
-            } elseif (Storage::disk('public')->exists('profile-pictures/' . $portal->name . '.png')) {
-                $logoPath = Storage::url('profile-pictures/' . $portal->name . '.png');
-            }
-        @endphp
 
         <div class="max-w-4xl mx-auto w-full px-4 sm:px-6 lg:px-0">
             @if (\Illuminate\Support\Facades\Auth::user()->hasRole('service_provider'))
@@ -76,15 +72,6 @@
     </x-app-layout>
 @else
     <x-guestLayout>
-        @php
-            $logoPath = null;
-
-            if (Storage::disk('public')->exists('profile-pictures/' . $portal->name . '.jpg')) {
-                $logoPath = Storage::url('profile-pictures/' . $portal->name . '.jpg');
-            } elseif (Storage::disk('public')->exists('profile-pictures/' . $portal->name . '.png')) {
-                $logoPath = Storage::url('profile-pictures/' . $portal->name . '.png');
-            }
-        @endphp
 
         <!-- Login Card -->
         <div class="max-w-md mx-auto bg-white shadow-2xl rounded-2xl p-10 space-y-8 mt-12 mb-12">

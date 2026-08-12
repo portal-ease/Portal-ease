@@ -25,13 +25,12 @@ class FileStorageService
     /**
      * Store a portal logo in the service
      */
-    public function storePortalLogo(UploadedFile $image, string $portalName): File|string
+    public function storePortalLogo(UploadedFile $image, string $portalName): void
     {
         $filename = $portalName.'.'.$image->getClientOriginalExtension();
         $path = $image->storeAs('profile-pictures', $filename, 'public');
 
-        return $this->createFile($filename,
-            $image->getClientMimeType(), $path, true);
+        $this->createFile($filename, $image->getClientMimeType(), $path, true);
     }
 
     /**
@@ -62,8 +61,8 @@ class FileStorageService
         foreach (['jpg', 'png', 'jpeg'] as $extension) {
             $path = "profile-pictures/{$portal->name}.{$extension}";
 
-            if (Storage::disk(config('filesystems.default'))->exists($path)) {
-                return Storage::disk(config('filesystems.default'))->url($path);
+            if (Storage::disk('public')->exists($path)) {
+                return Storage::disk('public')->url($path);
             }
         }
 
@@ -80,14 +79,14 @@ class FileStorageService
         foreach (['jpg', 'png', 'jpeg'] as $extension) {
             $oldPath = "{$directory}/{$oldPortalName}.{$extension}";
 
-            if (! Storage::disk(config('filesystems.default'))->exists($oldPath)) {
+            if (! Storage::disk('public')->exists($oldPath)) {
                 continue;
             }
 
             $newFileName = "{$newPortalName}.{$extension}";
             $newPath = "{$directory}/{$newFileName}";
 
-            Storage::disk(config('filesystems.default'))->move($oldPath, $newPath);
+            Storage::disk('public')->move($oldPath, $newPath);
 
             File::where('filename', basename($oldPath))
                 ->update([
