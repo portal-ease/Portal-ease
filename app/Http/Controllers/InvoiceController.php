@@ -127,6 +127,6 @@ class InvoiceController extends Controller
             'price' => 0.00,
         ]);
 
-        return view('paymentSucceeded', compact('portal', 'invoice'));
+        return view('invoice.payment', compact('portal', 'invoice'));
     }
 }
