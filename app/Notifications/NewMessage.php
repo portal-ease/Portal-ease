@@ -2,6 +2,9 @@
 
 namespace App\Notifications;
 
+use App\Models\Conversation;
+use App\Models\Message;
+use App\Models\User;
 use Illuminate\Bus\Queueable;
 use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Notification;
@@ -10,15 +13,11 @@ class NewMessage extends Notification
 {
     use Queueable;
 
-    /**
-     * Create a new notification instance.
-     */
-    public string $message;
-
-    public function __construct(string $user)
-    {
-        $this->message = "You have a new message from {$user}";
-    }
+    public function __construct(
+        public User $sender,
+        public Conversation $conversation,
+        public Message $message,
+    ) {}
 
     /**
      * Get the notification's delivery channels.
@@ -27,7 +26,7 @@ class NewMessage extends Notification
      */
     public function via(object $notifiable): array
     {
-        return ['database'];
+        return ['database', 'mail'];
     }
 
     /**
@@ -36,20 +35,34 @@ class NewMessage extends Notification
     public function toMail(object $notifiable): MailMessage
     {
         return (new MailMessage)
-            ->line($this->message)
-            ->action('View Chat', url('/portal/'.$notifiable->portal_id.'/chat')) // optional
-            ->line('Thank you for using our app!');
+            ->subject('New message from '.$this->sender->name)
+            ->line($this->notificationMessage())
+            ->action('View Chat', $this->chatUrl($notifiable))
+            ->line('Thank you for using Portal Ease!');
     }
 
-    /**
-     * Get the array representation of the notification.
-     *
-     * @return array<string, mixed>
-     */
     public function toArray(object $notifiable): array
     {
         return [
-            'message' => $this->message,
+            'message' => $this->notificationMessage(),
+            'sender_id' => $this->sender->id,
+            'sender_name' => $this->sender->name,
+            'conversation_id' => $this->conversation->id,
+            'message_id' => $this->message->id,
+            'action_url' => $this->chatUrl($notifiable),
         ];
+    }
+
+    private function notificationMessage(): string
+    {
+        return "You have a new message from {$this->sender->name}.";
+    }
+
+    private function chatUrl(object $notifiable): string
+    {
+        return route('portal.user.chat', [
+            'portal' => $notifiable->portal,
+            'user' => $notifiable,
+        ]);
     }
 }

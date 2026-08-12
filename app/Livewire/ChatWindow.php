@@ -5,6 +5,7 @@ namespace App\Livewire;
 use App\Models\Conversation;
 use App\Models\Message;
 use App\Models\Portal;
+use App\Notifications\NewMessage;
 use App\Services\ChatService;
 use Illuminate\Support\Collection;
 use Livewire\Component;
@@ -58,11 +59,18 @@ class ChatWindow extends Component
 
     public function newMessage(): void
     {
-        Message::query()->create([
-            'sender_id' => auth()->id(),
+        $sender = auth()->user();
+
+        $message = Message::query()->create([
+            'sender_id' => $sender->id,
             'conversation_id' => $this->conversation->id,
             'message' => $this->input,
         ]);
+
+        $this->conversation->users()
+            ->whereKeyNot($sender->id)
+            ->get()
+            ->each(fn ($user) => $user->notify(new NewMessage($sender, $this->conversation, $message)));
 
         $this->loadConversation($this->conversation);
 
