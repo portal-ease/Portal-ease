@@ -13,11 +13,8 @@ class FileStorageService
 {
     /**
      * Store a document in the storage
-     * @param UploadedFile $upload
-     * @param bool $visibility
-     * @return File|string
      */
-    public function storeDocument(UploadedFile $upload, bool $visibility): File | string
+    public function storeDocument(UploadedFile $upload, bool $visibility): File|string
     {
         $path = $upload->store('files');
 
@@ -27,11 +24,8 @@ class FileStorageService
 
     /**
      * Store a portal logo in the service
-     * @param UploadedFile $image
-     * @param string $portalName
-     * @return File|string
      */
-    public function storePortalLogo(UploadedFile $image, string $portalName): File | string
+    public function storePortalLogo(UploadedFile $image, string $portalName): File|string
     {
         $filename = $portalName.'.'.$image->getClientOriginalExtension();
         $path = $image->storeAs('profile-pictures', $filename, 'public');
@@ -42,11 +36,8 @@ class FileStorageService
 
     /**
      * Store a user logo in the service
-     * @param User $user
-     * @param UploadedFile $upload
-     * @return File|string
      */
-    public function storeUserProfilePicture(User $user, UploadedFile $upload): File | string
+    public function storeUserProfilePicture(User $user, UploadedFile $upload): File|string
     {
         $filename = $user->name.$user->id.'.'.$upload->getClientOriginalExtension();
         $path = $upload->storeAs('profile-pictures', $filename, 'public');
@@ -57,8 +48,6 @@ class FileStorageService
 
     /**
      * Download a file or image
-     * @param File $file
-     * @return StreamedResponse
      */
     public function download(File $file): StreamedResponse
     {
@@ -67,8 +56,6 @@ class FileStorageService
 
     /**
      * Find the logo url of the given portal
-     * @param Portal $portal
-     * @return string|null
      */
     public function portalLogoUrl(Portal $portal): ?string
     {
@@ -85,9 +72,6 @@ class FileStorageService
 
     /**
      * Rename the portal logo
-     * @param string $oldPortalName
-     * @param string $newPortalName
-     * @return void
      */
     public function renamePortalLogo(string $oldPortalName, string $newPortalName): void
     {
@@ -96,7 +80,7 @@ class FileStorageService
         foreach (['jpg', 'png', 'jpeg'] as $extension) {
             $oldPath = "{$directory}/{$oldPortalName}.{$extension}";
 
-            if (!Storage::disk(config('filesystems.default'))->exists($oldPath)) {
+            if (! Storage::disk(config('filesystems.default'))->exists($oldPath)) {
                 continue;
             }
 
@@ -117,8 +101,6 @@ class FileStorageService
 
     /**
      * Delete a file from the storage and database
-     * @param File $file
-     * @return void
      */
     public function delete(File $file): void
     {
@@ -129,19 +111,14 @@ class FileStorageService
 
     /**
      * Create a file record in the database
-     * @param string $filename
-     * @param string $mimeType
-     * @param string $path
-     * @param bool $visibility
-     * @return File
      */
     private function createFile(string $filename, string $mimeType, string $path, bool $visibility): File
     {
         return File::create([
-                'filename' => $filename,
-                'mime_type' => $mimeType,
-                'path' => $path,
-                'visibility' => $visibility,
-            ]);
+            'filename' => $filename,
+            'mime_type' => $mimeType,
+            'path' => $path,
+            'visibility' => $visibility,
+        ]);
     }
 }
