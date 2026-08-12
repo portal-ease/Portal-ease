@@ -87,41 +87,29 @@ class FileStorageService
     /**
      * Rename the portal logo
      * @param Portal $portal
-     * @param UploadedFile $upload
      * @return void
      */
-    public function renamePortalLogo(Portal $portal, UploadedFile $upload): void
+    public function renamePortalLogo(Portal $portal): void
     {
-        $extensions = ['jpg', 'png'];
-        $oldFileName = null;
+        $directory = 'profile-pictures';
+        $newFileName = "{$portal->name}.jpg";
 
-        // Detect existing file
-        foreach ($extensions as $ext) {
-            $filePath = "profile-pictures/{$portal->name}.{$ext}";
-            if (Storage::disk('public')->exists($filePath)) {
-                $oldFileName = "{$portal->name}.{$ext}";
-                break;
+        foreach (['jpg', 'png'] as $extension) {
+            $oldPath = "{$directory}/{$portal->name}.{$extension}";
+
+            if (!Storage::disk('public')->exists($oldPath)) {
+                continue;
             }
-        }
 
-        $newFileName = $portal->name.'.jpg'; // Always rename to jpg
-
-        // Move file if found
-        if ($oldFileName) {
             Storage::disk('public')->move(
-                "profile-pictures/{$oldFileName}",
-                "profile-pictures/{$newFileName}"
+                $oldPath,
+                "{$directory}/{$newFileName}"
             );
-        }
 
-        // Update file record
-        $file = File::whereIn('filename', [
-            "{$portal->name}.jpg",
-            "{$portal->name}.png",
-        ])->first();
+            File::where('filename', basename($oldPath))
+                ->update(['filename' => $newFileName]);
 
-        if ($file) {
-            $file->update(['filename' => $newFileName]);
+            break;
         }
     }
 
@@ -135,6 +123,14 @@ class FileStorageService
         $file->delete();
     }
 
+    /**
+     * Create a file record in the database
+     * @param string $filename
+     * @param string $mimeType
+     * @param string $path
+     * @param bool $visibility
+     * @return File|string
+     */
     private function createFile(string $filename, string $mimeType, string $path, bool $visibility): File| string
     {
         try {
