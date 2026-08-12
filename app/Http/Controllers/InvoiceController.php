@@ -8,6 +8,7 @@ use App\Models\Portal;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
 
 class InvoiceController extends Controller
 {
@@ -117,8 +118,7 @@ class InvoiceController extends Controller
 
     public function download(Portal $portal, Invoice $invoice)
     {
-        return response($invoice->file->content)->header('Content-Type', $invoice->file->mime_type)
-            ->header('Content-Disposition', 'attachment; filename="'.$invoice->file->filename.'"');
+        return Storage::download($invoice->file->path, $invoice->file->filename);
     }
 
     public function payment(Portal $portal, Invoice $invoice)
