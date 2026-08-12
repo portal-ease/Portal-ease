@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\File;
 use App\Models\Portal;
 use App\Models\User;
 use App\Services\FileStorageService;
@@ -14,7 +13,8 @@ class PortalController extends Controller
 {
     private FileStorageService $storageService;
 
-    public function __construct(FileStorageService $storageService){
+    public function __construct(FileStorageService $storageService)
+    {
         $this->storageService = $storageService;
     }
 

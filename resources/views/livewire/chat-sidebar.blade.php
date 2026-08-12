@@ -19,9 +19,9 @@
                         @continue
                     @endif
                 @endif
-            @php
-            $logoPath = app(FileStorageService::class)->userProfilePicture($user);
-            @endphp
+                @php
+                    $logoPath = app(FileStorageService::class)->userProfilePicture($user);
+                @endphp
                 <div wire:click="conversationSelected({{ $conversation }})" wire:navigate.hover
                     class="flex items-center bg-black/20 hover:bg-black/30 rounded-xl p-3 cursor-pointer transition relative">
                     <!-- Avatar -->

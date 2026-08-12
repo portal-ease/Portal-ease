@@ -14,7 +14,8 @@ class UserController extends Controller
 {
     private FileStorageService $fileStorageService;
 
-    public function __construct(FileStorageService $fileStorageService){
+    public function __construct(FileStorageService $fileStorageService)
+    {
         $this->fileStorageService = $fileStorageService;
     }
 
@@ -77,7 +78,7 @@ class UserController extends Controller
      */
     public function edit(Portal $portal, User $user)
     {
-        $file = File::where('filename', $user->name . $user->id . '.jpg')->first();
+        $file = File::where('filename', $user->name.$user->id.'.jpg')->first();
 
         return view('user.edit', compact('user', 'portal', 'file'));
     }

@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\File;
 use App\Models\Invoice;
 use App\Models\Portal;
 use App\Models\User;
@@ -15,7 +14,8 @@ class InvoiceController extends Controller
 {
     private FileStorageService $storageService;
 
-    public function __construct(FileStorageService $storageService){
+    public function __construct(FileStorageService $storageService)
+    {
         $this->storageService = $storageService;
     }
 

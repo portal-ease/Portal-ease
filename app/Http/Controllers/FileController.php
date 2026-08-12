@@ -15,9 +15,11 @@ class FileController extends Controller
 {
     private FileStorageService $storageService;
 
-    public function __construct(FileStorageService $storageService){
+    public function __construct(FileStorageService $storageService)
+    {
         $this->storageService = $storageService;
     }
+
     /**
      * Display a listing of the resource.
      */

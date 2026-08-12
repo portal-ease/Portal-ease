@@ -71,8 +71,6 @@ class FileStorageService
 
     /**
      * Find the logo url of the given user
-     * @param User $user
-     * @return string|null
      */
     public function userProfilePicture(User $user): ?string
     {
