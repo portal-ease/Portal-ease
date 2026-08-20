@@ -5,7 +5,6 @@ use Illuminate\Foundation\Auth\EmailVerificationRequest;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
-
 // Resources
 require __DIR__.'/resources/website.php';
 require __DIR__.'/resources/auth.php';
