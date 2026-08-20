@@ -52,7 +52,7 @@ class InvoiceController extends Controller
         ]);
         $user = User::where('id', $request->get('user'))->first();
 
-        $file = $this->storageService->storeDocument($request->get('file'), $user);
+        $file = $this->storageService->storeDocument($request->file('file'), true);
 
         Invoice::create([
             'name' => $request['name'],
