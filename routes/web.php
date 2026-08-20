@@ -5,24 +5,8 @@ use Illuminate\Foundation\Auth\EmailVerificationRequest;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
-// Website
-Route::get('/', function () {
-    return view('welcome');
-})->name('welcome');
-
-Route::get('/features', function () {
-    return view('features');
-})->name('features');
-
-Route::get('/support', function () {
-    return view('support');
-})->name('support');
-
-Route::get('/about', function () {
-    return view('about');
-})->name('about');
-
 // Resources
+require __DIR__.'/resources/website.php';
 require __DIR__.'/resources/auth.php';
 require __DIR__.'/resources/conversation.php';
 require __DIR__.'/resources/file.php';
