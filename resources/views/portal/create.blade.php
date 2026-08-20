@@ -47,13 +47,11 @@
 
                 <div class="flex items-center gap-3">
                     <button type="button" id="color-picker"
-                            class="w-10 h-10 rounded-lg border border-gray-300 shadow-sm"
-                            aria-label="Choose branding colour">
+                        class="w-10 h-10 rounded-lg border border-gray-300 shadow-sm"
+                        aria-label="Choose branding colour">
                     </button>
-                    <input type="text" id="branding" name="branding_color"
-                           value="#3B82F6" required
-                           readonly
-                           class="flex-1 border border-gray-300 rounded-md p-2 focus:ring focus:ring-blue-200">
+                    <input type="text" id="branding" name="branding_color" value="#3B82F6" required readonly
+                        class="flex-1 border border-gray-300 rounded-md p-2 focus:ring focus:ring-blue-200">
                 </div>
 
                 <!-- Logo Upload -->
