@@ -21,7 +21,7 @@
 
         <!-- Actions -->
         <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 text-center">
-            <a href="{{ route('portal.file.download', $file) }}"
+            <a href="{{ route('portal.file.download', ['portal' => $portal, 'file' => $file]) }}"
                 class="bg-blue-600 hover:bg-blue-700 transition text-white py-3 rounded-xl font-medium shadow">
                 📥 Download file
             </a>

@@ -1,43 +1,44 @@
 <?php
 
-use App\Http\Controllers\AuthenticatedController;
-use App\Http\Controllers\ConversationController;
-use App\Http\Controllers\FileController;
-use App\Http\Controllers\InvoiceController;
-use App\Http\Controllers\PortalController;
-use App\Http\Controllers\ProjectController;
-use App\Http\Controllers\UserController;
+use App\Notifications\EmailVerified;
+use Illuminate\Foundation\Auth\EmailVerificationRequest;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
-Route::get('/', function () {
-    return view('welcome');
-})->name('welcome');
-Route::get('/features', function () {
-    return view('features');
-})->name('features');
-Route::get('/support', function () {
-    return view('support');
-})->name('support');
-Route::get('/about', function () {
-    return view('about');
-})->name('about');
-Route::resource('portal', PortalController::class);
-Route::middleware(['auth', 'verified'])->group(function () {
-    Route::resource('portal.user', UserController::class);
-    Route::get('/portal/{portal}/user/{user}/chat', [ConversationController::class, 'index'])->name('portal.user.chat');
-    Route::resource('portal.invoice', InvoiceController::class);
-    Route::get('/portal/{portal}/notifications', [UserController::class, 'notification'])->name('portal.notification.index');
-    Route::resource('portal.project', ProjectController::class);
-    Route::resource('portal.file', FileController::class);
-    Route::post('/portal/{portal}/user/{user}/picture', [UserController::class, 'editProfilePicture'])->name('portal.user.profile');
-    // File download
-    Route::get('/portal/{file}/download', [FileController::class, 'download'])->name('portal.file.download');
-    Route::get('/portal/{portal}/verify', [PortalController::class, 'verify'])->name('portal.verify');
-    // Downloading invoice file and paying invoice
-    Route::get('/portal/{invoice}/download', [InvoiceController::class, 'download'])->name('portal.invoice.download');
-    Route::patch('/{portal}/{invoice}/payment', [InvoiceController::class, 'payment'])->name('portal.invoice.payment');
-});
+// Resources
+require __DIR__.'/resources/website.php';
+require __DIR__.'/resources/auth.php';
+require __DIR__.'/resources/conversation.php';
+require __DIR__.'/resources/file.php';
+require __DIR__.'/resources/invoice.php';
+require __DIR__.'/resources/portal.php';
+require __DIR__.'/resources/project.php';
+require __DIR__.'/resources/user.php';
 
-// auth routes
-Route::post('/login/request', [AuthenticatedController::class, 'store'])->name('login.request');
-Route::get('/logout/request', [AuthenticatedController::class, 'destroy'])->name('logout.request');
+/** @todo this will be replaced with controllers/service way */
+Route::middleware('auth')->group(function () {
+
+    // Show the "Please verify your email" page
+    Route::get('/email/verify', function () {
+        return view('portal.verify');
+    })->name('verification.notice');
+
+    // Handle the verification link
+    Route::get('/email/verify/{id}/{hash}', function (EmailVerificationRequest $request) {
+        $request->fulfill();
+
+        $portal = $request->user()->portal;
+        $user = $request->user();
+
+        $user->notify(new EmailVerified($user));
+
+        return redirect()->route('portal.show', compact('portal', 'user'));
+    })->middleware(['signed'])->name('verification.verify');
+
+    // Resend verification email
+    Route::post('/email/verification-notification', function (Request $request) {
+        $request->user()->sendEmailVerificationNotification();
+
+        return back()->with('status', 'verification-link-sent');
+    })->middleware(['throttle:6,1'])->name('verification.send');
+});

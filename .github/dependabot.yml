@@ -9,6 +9,10 @@ updates:
     target-branch: "develop"
     pull-request-branch-name:
       separator: "/"
+    ignore:
+      - dependency-name: "*"
+        update-types:
+          - "version-update:semver-major"
 
   # Enable version updates for Composer
   - package-ecosystem: "composer"
@@ -18,3 +22,7 @@ updates:
     target-branch: "develop"
     pull-request-branch-name:
       separator: "/"
+    ignore:
+      - dependency-name: "*"
+        update-types:
+          - "version-update:semver-major"

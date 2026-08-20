@@ -2,15 +2,23 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\File;
 use App\Models\Invoice;
 use App\Models\Portal;
 use App\Models\User;
+use App\Services\FileStorageService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
 
 class InvoiceController extends Controller
 {
+    private FileStorageService $storageService;
+
+    public function __construct(FileStorageService $storageService)
+    {
+        $this->storageService = $storageService;
+    }
+
     /**
      * Display a listing of the resource.
      */
@@ -43,13 +51,8 @@ class InvoiceController extends Controller
             'project' => 'required',
         ]);
         $user = User::where('id', $request->get('user'))->first();
-        $path = $request->file('file')->store('files');
-        $file = File::create([
-            'filename' => $request->file('file')->getClientOriginalName(),
-            'mime_type' => $request->file('file')->getClientMimeType(),
-            'path' => $path,
-            'visibility' => true,
-        ]);
+
+        $file = $this->storageService->storeDocument($request->get('file'), $user);
 
         Invoice::create([
             'name' => $request['name'],
@@ -107,18 +110,17 @@ class InvoiceController extends Controller
      */
     public function destroy(Portal $portal, Invoice $invoice)
     {
-        $file = File::where('id', $invoice->file->id)->first();
-        $file->delete();
+        $this->storageService->delete($invoice->file);
+
         $invoice->delete();
         $user = Auth::user();
 
         return view('portal.show', compact('portal', 'user'));
     }
 
-    public function download(Invoice $invoice)
+    public function download(Portal $portal, Invoice $invoice)
     {
-        return response($invoice->file->content)->header('Content-Type', $invoice->file->mime_type)
-            ->header('Content-Disposition', 'attachment; filename="'.$invoice->file->filename.'"');
+        return $this->storageService->download($invoice->file);
     }
 
     public function payment(Portal $portal, Invoice $invoice)
@@ -127,6 +129,6 @@ class InvoiceController extends Controller
             'price' => 0.00,
         ]);
 
-        return view('paymentSucceeded', compact('portal', 'invoice'));
+        return view('invoice.payment', compact('portal', 'invoice'));
     }
 }

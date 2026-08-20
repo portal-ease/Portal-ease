@@ -1,4 +1,6 @@
-@php use Illuminate\Support\Facades\Storage; @endphp
+@php
+    use App\Services\FileStorageService;
+@endphp
 <x-guestLayout>
     <!-- Hero Section -->
     <section class="bg-blue-50 py-20 px-6 md:px-28 text-center">
@@ -14,20 +16,14 @@
         @if (\App\Models\Portal::count() > 0)
             <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
                 @foreach (\App\Models\Portal::all() as $portal)
+                    @php
+                        $logoPath = app(FileStorageService::class)->portalLogoUrl($portal);
+                    @endphp
                     <a class="group bg-white rounded-2xl shadow-lg hover:shadow-2xl transition border border-blue-100 hover:border-blue-300 p-6 flex flex-col items-center text-center"
                         href="{{ route('portal.show', $portal) }}">
                         <!-- Placeholder for portal logo -->
-                        @php
-                            $logoPath = null;
-
-                            if (Storage::disk('public')->exists('profile-pictures/' . $portal->name . '.jpg')) {
-                                $logoPath = Storage::url('profile-pictures/' . $portal->name . '.jpg');
-                            } elseif (Storage::disk('public')->exists('profile-pictures/' . $portal->name . '.png')) {
-                                $logoPath = Storage::url('profile-pictures/' . $portal->name . '.png');
-                            }
-                        @endphp
                         <img class="w-20 h-20 rounded-full bg-blue-100 flex items-center justify-center mb-4"
-                            src="{{ $logoPath }}" alt="{{ $portal->name }}">
+                            src="{{ $logoPath ?? asset('portalEaseLogo.png') }}" alt="{{ $portal->name }}">
                         <!-- Portal Title -->
                         <h3 class="text-xl font-bold text-blue-900 mb-2 group-hover:text-blue-700 transition">
                             {{ $portal->name }}</h3>
