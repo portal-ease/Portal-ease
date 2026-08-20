@@ -45,30 +45,16 @@
                         placeholder="Create a secure password">
                 </div>
 
-                <!-- Branding Color -->
-                <div>
-                    <label for="branding" class="block font-medium text-gray-700 mb-1">Branding Colour</label>
-                    <select id="branding" name="branding_color" required
-                        class="w-full border border-gray-300 rounded-lg p-3 focus:ring-2 focus:ring-blue-300 focus:outline-none"
-                        onchange="updateColorPreview(this.value)">
-                        <option value="">Select a color</option>
-                        <option value="#FF5733">Red</option>
-                        <option value="#33C1FF">Blue</option>
-                        <option value="#28A745">Green</option>
-                        <option value="#FFC107">Yellow</option>
-                        <option value="#6F42C1">Purple</option>
-                    </select>
-                    <div id="colorPreview" class="w-full h-12 mt-3 rounded-lg border border-gray-300 shadow-sm"
-                        style="background-color: transparent;">
-                    </div>
+                <div class="flex items-center gap-3">
+                    <button type="button" id="color-picker"
+                            class="w-10 h-10 rounded-lg border border-gray-300 shadow-sm"
+                            aria-label="Choose branding colour">
+                    </button>
+                    <input type="text" id="branding" name="branding_color"
+                           value="#3B82F6" required
+                           readonly
+                           class="flex-1 border border-gray-300 rounded-md p-2 focus:ring focus:ring-blue-200">
                 </div>
-
-                <script>
-                    function updateColorPreview(color) {
-                        const previewBox = document.getElementById('colorPreview');
-                        previewBox.style.backgroundColor = color || 'transparent';
-                    }
-                </script>
 
                 <!-- Logo Upload -->
                 <div>
