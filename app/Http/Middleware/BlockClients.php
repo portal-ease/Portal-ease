@@ -18,7 +18,7 @@ class BlockClients
         $user = $request->user();
 
         if ($user && $user->hasRole('client')) {
-            abort(403, 'Clients hebben geen toegang tot deze pagina.');
+            abort(404);
         }
 
         return $next($request);
