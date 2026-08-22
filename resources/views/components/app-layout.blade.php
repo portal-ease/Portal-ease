@@ -1,14 +1,7 @@
 @php
-    use Illuminate\Support\Facades\Storage;
-@endphp
-@php
-    $logoPath = null;
+    use App\Services\FileStorageService;
 
-    if (Storage::disk('public')->exists('profile-pictures/' . $portal->name . '.jpg')) {
-        $logoPath = Storage::url('profile-pictures/' . $portal->name . '.jpg');
-    } elseif (Storage::disk('public')->exists('profile-pictures/' . $portal->name . '.png')) {
-        $logoPath = Storage::url('profile-pictures/' . $portal->name . '.png');
-    }
+    $logoPath = app(FileStorageService::class)->portalLogoUrl($portal);
 @endphp
 <!DOCTYPE html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
@@ -29,7 +22,7 @@
         @vite(['resources/css/app.css', 'resources/js/app.js'])
     @endif
 
-    <link rel="icon" type="image/png" href="{{ $logoPath ?? asset('default_icon.jpg') }}">
+    <link rel="icon" type="image" href="{{ $logoPath ?? asset('portalEaseLogo.png') }}">
 </head>
 
 <body class="bg-gray-100 text-[#1b1b18] min-h-screen flex font-sans">

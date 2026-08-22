@@ -6,11 +6,20 @@ use App\Models\File;
 use App\Models\Portal;
 use App\Models\User;
 use App\Notifications\DocumentShared;
+use App\Services\FileStorageService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
 
 class FileController extends Controller
 {
+    private FileStorageService $storageService;
+
+    public function __construct(FileStorageService $storageService)
+    {
+        $this->storageService = $storageService;
+    }
+
     /**
      * Display a listing of the resource.
      */
@@ -47,13 +56,8 @@ class FileController extends Controller
             $visibility = false;
         }
         $user->notify(new DocumentShared(Auth::user()->name, $request->file('file')->getClientOriginalName()));
-        $path = $request->file('file')->store('files');
-        $file = File::create([
-            'filename' => $request->file('file')->getClientOriginalName(),
-            'mime_type' => $request->file('file')->getClientMimeType(),
-            'path' => $path,
-            'visibility' => $visibility,
-        ]);
+
+        $file = $this->storageService->storeDocument($request->file('file'), $visibility);
 
         $user->files()->attach($file->id);
 
@@ -92,9 +96,8 @@ class FileController extends Controller
         //
     }
 
-    public function download(File $file)
+    public function download(Portal $portal, File $file)
     {
-        return response($file->content)->header('Content-Type', $file->mime_type)
-            ->header('Content-Disposition', 'attachment; filename="'.$file->filename.'"');
+        return $this->storageService->download($file);
     }
 }

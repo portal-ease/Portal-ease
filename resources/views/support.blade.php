@@ -120,7 +120,13 @@
     <section id="contact-form" class="bg-blue-50 py-20 px-6 md:px-28">
         <h2 class="text-4xl font-extrabold text-blue-900 text-center mb-12">Contact Us</h2>
         <div class="max-w-3xl mx-auto bg-white rounded-xl shadow-lg p-8">
-            <form action="/" method="POST" class="space-y-6">
+            @if (session('status'))
+                <div class="mb-6 rounded-lg border border-green-200 bg-green-50 px-4 py-3 text-green-800">
+                    {{ session('status') }}
+                </div>
+            @endif
+
+            <form action="{{ route('website.contact') }}" method="POST" class="space-y-6">
                 @csrf
                 <div>
                     <label for="name" class="block text-blue-800 font-semibold mb-2">Name</label>
