@@ -93,10 +93,17 @@ class UserController extends Controller
             'email' => 'required|email',
             'role' => 'required',
         ]);
-        $user->update([
+        $user->fill([
             'name' => $request->get('name'),
             'email' => $request->get('email'),
         ]);
+
+        if ($user->isDirty('email')) {
+            $user->email_verified_at = null;
+        }
+
+        $user->save();
+
         foreach ($user->getRoleNames() as $role) {
             $user->removeRole($role);
         }
