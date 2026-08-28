@@ -27,8 +27,9 @@
                             :class="activeTab === 'general'
                                 ? 'border-blue-500 text-blue-600'
                                 : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300'"
-                            class="py-4 border-b-2 font-medium text-sm transition cursor-pointer"
+                            class="flex flex-row gap-2 text-center py-4 border-b-2 font-medium text-sm transition cursor-pointer"
                         >
+                            <x-lucide-settings-2 width="20" height="20" />
                             General
                         </button>
 
@@ -38,8 +39,9 @@
                             :class="activeTab === 'branding'
                                 ? 'border-blue-500 text-blue-600'
                                 : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300'"
-                            class="py-4 border-b-2 font-medium text-sm transition cursor-pointer"
+                            class="flex flex-row gap-2 text-center py-4 border-b-2 font-medium text-sm transition cursor-pointer"
                         >
+                            <x-lucide-palette width="20" height="20" />
                             Branding
                         </button>
 
@@ -49,8 +51,9 @@
                             :class="activeTab === 'danger'
                                 ? 'border-red-500 text-red-600'
                                 : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300'"
-                            class="py-4 border-b-2 font-medium text-sm transition cursor-pointer"
+                            class="flex flex-row gap-2 text-center py-4 border-b-2 font-medium text-sm transition cursor-pointer"
                         >
+                            <x-lucide-circle-alert width="20" height="20" />
                             Danger Zone
                         </button>
 
