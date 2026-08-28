@@ -2,6 +2,7 @@
     use App\Services\FileStorageService;
 
     $logoPath = app(FileStorageService::class)->portalLogoUrl($portal);
+    $userLogoPath = app(FileStorageService::class)->userProfilePicture(auth()->user());
 @endphp
 <!DOCTYPE html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
@@ -180,18 +181,8 @@
                 <!-- Profile Image -->
                 <a
                     href="{{ route('portal.user.edit', ['portal' => $portal, 'user' => \Illuminate\Support\Facades\Auth::user()]) }}">
-                    @php
-                        $user = \Illuminate\Support\Facades\Auth::user();
-                        $baseName = $user->name . $user->id;
-                        $file = \App\Models\File::whereIn('filename', [
-                            $baseName . '.jpg',
-                            $baseName . '.png',
-                            $baseName . '.jpeg',
-                        ])->first();
-                    @endphp
-
-                    @if ($file)
-                        <img src="{{ $file->url }}" alt="{{ $file->filename }}"
+                    @if ($userLogoPath)
+                        <img src="{{ $userLogoPath }}" alt="{{ auth()->user() }}"
                             class="w-8 h-8 rounded-full ring-2 ring-white focus-visible:ring-4 focus-visible:ring-blue-300 transition">
                     @else
                         <img src="{{ asset('anonymous_picture.jpg') }}" alt="User profile photo"
