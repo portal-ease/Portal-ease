@@ -7,8 +7,7 @@
             style="background-color: {{ $portal->branding_color }}">
             <div class="flex items-center space-x-3">
                 @foreach ($otherUsers as $user)
-                    <img src="{{ $this->getUserProfilePicture($user) ??
-                    'https://ui-avatars.com/api/?name=' . $user->name }}"
+                    <img src="{{ $this->getUserProfilePicture($user) ?? 'https://ui-avatars.com/api/?name=' . $user->name }}"
                         class="h-10 w-10 rounded-full border-2 border-white" alt="User Avatar">
                 @endforeach
                 <div>

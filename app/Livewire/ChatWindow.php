@@ -35,7 +35,7 @@ class ChatWindow extends Component
     public function boot(ChatService $chatService): void
     {
         $this->chatService = $chatService;
-        $this->fileStorageService = new FileStorageService();
+        $this->fileStorageService = new FileStorageService;
     }
 
     public function mount(): void
