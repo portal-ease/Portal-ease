@@ -3,10 +3,7 @@
     @php
         $logoPath = app(FileStorageService::class)->portalLogoUrl($portal);
     @endphp
-    <div
-        x-data="{ activeTab: 'general' }"
-        class="max-w-3xl mx-auto"
-    >
+    <div x-data="{ activeTab: 'general' }" class="max-w-3xl mx-auto">
         <div class="bg-white shadow-2xl rounded-2xl overflow-hidden">
             {{-- Header --}}
             <div class="px-8 pt-8">
@@ -22,74 +19,51 @@
             {{-- Tabs --}}
             <div class="mt-6">
                 <div class="border-b border-gray-200 px-8 overflow-x-auto">
-                    <nav
-                        class="flex gap-6 min-w-max"
-                        aria-label="Portal settings"
-                    >
+                    <nav class="flex gap-6 min-w-max" aria-label="Portal settings">
                         {{-- General --}}
-                        <button
-                            type="button"
-                            @click="activeTab = 'general'"
+                        <button type="button" @click="activeTab = 'general'"
                             :class="activeTab === 'general'
-                            ? 'border-blue-500 text-blue-600'
-                            : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300'"
-                            class="flex items-center gap-2 py-4 border-b-2 font-medium text-sm transition cursor-pointer"
-                        >
-                            <x-lucide-settings-2
-                                width="20"
-                                height="20"
-                            />
+                                ?
+                                'border-blue-500 text-blue-600' :
+                                'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300'"
+                            class="flex items-center gap-2 py-4 border-b-2 font-medium text-sm transition cursor-pointer">
+                            <x-lucide-settings-2 width="20" height="20" />
 
                             <span>General</span>
                         </button>
 
                         {{-- Branding --}}
-                        <button
-                            type="button"
-                            @click="activeTab = 'branding'"
+                        <button type="button" @click="activeTab = 'branding'"
                             :class="activeTab === 'branding'
-                            ? 'border-blue-500 text-blue-600'
-                            : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300'"
-                            class="flex items-center gap-2 py-4 border-b-2 font-medium text-sm transition cursor-pointer"
-                        >
-                            <x-lucide-palette
-                                width="20"
-                                height="20"
-                            />
+                                ?
+                                'border-blue-500 text-blue-600' :
+                                'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300'"
+                            class="flex items-center gap-2 py-4 border-b-2 font-medium text-sm transition cursor-pointer">
+                            <x-lucide-palette width="20" height="20" />
 
                             <span>Branding</span>
                         </button>
 
                         {{-- Logos --}}
-                        <button
-                            type="button"
-                            @click="activeTab = 'logos'"
+                        <button type="button" @click="activeTab = 'logos'"
                             :class="activeTab === 'logos'
-                            ? 'border-blue-500 text-blue-600'
-                            : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300'"
-                            class="flex items-center gap-2 py-4 border-b-2 font-medium text-sm transition cursor-pointer"
-                        >
-                            <x-lucide-image
-                                width="20"
-                                height="20"
-                            />
+                                ?
+                                'border-blue-500 text-blue-600' :
+                                'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300'"
+                            class="flex items-center gap-2 py-4 border-b-2 font-medium text-sm transition cursor-pointer">
+                            <x-lucide-image width="20" height="20" />
 
                             <span>Logos</span>
                         </button>
 
                         {{-- Danger Zone --}}
-                        <button
-                            type="button"
-                            @click="activeTab = 'danger'"
+                        <button type="button" @click="activeTab = 'danger'"
                             :class="activeTab === 'danger'
-                            ? 'border-red-500 text-red-600'
-                            : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300'"
-                            class="flex items-center gap-2 py-4 border-b-2 font-medium text-sm transition cursor-pointer"
-                        >
-                            <x-lucide-circle-alert
-                                width="20"
-                                height="20"
-                            />
+                                ?
+                                'border-red-500 text-red-600' :
+                                'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300'"
+                            class="flex items-center gap-2 py-4 border-b-2 font-medium text-sm transition cursor-pointer">
+                            <x-lucide-circle-alert width="20" height="20" />
 
                             <span>Danger Zone</span>
                         </button>
@@ -97,21 +71,13 @@
                 </div>
 
                 {{-- Settings form --}}
-                <form
-                    method="POST"
-                    action="{{ route('portal.update', $portal) }}"
-                    enctype="multipart/form-data"
-                    class="p-8"
-                >
+                <form method="POST" action="{{ route('portal.update', $portal) }}" enctype="multipart/form-data"
+                    class="p-8">
                     @csrf
                     @method('PUT')
 
                     {{-- General --}}
-                    <div
-                        x-show="activeTab === 'general'"
-                        x-cloak
-                        class="space-y-6"
-                    >
+                    <div x-show="activeTab === 'general'" x-cloak class="space-y-6">
                         <div>
                             <h3 class="text-lg font-semibold text-gray-800">
                                 General settings
@@ -124,53 +90,37 @@
 
                         {{-- Portal Name --}}
                         <div>
-                            <label
-                                for="name"
-                                class="block font-medium text-gray-700"
-                            >
+                            <label for="name" class="block font-medium text-gray-700">
                                 Portal Name
                             </label>
 
-                            <input
-                                type="text"
-                                id="name"
-                                name="name"
-                                value="{{ old('name', $portal->name) }}"
+                            <input type="text" id="name" name="name" value="{{ old('name', $portal->name) }}"
                                 required
                                 class="w-full border border-gray-300 rounded-md p-2 mt-1 focus:ring focus:ring-blue-200"
-                                placeholder="Enter portal name"
-                            >
+                                placeholder="Enter portal name">
 
                             @error('name')
-                            <p class="mt-1 text-sm text-red-600">
-                                {{ $message }}
-                            </p>
+                                <p class="mt-1 text-sm text-red-600">
+                                    {{ $message }}
+                                </p>
                             @enderror
                         </div>
 
                         {{-- Email --}}
                         <div>
-                            <label
-                                for="email"
-                                class="block font-medium text-gray-700"
-                            >
+                            <label for="email" class="block font-medium text-gray-700">
                                 Email Address
                             </label>
 
-                            <input
-                                type="email"
-                                id="email"
-                                name="email"
-                                value="{{ old('email', $portal->email) }}"
-                                required
+                            <input type="email" id="email" name="email"
+                                value="{{ old('email', $portal->email) }}" required
                                 class="w-full border border-gray-300 rounded-md p-2 mt-1 focus:ring focus:ring-blue-200"
-                                placeholder="Enter email address"
-                            >
+                                placeholder="Enter email address">
 
                             @error('email')
-                            <p class="mt-1 text-sm text-red-600">
-                                {{ $message }}
-                            </p>
+                                <p class="mt-1 text-sm text-red-600">
+                                    {{ $message }}
+                                </p>
                             @enderror
                         </div>
                     </div>
@@ -190,46 +140,31 @@
 
                         {{-- Branding Colour --}}
                         <div>
-                            <label
-                                for="branding"
-                                class="block font-medium text-gray-700 mb-1"
-                            >
+                            <label for="branding" class="block font-medium text-gray-700 mb-1">
                                 Branding Colour
                             </label>
 
                             <div class="flex items-center gap-3">
-                                <button
-                                    type="button"
-                                    id="color-picker"
+                                <button type="button" id="color-picker"
                                     class="w-10 h-10 rounded-lg border border-gray-300 shadow-sm"
-                                    aria-label="Choose branding colour"
-                                ></button>
+                                    aria-label="Choose branding colour"></button>
 
-                                <input
-                                    type="text"
-                                    id="branding"
-                                    name="branding_color"
-                                    value="{{ old('branding_color', $portal->branding_color ?? '#3B82F6') }}"
-                                    required
+                                <input type="text" id="branding" name="branding_color"
+                                    value="{{ old('branding_color', $portal->branding_color ?? '#3B82F6') }}" required
                                     readonly
-                                    class="flex-1 border border-gray-300 rounded-md p-2 focus:ring focus:ring-blue-200"
-                                >
+                                    class="flex-1 border border-gray-300 rounded-md p-2 focus:ring focus:ring-blue-200">
                             </div>
 
                             @error('branding_color')
-                            <p class="mt-1 text-sm text-red-600">
-                                {{ $message }}
-                            </p>
+                                <p class="mt-1 text-sm text-red-600">
+                                    {{ $message }}
+                                </p>
                             @enderror
                         </div>
                     </div>
 
                     {{-- Logos --}}
-                    <div
-                        x-show="activeTab === 'logos'"
-                        x-cloak
-                        class="space-y-6"
-                    >
+                    <div x-show="activeTab === 'logos'" x-cloak class="space-y-6">
                         <div>
                             <h3 class="text-lg font-semibold text-gray-800">
                                 Logos
@@ -250,11 +185,8 @@
                                 @if ($logoPath)
                                     <div class="flex items-center gap-6">
                                         <div class="w-32 h-20 flex items-center justify-center p-3">
-                                            <img
-                                                src="{{ $logoPath }}"
-                                                alt="{{ $portal->name }} logo"
-                                                class="max-w-full max-h-full object-contain"
-                                            >
+                                            <img src="{{ $logoPath }}" alt="{{ $portal->name }} logo"
+                                                class="max-w-full max-h-full object-contain">
                                         </div>
 
                                         <div>
@@ -269,11 +201,7 @@
                                     </div>
                                 @else
                                     <div class="text-center py-6">
-                                        <x-lucide-image
-                                            width="40"
-                                            height="40"
-                                            class="mx-auto text-gray-400"
-                                        />
+                                        <x-lucide-image width="40" height="40" class="mx-auto text-gray-400" />
 
                                         <p class="mt-3 font-medium text-gray-700">
                                             No logo uploaded
@@ -289,62 +217,40 @@
 
                         {{-- Upload Logo --}}
                         <div>
-                            <label
-                                for="logo"
-                                class="block font-medium text-gray-700 mb-1"
-                            >
+                            <label for="logo" class="block font-medium text-gray-700 mb-1">
                                 Upload new logo
                             </label>
 
-                            <input
-                                type="file"
-                                id="logo"
-                                name="logo"
-                                accept="image/png,image/jpeg"
-                                class="w-full border border-gray-300 rounded-md p-2 bg-white"
-                            >
+                            <input type="file" id="logo" name="logo" accept="image/png,image/jpeg"
+                                class="w-full border border-gray-300 rounded-md p-2 bg-white">
 
                             <p class="mt-1 text-sm text-gray-500">
                                 PNG, JPG or JPEG.
                             </p>
 
                             @error('logo')
-                            <p class="mt-1 text-sm text-red-600">
-                                {{ $message }}
-                            </p>
+                                <p class="mt-1 text-sm text-red-600">
+                                    {{ $message }}
+                                </p>
                             @enderror
                         </div>
                     </div>
 
                     {{-- Save button --}}
-                    <div
-                        x-show="activeTab !== 'danger'"
-                        x-cloak
-                        class="mt-8 pt-6 border-t border-gray-200"
-                    >
-                        <button
-                            type="submit"
-                            class="w-full bg-green-500 hover:bg-green-600 text-white rounded-xl p-3 transition cursor-pointer"
-                        >
+                    <div x-show="activeTab !== 'danger'" x-cloak class="mt-8 pt-6 border-t border-gray-200">
+                        <button type="submit"
+                            class="w-full bg-green-500 hover:bg-green-600 text-white rounded-xl p-3 transition cursor-pointer">
                             Save changes
                         </button>
                     </div>
                 </form>
 
                 {{-- Danger Zone                 --}}
-                <div
-                    x-show="activeTab === 'danger'"
-                    x-cloak
-                    class="p-8"
-                >
+                <div x-show="activeTab === 'danger'" x-cloak class="p-8">
                     <div class="border border-red-200 bg-red-50 rounded-xl p-6">
                         <div class="flex items-start gap-4">
                             <div class="shrink-0">
-                                <x-lucide-circle-alert
-                                    width="24"
-                                    height="24"
-                                    class="text-red-600"
-                                />
+                                <x-lucide-circle-alert width="24" height="24" class="text-red-600" />
                             </div>
 
                             <div>
@@ -359,18 +265,12 @@
                             </div>
                         </div>
 
-                        <form
-                            method="POST"
-                            action="{{ route('portal.destroy', $portal) }}"
-                            class="mt-6"
-                        >
+                        <form method="POST" action="{{ route('portal.destroy', $portal) }}" class="mt-6">
                             @csrf
                             @method('DELETE')
 
-                            <button
-                                type="submit"
-                                class="w-full bg-red-500 hover:bg-red-600 text-white rounded-xl p-3 transition cursor-pointer"
-                            >
+                            <button type="submit"
+                                class="w-full bg-red-500 hover:bg-red-600 text-white rounded-xl p-3 transition cursor-pointer">
                                 Delete portal
                             </button>
                         </form>
