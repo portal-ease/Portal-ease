@@ -103,10 +103,27 @@ class PortalController extends Controller
             'email' => 'required',
             'branding_color' => 'required',
         ]);
+        $oldName = $portal->name;
 
-        $this->storageService->renamePortalLogo($portal->name, $request->input('name'));
+        $portal->update([
+            'name' => $request->name,
+            'email' => $request->email,
+            'branding_color' => $request->branding_color,
+        ]);
 
-        $portal->update($request->all());
+        if ($request->hasFile('logo')) {
+            $this->storageService->storePortalLogo(
+                $request->file('logo'),
+                $request->get('name')
+            );
+        }
+
+        if ($oldName !== $request->get('name')) {
+            $this->storageService->renamePortalLogo(
+                $oldName,
+                $request->get('name')
+            );
+        }
 
         return redirect()->route('portal.edit', $portal);
     }
