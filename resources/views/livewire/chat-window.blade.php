@@ -1,3 +1,4 @@
+@php use App\Services\FileStorageService; @endphp
 <div class="flex flex-col h-screen bg-cover bg-center w-[62vw] rounded-xl"
     style="background-image: url('{{ asset('about.png') }}');">
     @if ($conversation)
@@ -7,7 +8,10 @@
             style="background-color: {{ $portal->branding_color }}">
             <div class="flex items-center space-x-3">
                 @foreach ($otherUsers as $user)
-                    <img src="{{ $this->getUserProfilePicture($user) ?? 'https://ui-avatars.com/api/?name=' . $user->name }}"
+                    @php
+                        $logoPath = app(FileStorageService::class)->userProfilePicture($user);
+                    @endphp
+                    <img src="{{ $logoPath ?? 'https://ui-avatars.com/api/?name=' . $user->name }}"
                         class="h-10 w-10 rounded-full border-2 border-white" alt="User Avatar">
                 @endforeach
                 <div>
