@@ -28,7 +28,7 @@ class FileStorageService
     public function storePortalLogo(UploadedFile $image, string $portalName): void
     {
         $filename = $portalName.'.'.$image->getClientOriginalExtension();
-        $path = $image->storeAs('profile-pictures', $filename, 'public');
+        $path = $image->storeAs('profile-pictures', $filename);
 
         $this->createFile($filename, $image->getClientMimeType(), $path, true);
     }
@@ -39,7 +39,7 @@ class FileStorageService
     public function storeUserProfilePicture(User $user, UploadedFile $upload): File|string
     {
         $filename = $user->name.$user->id.'.'.$upload->getClientOriginalExtension();
-        $path = $upload->storeAs('profile-pictures', $filename, 'public');
+        $path = $upload->storeAs('profile-pictures', $filename);
 
         return $this->createFile($filename,
             $upload->getClientMimeType(), $path, true);
