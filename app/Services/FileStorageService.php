@@ -28,7 +28,7 @@ class FileStorageService
     public function storePortalLogo(UploadedFile $image, string $portalName): void
     {
         $filename = $portalName.'.'.$image->getClientOriginalExtension();
-        $path = $image->storeAs('profile-pictures', $filename, 'public');
+        $path = $image->storeAs('profile-pictures', $filename);
 
         $this->createFile($filename, $image->getClientMimeType(), $path, true);
     }
@@ -39,7 +39,7 @@ class FileStorageService
     public function storeUserProfilePicture(User $user, UploadedFile $upload): File|string
     {
         $filename = $user->name.$user->id.'.'.$upload->getClientOriginalExtension();
-        $path = $upload->storeAs('profile-pictures', $filename, 'public');
+        $path = $upload->storeAs('profile-pictures', $filename);
 
         return $this->createFile($filename,
             $upload->getClientMimeType(), $path, true);
@@ -61,8 +61,8 @@ class FileStorageService
         foreach (['jpg', 'png', 'jpeg'] as $extension) {
             $path = "profile-pictures/{$portal->name}.{$extension}";
 
-            if (Storage::disk('public')->exists($path)) {
-                return Storage::disk('public')->url($path);
+            if (Storage::disk()->exists($path)) {
+                return Storage::disk()->url($path);
             }
         }
 
@@ -77,8 +77,8 @@ class FileStorageService
         foreach (['jpg', 'png', 'jpeg'] as $extension) {
             $path = "profile-pictures/{$user->name}{$user->id}.{$extension}";
 
-            if (Storage::disk('public')->exists($path)) {
-                return Storage::disk('public')->url($path);
+            if (Storage::disk()->exists($path)) {
+                return Storage::disk()->url($path);
             }
         }
 
@@ -95,14 +95,14 @@ class FileStorageService
         foreach (['jpg', 'png', 'jpeg'] as $extension) {
             $oldPath = "{$directory}/{$oldPortalName}.{$extension}";
 
-            if (! Storage::disk('public')->exists($oldPath)) {
+            if (! Storage::disk()->exists($oldPath)) {
                 continue;
             }
 
             $newFileName = "{$newPortalName}.{$extension}";
             $newPath = "{$directory}/{$newFileName}";
 
-            Storage::disk('public')->move($oldPath, $newPath);
+            Storage::disk()->move($oldPath, $newPath);
 
             File::where('filename', basename($oldPath))
                 ->update([
@@ -119,7 +119,7 @@ class FileStorageService
      */
     public function delete(File $file): void
     {
-        Storage::disk(config('filesystems.default'))->delete($file->path);
+        Storage::disk()->delete($file->path);
 
         $file->delete();
     }

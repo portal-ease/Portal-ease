@@ -38,7 +38,14 @@ return [
             'report' => false,
         ],
 
-        'public' => [
+        'public_production' => [
+            'driver' => 'local',
+            'root' => base_path('../public_html/storage'),
+            'url' => env('APP_URL').'/public_html/storage',
+            'visibility' => 'public',
+        ],
+
+        'public_local' => [
             'driver' => 'local',
             'root' => storage_path('app/public'),
             'url' => env('APP_URL').'/storage',
