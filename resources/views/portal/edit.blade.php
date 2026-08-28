@@ -237,7 +237,7 @@
                     </div>
 
                     {{-- Save button --}}
-                    <div x-show="activeTab !== 'danger'" x-cloak class="mt-8 pt-6 border-t border-gray-200">
+                    <div x-show="activeTab !== 'danger'" x-cloak class="mt-8">
                         <button type="submit"
                             class="w-full bg-green-500 hover:bg-green-600 text-white rounded-xl p-3 transition cursor-pointer">
                             Save changes
@@ -245,7 +245,7 @@
                     </div>
                 </form>
 
-                {{-- Danger Zone                 --}}
+                {{-- Danger Zone --}}
                 <div x-show="activeTab === 'danger'" x-cloak class="p-8">
                     <div class="border border-red-200 bg-red-50 rounded-xl p-6">
                         <div class="flex items-start gap-4">
