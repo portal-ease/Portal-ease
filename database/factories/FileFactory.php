@@ -2,13 +2,13 @@
 
 namespace Database\Factories;
 
-use App\Models\Invoice;
+use App\Models\File;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
- * @extends Factory<Invoice>
+ * @extends Factory<File>
  */
-class InvoiceFactory extends Factory
+class FileFactory extends Factory
 {
     /**
      * Define the model's default state.
@@ -18,10 +18,10 @@ class InvoiceFactory extends Factory
     public function definition(): array
     {
         return [
-            'name' => $this->faker->word(),
-            'expiry_date' => $this->faker->date(),
-            'price' => 100,
-            'description' => $this->faker->text(),
+            'filename' => $this->faker->name(),
+            'mime_type' => $this->faker->mimeType(),
+            'path' => $this->faker->name(),
+            'visibility' => $this->faker->boolean(),
         ];
     }
 }
