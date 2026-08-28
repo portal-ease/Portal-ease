@@ -3,6 +3,7 @@
 namespace Database\Seeders;
 
 use App\Models\Portal;
+use App\Models\Project;
 use App\Models\User;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
@@ -34,5 +35,10 @@ class DatabaseSeeder extends Seeder
             'portal_id' => $portal->id,
         ]);
         $client->assignRole('client');
+
+        $projects = Project::factory(20)->create([
+            'user_id' => $client->id,
+            'portal_id' => $portal->id,
+        ]);
     }
 }
