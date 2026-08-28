@@ -166,7 +166,7 @@
                 </a>
                 @if (Auth::user()->hasRole('service_provider'))
                     <!-- Settings Icon -->
-                    <a href="{{ route('portal.edit', $portal) }}" type="button" wire:navigate.hover
+                    <a href="{{ route('portal.edit', $portal) }}" type="button"
                         class="focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-300 rounded transition">
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
                             stroke="currentColor" class="w-6 h-6 text-black hover:text-gray-300">
