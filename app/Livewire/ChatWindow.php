@@ -5,8 +5,10 @@ namespace App\Livewire;
 use App\Models\Conversation;
 use App\Models\Message;
 use App\Models\Portal;
+use App\Models\User;
 use App\Notifications\NewMessage;
 use App\Services\ChatService;
+use App\Services\FileStorageService;
 use Illuminate\Support\Collection;
 use Livewire\Component;
 
@@ -24,6 +26,8 @@ class ChatWindow extends Component
 
     public string $input;
 
+    private FileStorageService $fileStorageService;
+
     protected $listeners = [
         'conversationSelected' => 'loadConversation',
     ];
@@ -31,6 +35,7 @@ class ChatWindow extends Component
     public function boot(ChatService $chatService): void
     {
         $this->chatService = $chatService;
+        $this->fileStorageService = new FileStorageService;
     }
 
     public function mount(): void
@@ -75,5 +80,10 @@ class ChatWindow extends Component
         $this->loadConversation($this->conversation);
 
         $this->input = '';
+    }
+
+    public function getUserProfilePicture(User $user): string
+    {
+        return $this->fileStorageService->userProfilePicture($user);
     }
 }
