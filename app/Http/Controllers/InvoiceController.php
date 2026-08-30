@@ -2,13 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\InvoiceRequest;
 use App\Models\Invoice;
 use App\Models\Portal;
 use App\Models\User;
 use App\Services\FileStorageService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Storage;
 
 class InvoiceController extends Controller
 {
@@ -38,33 +38,14 @@ class InvoiceController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(Portal $portal, InvoiceRequest $request)
     {
-        $request->validate([
-            'name' => 'required|string|max:255',
-            'file' => 'required',
-            'description' => 'required|string',
-            'expiry_date' => 'required|date',
-            'payment' => 'required|numeric',
-            'user' => 'required|string',
-            'portal_id' => 'required|integer|exists:portals,id',
-            'project' => 'required',
-        ]);
+        $data = $request->validated();
         $user = User::where('id', $request->get('user'))->first();
 
         $file = $this->storageService->storeDocument($request->file('file'), true);
 
-        Invoice::create([
-            'name' => $request['name'],
-            'file_id' => $file->id,
-            'portal_id' => $request['portal_id'],
-            'description' => $request['description'],
-            'expiry_date' => $request['expiry_date'],
-            'price' => $request['payment'],
-            'user_id' => $request['user'],
-            'project_id' => $request['project'],
-        ]);
-        $portal = Portal::where('id', $request['portal_id'])->first();
+        Invoice::create(array_merge($data, $portal->id));
         $user->files()->attach($file->id);
 
         return view('invoice.index', compact('portal'));
