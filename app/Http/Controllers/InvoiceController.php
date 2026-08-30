@@ -41,12 +41,10 @@ class InvoiceController extends Controller
     public function store(Portal $portal, InvoiceRequest $request)
     {
         $data = $request->validated();
-        $user = User::where('id', $request->get('user'))->first();
-
         $file = $this->storageService->storeDocument($request->file('file'), true);
 
-        Invoice::create(array_merge($data, $portal->id));
-        $user->files()->attach($file->id);
+        $invoice = Invoice::query()->create(array_merge($data, $file->id));
+        $invoice->user->files()->attach($file->id);
 
         return view('invoice.index', compact('portal'));
     }
