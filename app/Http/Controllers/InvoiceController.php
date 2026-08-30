@@ -5,10 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\InvoiceRequest;
 use App\Models\Invoice;
 use App\Models\Portal;
-use App\Models\User;
 use App\Services\FileStorageService;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
 
 class InvoiceController extends Controller
 {
@@ -49,7 +46,9 @@ class InvoiceController extends Controller
 
         $invoice->user->files()->attach($file->id);
 
-        return view('invoice.index', compact('portal'));
+        return redirect()->route('portal.invoice.index', [
+            'portal' => $portal
+        ])->with('success', 'Invoice created successfully.');
     }
 
     /**
@@ -57,9 +56,11 @@ class InvoiceController extends Controller
      */
     public function show(Portal $portal, Invoice $invoice)
     {
-        $user = Auth::user();
-
-        return view('invoice.show', compact('invoice', 'portal', 'user'));
+        return view('invoice.show', [
+            'portal' => $portal,
+            'invoice' => $invoice,
+            'user' => auth()->user(),
+        ]);
     }
 
     /**
@@ -73,16 +74,9 @@ class InvoiceController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Portal $portal, Request $request, Invoice $invoice)
+    public function update(Portal $portal, InvoiceRequest $request, Invoice $invoice)
     {
-        $request->validate([
-            'name' => 'required|string|max:255',
-            'description' => 'required|string',
-            'expiry_date' => 'required|date',
-            'price' => 'required|numeric',
-            'user_id' => 'required',
-        ]);
-        $invoice->update($request->all());
+        $invoice->update($request->validated());
 
         return redirect()->back();
     }
@@ -95,9 +89,10 @@ class InvoiceController extends Controller
         $this->storageService->delete($invoice->file);
 
         $invoice->delete();
-        $user = Auth::user();
 
-        return view('portal.show', compact('portal', 'user'));
+        return redirect()->route('portal.invoice.index', [
+            'portal' => $portal
+        ])->with('success', 'Invoice deleted successfully.');
     }
 
     public function download(Portal $portal, Invoice $invoice)
