@@ -43,7 +43,10 @@ class InvoiceController extends Controller
         $data = $request->validated();
         $file = $this->storageService->storeDocument($request->file('file'), true);
 
-        $invoice = Invoice::query()->create(array_merge($data, $file->id));
+        $invoice = Invoice::query()->create([...$data,
+            'file_id' => $file->id,
+        ]);
+
         $invoice->user->files()->attach($file->id);
 
         return view('invoice.index', compact('portal'));
