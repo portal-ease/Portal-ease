@@ -58,7 +58,6 @@
                 </select>
             </div>
 
-            <input type="hidden" name="portal_id" value="{{ $portal->id }}">
             <button type="submit"
                 class="w-full bg-green-500 text-white p-3 rounded-xl hover:bg-blue-600 transition cursor-pointer">
                 Place invoice
