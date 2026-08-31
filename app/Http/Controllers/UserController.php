@@ -9,6 +9,7 @@ use App\Models\User;
 use App\Services\FileStorageService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Spatie\Permission\Models\Role;
 
 class UserController extends Controller
 {
@@ -80,7 +81,9 @@ class UserController extends Controller
     {
         $file = File::where('filename', $user->name.$user->id.'.jpg')->first();
 
-        return view('user.edit', compact('user', 'portal', 'file'));
+        $roles = Role::all();
+
+        return view('user.edit', compact('user', 'portal', 'file', 'roles'));
     }
 
     /**
