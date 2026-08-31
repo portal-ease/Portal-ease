@@ -24,12 +24,11 @@ class InvoiceRequest extends FormRequest
     {
         return [
             'name' => 'required|string|max:255',
-            'file' => 'required',
+            'file' => 'nullable|file',
             'description' => 'required|string',
             'expiry_date' => 'required|date',
             'payment' => 'required|numeric',
             'user' => 'required|string',
-            'portal_id' => 'required|integer|exists:portals,id',
             'project' => 'required',
         ];
     }
