@@ -47,7 +47,7 @@ class InvoiceController extends Controller
         $invoice->user->files()->attach($file->id);
 
         return redirect()->route('portal.invoice.index', [
-            'portal' => $portal
+            'portal' => $portal,
         ])->with('success', 'Invoice created successfully.');
     }
 
@@ -91,7 +91,7 @@ class InvoiceController extends Controller
         $invoice->delete();
 
         return redirect()->route('portal.invoice.index', [
-            'portal' => $portal
+            'portal' => $portal,
         ])->with('success', 'Invoice deleted successfully.');
     }
 

@@ -30,18 +30,14 @@
                     File
                 </label>
 
-                @if($invoice->file)
+                @if ($invoice->file)
                     <p class="mt-1 text-sm text-gray-500">
                         Current file: {{ $invoice->file->filename }}
                     </p>
                 @endif
 
-                <input
-                    type="file"
-                    id="file"
-                    name="file"
-                    class="w-full border border-gray-300 rounded-md p-2 mt-1 focus:ring focus:ring-blue-200"
-                >
+                <input type="file" id="file" name="file"
+                    class="w-full border border-gray-300 rounded-md p-2 mt-1 focus:ring focus:ring-blue-200">
             </div>
             <div>
                 <label for="Expiry date" class="block font-medium text-gray-700">Expiry date</label>
@@ -60,7 +56,7 @@
             <div>
                 <label for="project" class="block font-medium text-gray-700">Project</label>
                 <select name="project" id="project"
-                        class="w-full border border-gray-300 rounded-md p-2 mt-1 bg-white focus:ring focus:ring-blue-200">
+                    class="w-full border border-gray-300 rounded-md p-2 mt-1 bg-white focus:ring focus:ring-blue-200">
                     @foreach ($portal->projects as $project)
                         <option value="{{ $project->id }}">{{ ucfirst($project->name) }}</option>
                     @endforeach
