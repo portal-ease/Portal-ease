@@ -2,7 +2,6 @@
     use App\Services\FileStorageService;
 
     $profilePicturePath = app(FileStorageService::class)->userProfilePicture($user);
-    $canManageRole = auth()->user()->hasAnyRole(['admin', 'service_provider']);
 @endphp
 <x-app-layout :portal="$portal">
 
@@ -22,18 +21,12 @@
             </div>
 
             {{-- Delete User --}}
-            <form
-                action="{{ route('portal.user.destroy', ['user' => $user, 'portal' => $portal]) }}"
-                method="POST"
-                onsubmit="return confirm('Are you sure you want to permanently delete {{ addslashes($user->name) }}? This action cannot be undone.');"
-            >
+            <form action="{{ route('portal.user.destroy', ['user' => $user, 'portal' => $portal]) }}" method="POST"
+                onsubmit="return confirm('Are you sure you want to permanently delete {{ addslashes($user->name) }}? This action cannot be undone.');">
                 @csrf
                 @method('DELETE')
 
-                <button
-                    type="submit"
-                    title="Delete user"
-                    aria-label="Delete {{ $user->name }}"
+                <button type="submit" title="Delete user" aria-label="Delete {{ $user->name }}"
                     class="inline-flex items-center justify-center
                            w-10 h-10
                            rounded-lg
@@ -45,13 +38,8 @@
                            focus:outline-none
                            focus:ring-2
                            focus:ring-red-500
-                           focus:ring-offset-2"
-                >
-                    <x-lucide-trash-2
-                        width="20"
-                        height="20"
-                        class="transition"
-                    />
+                           focus:ring-offset-2">
+                    <x-lucide-trash-2 width="20" height="20" class="transition" />
                 </button>
             </form>
 
@@ -74,11 +62,8 @@
             </div>
 
             {{-- Form --}}
-            <form
-                action="{{ route('portal.user.update', ['portal' => $portal, 'user' => $user]) }}"
-                method="POST"
-                class="p-5"
-            >
+            <form action="{{ route('portal.user.update', ['portal' => $portal, 'user' => $user]) }}" method="POST"
+                class="p-5">
                 @csrf
                 @method('PUT')
 
@@ -87,28 +72,19 @@
                     {{-- Name --}}
                     <div>
 
-                        <label
-                            for="name"
-                            class="block font-medium text-gray-700"
-                        >
+                        <label for="name" class="block font-medium text-gray-700">
                             Name
                         </label>
 
-                        <input
-                            type="text"
-                            id="name"
-                            name="name"
-                            value="{{ old('name', $user->name) }}"
-                            required
-                            autocomplete="name"
+                        <input type="text" id="name" name="name" value="{{ old('name', $user->name) }}"
+                            required autocomplete="name"
                             class="w-full border border-gray-300 rounded-md p-2 mt-1
-                                   focus:ring focus:ring-blue-200 focus:outline-none"
-                        >
+                                   focus:ring focus:ring-blue-200 focus:outline-none">
 
                         @error('name')
-                        <p class="mt-1 text-sm text-red-600">
-                            {{ $message }}
-                        </p>
+                            <p class="mt-1 text-sm text-red-600">
+                                {{ $message }}
+                            </p>
                         @enderror
 
                     </div>
@@ -116,77 +92,53 @@
                     {{-- Email --}}
                     <div>
 
-                        <label
-                            for="email"
-                            class="block font-medium text-gray-700"
-                        >
+                        <label for="email" class="block font-medium text-gray-700">
                             Email Address
                         </label>
 
-                        <input
-                            type="email"
-                            id="email"
-                            name="email"
-                            value="{{ old('email', $user->email) }}"
-                            required
-                            autocomplete="email"
+                        <input type="email" id="email" name="email" value="{{ old('email', $user->email) }}"
+                            required autocomplete="email"
                             class="w-full border border-gray-300 rounded-md p-2 mt-1
-                                   focus:ring focus:ring-blue-200 focus:outline-none"
-                        >
+                                   focus:ring focus:ring-blue-200 focus:outline-none">
 
                         @error('email')
-                        <p class="mt-1 text-sm text-red-600">
-                            {{ $message }}
-                        </p>
+                            <p class="mt-1 text-sm text-red-600">
+                                {{ $message }}
+                            </p>
                         @enderror
 
                     </div>
 
                     {{-- Role --}}
-                    @if ($canManageRole)
+                    @if (auth()->user()->hasAnyRole(['admin', 'service_provider']))
 
                         <div>
 
-                            <label
-                                for="role"
-                                class="block font-medium text-gray-700"
-                            >
+                            <label for="role" class="block font-medium text-gray-700">
                                 Role
                             </label>
 
-                            <select
-                                name="role"
-                                id="role"
+                            <select name="role" id="role"
                                 class="w-full border border-gray-300 rounded-md p-2 mt-1
                                        bg-white
                                        focus:ring focus:ring-blue-200
-                                       focus:outline-none"
-                            >
+                                       focus:outline-none">
                                 @foreach ($roles as $role)
-                                    <option
-                                        value="{{ $role->name }}"
-                                        @selected(old('role', $user->roles->first()?->name) === $role->name)
-                                    >
+                                    <option value="{{ $role->name }}" @selected(old('role', $user->roles->first()?->name) === $role->name)>
                                         {{ ucfirst($role->name) }}
                                     </option>
                                 @endforeach
                             </select>
 
                             @error('role')
-                            <p class="mt-1 text-sm text-red-600">
-                                {{ $message }}
-                            </p>
+                                <p class="mt-1 text-sm text-red-600">
+                                    {{ $message }}
+                                </p>
                             @enderror
 
                         </div>
-
                     @else
-
-                        <input
-                            type="hidden"
-                            name="role"
-                            value="client"
-                        >
+                        <input type="hidden" name="role" value="client">
 
                     @endif
 
@@ -195,8 +147,7 @@
                 {{-- Actions --}}
                 <div class="mt-5 flex justify-end pt-5">
 
-                    <button
-                        type="submit"
+                    <button type="submit"
                         class="inline-flex items-center gap-2
                                bg-green-500 hover:bg-green-600
                                text-white
@@ -207,8 +158,7 @@
                                hover:outline-none
                                hover:ring-2
                                hover:ring-green-500
-                               hover:ring-offset-2"
-                    >
+                               hover:ring-offset-2">
                         <i class="fa-solid fa-check"></i>
                         Save Changes
                     </button>
@@ -240,11 +190,9 @@
                 {{-- Current Picture --}}
                 <div class="flex items-center gap-4">
 
-                    <img
-                        src="{{ $profilePicturePath ?? asset('anonymous_picture.jpg') }}"
+                    <img src="{{ $profilePicturePath ?? asset('anonymous_picture.jpg') }}"
                         alt="Profile picture of {{ $user->name }}"
-                        class="w-14 h-14 rounded-full object-cover border-2 border-gray-100"
-                    >
+                        class="w-14 h-14 rounded-full object-cover border-2 border-gray-100">
 
                     <div>
 
@@ -261,54 +209,36 @@
                 </div>
 
                 {{-- Upload Form --}}
-                <form
-                    action="{{ route('portal.user.profile', ['portal' => $portal, 'user' => $user]) }}"
-                    method="POST"
-                    enctype="multipart/form-data"
-                    class="mt-5"
-                >
+                <form action="{{ route('portal.user.profile', ['portal' => $portal, 'user' => $user]) }}"
+                    method="POST" enctype="multipart/form-data" class="mt-5">
                     @csrf
 
                     <div>
 
-                        <label
-                            for="file"
-                            class="block font-medium text-gray-700"
-                        >
+                        <label for="file" class="block font-medium text-gray-700">
                             Choose a new picture
                         </label>
 
-                        <input
-                            type="file"
-                            id="file"
-                            name="file"
-                            required
-                            accept="image/*"
+                        <input type="file" id="file" name="file" required accept="image/*"
                             class="w-full border border-gray-300 rounded-md p-2 mt-1
                                    focus:ring focus:ring-blue-200
-                                   focus:outline-none"
-                        >
+                                   focus:outline-none">
 
                         <p class="mt-1 text-xs text-gray-500">
                             Recommended: JPG, PNG or JPEG.
                         </p>
 
                         @error('file')
-                        <p class="mt-1 text-sm text-red-600">
-                            {{ $message }}
-                        </p>
+                            <p class="mt-1 text-sm text-red-600">
+                                {{ $message }}
+                            </p>
                         @enderror
 
                     </div>
 
-                    <input
-                        type="hidden"
-                        name="portal_id"
-                        value="{{ $portal->id }}"
-                    >
+                    <input type="hidden" name="portal_id" value="{{ $portal->id }}">
 
-                    <button
-                        type="submit"
+                    <button type="submit"
                         class="w-full mt-4
                                bg-green-500 hover:bg-green-600
                                text-white font-semibold
@@ -319,8 +249,7 @@
                                focus:outline-none
                                focus:ring-2
                                focus:ring-green-500
-                               focus:ring-offset-2"
-                    >
+                               focus:ring-offset-2">
                         <i class="fa-solid fa-camera mr-1"></i>
                         Update Profile Picture
                     </button>
