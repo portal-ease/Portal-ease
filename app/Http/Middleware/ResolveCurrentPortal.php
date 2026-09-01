@@ -2,9 +2,11 @@
 
 namespace App\Http\Middleware;
 
+use App\Context\CurrentPortal;
 use App\Models\Portal;
 use Closure;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Cache;
 use Symfony\Component\HttpFoundation\Response;
 
 class ResolveCurrentPortal
@@ -14,9 +16,23 @@ class ResolveCurrentPortal
      *
      * @param  Closure(Request): (Response)  $next
      */
-    public function handle(Request $request, Closure $next): Response
+    public function handle(Request $request, Closure $next, CurrentPortal $currentPortal): Response
     {
-        $portal = $request->route('portal');
+        $routePortal = $request->route('portal');
+
+        if (! $routePortal) {
+            return $next($request);
+        }
+
+        $portal = $routePortal instanceof Portal ? $routePortal
+            : Cache::remember(
+                "portal:{$routePortal}",
+                now()->addHour(),
+                fn () => Portal::query()
+                    ->findOrFail($routePortal)
+            );
+
+        $currentPortal->set($portal);
 
         return $next($request);
     }
