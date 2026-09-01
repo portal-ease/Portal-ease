@@ -49,6 +49,58 @@
                         </h2>
                     </a>
 
+                    <!-- Latest Messages -->
+                    <a href="{{ route('portal.user.chat', ['portal' => $portal, 'user' => $user]) }}"
+                        class="bg-white rounded-xl shadow-md p-5 hover:shadow-lg transition flex flex-col gap-3 col-span-2">
+
+                        <div class="flex items-center justify-between">
+                            <div class="flex items-center gap-3">
+                                <x-lucide-message-circle width="22" height="22" class="text-purple-500" />
+
+                                <h2 class="text-lg font-semibold text-gray-700">
+                                    Latest Messages
+                                </h2>
+                            </div>
+
+                            <x-lucide-chevron-right width="20" height="20" class="text-gray-400" />
+                        </div>
+
+                        @forelse ($conversations as $conversation)
+                            <div class="flex items-center gap-3 border-t border-gray-100 pt-3">
+
+                                <div
+                                    class="w-10 h-10 rounded-full bg-purple-100 flex items-center justify-center shrink-0">
+                                    @php
+                                        $logoPath = app(FileStorageService::class)->userProfilePicture(
+                                            $conversation->users->where('id', '!=', auth()->id())->first(),
+                                        );
+                                    @endphp
+                                    <img src="{{ $logoPath ?? 'https://ui-avatars.com/api/?name=' . urlencode($user->name) }}"
+                                        alt="Avatar"
+                                        class="h-10 w-10 rounded-full object-cover border-2 border-[#007bff]">
+                                </div>
+
+                                <div class="min-w-0 flex-1">
+                                    <p class="font-medium text-gray-800 truncate">
+                                        {{ $conversation->users->where('id', '!=', auth()->id())->first()?->name ?? 'Unknown user' }}
+                                    </p>
+
+                                    <p class="text-sm text-gray-500 truncate">
+                                        {{ $conversation->messages->last()?->message ?? 'No messages yet.' }}
+                                    </p>
+                                </div>
+
+                                <span class="text-xs text-gray-400 whitespace-nowrap">
+                                </span>
+                            </div>
+                        @empty
+                            <div class="border-t border-gray-100 pt-4 text-sm text-gray-500">
+                                No messages yet.
+                            </div>
+                        @endforelse
+
+                    </a>
+
                 </div>
             @else
                 <!-- Welcome Card -->
