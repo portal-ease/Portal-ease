@@ -1,7 +1,7 @@
 @php use App\Services\FileStorageService; @endphp
-<x-app-layout :portal="$portal">
+<x-app-layout :portal="currentPortal()">
     @php
-        $logoPath = app(FileStorageService::class)->portalLogoUrl($portal);
+        $logoPath = app(FileStorageService::class)->portalLogoUrl(currentPortal());
     @endphp
     <div x-data="{ activeTab: 'general' }" class="max-w-3xl mx-auto">
         <div class="bg-white shadow-2xl rounded-2xl overflow-hidden">
@@ -71,7 +71,7 @@
                 </div>
 
                 {{-- Settings form --}}
-                <form method="POST" action="{{ route('portal.update', $portal) }}" enctype="multipart/form-data"
+                <form method="POST" action="{{ route('portal.update', currentPortal()) }}" enctype="multipart/form-data"
                     class="p-8">
                     @csrf
                     @method('PUT')
@@ -94,7 +94,7 @@
                                 Portal Name
                             </label>
 
-                            <input type="text" id="name" name="name" value="{{ old('name', $portal->name) }}"
+                            <input type="text" id="name" name="name" value="{{ old('name', currentPortal()->name) }}"
                                 required
                                 class="w-full border border-gray-300 rounded-md p-2 mt-1 focus:ring focus:ring-blue-200"
                                 placeholder="Enter portal name">
@@ -113,7 +113,7 @@
                             </label>
 
                             <input type="email" id="email" name="email"
-                                value="{{ old('email', $portal->email) }}" required
+                                value="{{ old('email', currentPortal()->email) }}" required
                                 class="w-full border border-gray-300 rounded-md p-2 mt-1 focus:ring focus:ring-blue-200"
                                 placeholder="Enter email address">
 
@@ -150,7 +150,7 @@
                                     aria-label="Choose branding colour"></button>
 
                                 <input type="text" id="branding" name="branding_color"
-                                    value="{{ old('branding_color', $portal->branding_color ?? '#3B82F6') }}" required
+                                    value="{{ old('branding_color', currentPortal()->branding_color ?? '#3B82F6') }}" required
                                     readonly
                                     class="flex-1 border border-gray-300 rounded-md p-2 focus:ring focus:ring-blue-200">
                             </div>
@@ -185,7 +185,7 @@
                                 @if ($logoPath)
                                     <div class="flex items-center gap-6">
                                         <div class="w-32 h-20 flex items-center justify-center p-3">
-                                            <img src="{{ $logoPath }}" alt="{{ $portal->name }} logo"
+                                            <img src="{{ $logoPath }}" alt="{{ currentPortal()->name }} logo"
                                                 class="max-w-full max-h-full object-contain">
                                         </div>
 
@@ -265,7 +265,7 @@
                             </div>
                         </div>
 
-                        <form method="POST" action="{{ route('portal.destroy', $portal) }}" class="mt-6">
+                        <form method="POST" action="{{ route('portal.destroy', currentPortal()) }}" class="mt-6">
                             @csrf
                             @method('DELETE')
 

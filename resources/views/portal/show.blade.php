@@ -1,12 +1,12 @@
 @php
     use App\Services\FileStorageService;
 
-    $logoPath = app(FileStorageService::class)->portalLogoUrl($portal);
+    $logoPath = app(FileStorageService::class)->portalLogoUrl(currentPortal());
     $logoSrc = $logoPath ?? asset('portalEaseLogo.png');
 @endphp
-@if (\Illuminate\Support\Facades\Auth::user() && \Illuminate\Support\Facades\Auth::user()->portal == $portal)
+@if (\Illuminate\Support\Facades\Auth::user() && \Illuminate\Support\Facades\Auth::user()->portal == currentPortal())
 
-    <x-app-layout :portal="$portal">
+    <x-app-layout :portal="currentPortal()">
 
         <div class="max-w-4xl mx-auto w-full px-4 sm:px-6 lg:px-0">
 
@@ -22,7 +22,7 @@
                             Verify your email!!
                         </h2>
 
-                        <a href="{{ route('portal.verify', $portal) }}"
+                        <a href="{{ route('portal.verify', currentPortal()) }}"
                             class="bg-green-300 rounded-xl p-4 text-lg font-semibold text-black">
                             Verify email
                         </a>
@@ -30,27 +30,27 @@
                 @endif
                 <div class="grid grid-cols-2 gap-4 mb-4">
                     <!-- Customers -->
-                    <a href="{{ route('portal.user.index', $portal) }}"
+                    <a href="{{ route('portal.user.index', currentPortal()) }}"
                         class="bg-white rounded-xl shadow-md p-5 hover:shadow-lg transition flex items-center gap-3">
                         <x-lucide-users width="22" height="22" class="text-blue-500" />
 
                         <h2 class="text-lg font-semibold text-gray-700">
-                            Portal Users: {{ count($portal->users) - 1 }}
+                            Portal Users: {{ count(currentPortal()->users) - 1 }}
                         </h2>
                     </a>
 
                     <!-- Projects -->
-                    <a href="{{ route('portal.project.index', $portal) }}"
+                    <a href="{{ route('portal.project.index', currentPortal()) }}"
                         class="bg-white rounded-xl shadow-md p-5 hover:shadow-lg transition flex items-center gap-3">
                         <x-lucide-briefcase width="22" height="22" class="text-green-500" />
 
                         <h2 class="text-lg font-semibold text-gray-700">
-                            Projects: {{ count($portal->projects) }}
+                            Projects: {{ count(currentPortal()->projects) }}
                         </h2>
                     </a>
 
                     <!-- Latest Messages -->
-                    <a href="{{ route('portal.user.chat', ['portal' => $portal, 'user' => $user]) }}"
+                    <a href="{{ route('portal.user.chat', ['portal' => currentPortal(), 'user' => $user]) }}"
                         class="bg-white rounded-xl shadow-md p-5 hover:shadow-lg transition flex flex-col gap-3 col-span-2">
 
                         <div class="flex items-center justify-between">
@@ -106,11 +106,11 @@
                 <!-- Welcome Card -->
                 <div class="rounded-xl shadow-lg p-6 flex items-center gap-6 mt-4 text-white"
                     style="background-color: {{ $portal->branding_color }}">
-                    <img src="{{ $logoSrc }}" alt="{{ $portal->name }}"
+                    <img src="{{ $logoSrc }}" alt="{{ currentPortal()->name }}"
                         class="w-20 h-20 rounded-full bg-white p-2">
 
                     <h1 class="text-3xl font-bold">
-                        Welcome to {{ $portal->name }}
+                        Welcome to {{ currentPortal()->name }}
                     </h1>
                 </div>
 
@@ -127,14 +127,14 @@
                             <span class="font-semibold text-gray-700">
                                 Portal Name:
                             </span>
-                            {{ $portal->name }}
+                            {{ currentPortal()->name }}
                         </p>
 
                         <p>
                             <span class="font-semibold text-gray-700">
                                 Email:
                             </span>
-                            {{ $portal->email }}
+                            {{ currentPortal()->email }}
                         </p>
                     </div>
 
@@ -146,10 +146,10 @@
 
                         <div class="flex flex-wrap gap-2">
 
-                            @foreach ($portal->users as $user)
+                            @foreach (currentPortal()->users as $user)
                                 @if ($user->hasRole('service_provider'))
                                     <a href="{{ route('portal.user.show', [
-                                        'portal' => $portal,
+                                        'portal' => currentPortal(),
                                         'user' => $user,
                                     ]) }}"
                                         class="bg-blue-100 text-blue-700 px-3 py-1 rounded-full text-sm font-medium shadow-sm">
@@ -176,12 +176,12 @@
 
             <!-- Logo -->
             <div class="flex justify-center">
-                <img src="{{ $logoSrc }}" alt="{{ $portal->name ?? 'logo' }}" class="max-h-14">
+                <img src="{{ $logoSrc }}" alt="{{ currentPortal()->name ?? 'logo' }}" class="max-h-14">
             </div>
 
             <!-- Title -->
             <h1 class="text-3xl font-extrabold text-center text-blue-900">
-                {{ $portal->name }} Login
+                {{ currentPortal()->name }} Login
             </h1>
 
             <p class="text-center text-gray-600 text-sm">
@@ -235,7 +235,7 @@
 
                     <p>
                         You’re not yet a user of
-                        <strong>{{ $portal->name }}</strong>.
+                        <strong>{{ currentPortal()->name }}</strong>.
                         Ask the portal admin to create an account for you.
                     </p>
                 </div>

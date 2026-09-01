@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Portal;
 use App\Services\ChatService;
 
 class ConversationController extends Controller
@@ -10,7 +11,7 @@ class ConversationController extends Controller
         private readonly ChatService $chatService,
     ) {}
 
-    public function index()
+    public function index(Portal $portal)
     {
         $user = auth()->user();
 

@@ -11,8 +11,6 @@ use App\Services\ChatService;
 use App\Services\FileStorageService;
 use Illuminate\Support\Collection;
 use Livewire\Component;
-use Psr\Container\ContainerExceptionInterface;
-use Psr\Container\NotFoundExceptionInterface;
 
 class ChatWindow extends Component
 {
@@ -55,7 +53,7 @@ class ChatWindow extends Component
 
         $this->otherUsers = $this->conversation->otherUsers();
 
-        $this->portal = currentPortal();
+        $this->portal = auth()->user()->portal;
         $this->messages = $this->chatService->getMessages($this->conversation);
     }
 
