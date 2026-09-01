@@ -13,6 +13,7 @@ use Illuminate\Support\Facades\Storage;
 class PortalController extends Controller
 {
     private FileStorageService $storageService;
+
     private ChatService $chatService;
 
     public function __construct(FileStorageService $storageService, ChatService $chatService)
