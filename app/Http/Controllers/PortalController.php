@@ -82,11 +82,11 @@ class PortalController extends Controller
 
             $conversations = $this->chatService->getConversations($user);
 
-            return view('portal.show', compact('user', 'conversations'));
+            return view('portal.show', compact('portal', 'user', 'conversations'));
         } else {
             $user = null;
 
-            return view('portal.show', compact('user'));
+            return view('portal.show', compact('portal', 'user'));
         }
 
     }
@@ -96,7 +96,7 @@ class PortalController extends Controller
      */
     public function edit(Portal $portal)
     {
-        return view('portal.edit');
+        return view('portal.edit', compact('portal'));
     }
 
     /**
@@ -131,7 +131,7 @@ class PortalController extends Controller
             );
         }
 
-        return redirect()->route('portal.edit');
+        return redirect()->route('portal.edit', compact('portal'));
     }
 
     /**
