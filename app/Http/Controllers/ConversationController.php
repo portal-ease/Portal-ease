@@ -15,11 +15,9 @@ class ConversationController extends Controller
         $user = auth()->user();
 
         if ($user) {
-            $portal = $user->portal;
-
             $conversations = $this->chatService->getConversations($user);
 
-            return view('conversation.index', compact('conversations', 'user', 'portal'));
+            return view('conversation.index', compact('conversations', 'user'));
         }
 
         return redirect()->back();
