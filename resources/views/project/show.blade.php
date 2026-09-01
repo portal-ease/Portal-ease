@@ -1,4 +1,4 @@
-<x-app-layout :portal="$portal">
+<x-app-layout :portal="currentPortal()">
     <div class="flex justify-between items-center mb-6">
         <h1 class="text-2xl font-bold text-gray-800">{{ $project->name }}</h1>
     </div>
@@ -15,7 +15,7 @@
                     <p><span class="font-medium">Customer:</span> {{ $project->customer->name }}</p>
                     <div class="flex flex-row gap-12">
                         <form method="POST"
-                            action="{{ route('portal.project.destroy', ['project' => $project, 'portal' => $portal]) }}">
+                            action="{{ route('portal.project.destroy', ['project' => $project, 'portal' => currentPortal()]) }}">
                             @csrf
                             @method('DELETE')
                             <button type="submit" onclick="return confirm('Are you sure?')"
@@ -30,7 +30,7 @@
         <div class="grid grid-cols-2 gap-8">
             <div class="bg-white p-6 rounded-xl shadow-md">
                 <h2 class="text-xl font-semibold mb-4 text-gray-800">Payment
-                    @foreach ($portal->invoices as $invoice)
+                    @foreach (currentPortal()->invoices as $invoice)
                         @if ($invoice->project_id == $project->id)
                             <h2>${{ $invoice->price }}</h2>
                         @endif
@@ -40,9 +40,9 @@
             </div>
             <div class="bg-white p-6 rounded-xl shadow-md">
                 <h2 class="text-xl font-semibold mb-4 text-gray-800">Invoice(s)</h2>
-                @foreach ($portal->invoices as $invoice)
+                @foreach (currentPortal()->invoices as $invoice)
                     @if ($invoice->project_id == $project->id)
-                        <a href="{{ route('portal.invoice.show', ['portal' => $portal, 'invoice' => $invoice]) }}"
+                        <a href="{{ route('portal.invoice.show', ['portal' => currentPortal(), 'invoice' => $invoice]) }}"
                             class="hover:text-blue-300">{{ $invoice->name }}</a>
                     @endif
                 @endforeach

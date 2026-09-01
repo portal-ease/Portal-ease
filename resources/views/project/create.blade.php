@@ -1,8 +1,8 @@
-<x-app-layout :portal="$portal">
+<x-app-layout :portal="currentPortal()">
     <div class="max-w-xl mx-auto bg-white shadow-2xl rounded-2xl p-10 space-y-8">
         <h2 class="text-3xl font-bold text-center text-gray-800">Start New Project</h2>
 
-        <form method="POST" action="{{ route('portal.project.store', $portal) }}" class="space-y-6">
+        <form method="POST" action="{{ route('portal.project.store', currentPortal()) }}" class="space-y-6">
             @csrf
 
             <!-- Project Name -->
@@ -18,7 +18,7 @@
                 <select name="customer_id" id="customer_id" required
                     class="w-full border border-gray-300 rounded-lg px-4 py-2 bg-white focus:outline-none focus:ring-2 focus:ring-blue-400">
                     <option value="" disabled selected>Select a user</option>
-                    @foreach ($portal->users as $user)
+                    @foreach (currentPortal()->users as $user)
                         @if ($user->hasRole('client'))
                             <option value="{{ $user->id }}">{{ $user->name }}</option>
                         @endif

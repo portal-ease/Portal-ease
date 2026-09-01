@@ -13,7 +13,7 @@ class ProjectController extends Controller
      */
     public function index(Portal $portal)
     {
-        return view('project.index', compact('portal'));
+        return view('project.index');
     }
 
     /**
@@ -21,7 +21,7 @@ class ProjectController extends Controller
      */
     public function create(Portal $portal)
     {
-        return view('project.create', compact('portal'));
+        return view('project.create');
     }
 
     /**
@@ -40,7 +40,7 @@ class ProjectController extends Controller
             'user_id' => $request->get('customer_id'),
             'start_date' => $request->get('start_date'),
             'end_date' => $request->get('end_date'),
-            'portal_id' => $portal->id,
+            'portal_id' => currentPortal()->id,
         ]);
 
         return redirect()->back();
@@ -54,7 +54,7 @@ class ProjectController extends Controller
         $statusCollection = ['all', 'to do', 'in progress', 'completed'];
         $status = request()->query('status', 'default');
 
-        return view('project.show', compact('portal', 'project', 'status', 'statusCollection'));
+        return view('project.show', compact( 'project', 'status', 'statusCollection'));
     }
 
     /**
@@ -80,6 +80,6 @@ class ProjectController extends Controller
     {
         $project->delete();
 
-        return view('project.index', compact('portal'));
+        return view('project.index');
     }
 }
