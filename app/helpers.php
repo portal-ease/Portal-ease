@@ -2,8 +2,14 @@
 
 use App\Context\CurrentPortal;
 use App\Models\Portal;
+use Psr\Container\ContainerExceptionInterface;
+use Psr\Container\NotFoundExceptionInterface;
 
-function currentPortal(CurrentPortal $portal): Portal
+/**
+ * @throws ContainerExceptionInterface
+ * @throws NotFoundExceptionInterface
+ */
+function currentPortal(): Portal
 {
-    return $portal->get();
+   return app(CurrentPortal::class)->get();
 }

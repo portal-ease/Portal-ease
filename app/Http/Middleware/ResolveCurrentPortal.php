@@ -16,8 +16,10 @@ class ResolveCurrentPortal
      *
      * @param  Closure(Request): (Response)  $next
      */
-    public function handle(Request $request, Closure $next, CurrentPortal $currentPortal): Response
+    public function handle(Request $request, Closure $next): Response
     {
+        $currentPortal = app(CurrentPortal::class);
+
         $routePortal = $request->route('portal');
 
         if (! $routePortal) {
