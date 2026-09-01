@@ -1,4 +1,4 @@
-<x-app-layout :portal="$portal">
+<x-app-layout :portal="currentPortal()">
     <div class="bg-white shadow-2xl rounded-2xl p-8 space-y-8 max-w-4xl mx-auto">
         <!-- File Header -->
         <div class="text-center">
@@ -21,7 +21,7 @@
 
         <!-- Actions -->
         <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 text-center">
-            <a href="{{ route('portal.file.download', ['portal' => $portal, 'file' => $file]) }}"
+            <a href="{{ route('portal.file.download', ['portal' => currentPortal(), 'file' => $file]) }}"
                 class="bg-blue-600 hover:bg-blue-700 transition text-white py-3 rounded-xl font-medium shadow">
                 📥 Download file
             </a>

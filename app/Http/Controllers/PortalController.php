@@ -82,11 +82,11 @@ class PortalController extends Controller
 
             $conversations = $this->chatService->getConversations($user);
 
-            return view('portal.show', compact('portal', 'user', 'conversations'));
+            return view('portal.show', compact('user', 'conversations'));
         } else {
             $user = null;
 
-            return view('portal.show', compact('portal', 'user'));
+            return view('portal.show', compact('user'));
         }
 
     }
@@ -96,7 +96,7 @@ class PortalController extends Controller
      */
     public function edit(Portal $portal)
     {
-        return view('portal.edit', compact('portal'));
+        return view('portal.edit');
     }
 
     /**
@@ -131,7 +131,7 @@ class PortalController extends Controller
             );
         }
 
-        return redirect()->route('portal.edit', $portal);
+        return redirect()->route('portal.edit');
     }
 
     /**
@@ -148,6 +148,6 @@ class PortalController extends Controller
     {
         Auth::user()->sendEmailVerificationNotification();
 
-        return view('portal.verify', compact('portal'));
+        return view('portal.verify');
     }
 }

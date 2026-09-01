@@ -1,4 +1,4 @@
-<x-app-layout :portal="$portal">
+<x-app-layout :portal="currentPortal()">
     <h1 class="text-3xl font-bold text-blue-700 mb-6">Notifications</h1>
 
     @forelse(\Illuminate\Support\Facades\Auth::user()->notifications as $notification)

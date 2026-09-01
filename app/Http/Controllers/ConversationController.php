@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Portal;
 use App\Services\ChatService;
 
 class ConversationController extends Controller
@@ -10,16 +11,14 @@ class ConversationController extends Controller
         private readonly ChatService $chatService,
     ) {}
 
-    public function index()
+    public function index(Portal $portal)
     {
         $user = auth()->user();
 
         if ($user) {
-            $portal = $user->portal;
-
             $conversations = $this->chatService->getConversations($user);
 
-            return view('conversation.index', compact('conversations', 'user', 'portal'));
+            return view('conversation.index', compact('conversations', 'user'));
         }
 
         return redirect()->back();

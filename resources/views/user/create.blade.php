@@ -1,8 +1,8 @@
-<x-app-layout :portal="$portal">
+<x-app-layout :portal="currentPortal()">
     <div class="max-w-xl mx-auto bg-white shadow-2xl rounded-2xl p-8 space-y-6">
         <h2 class="text-2xl font-semibold text-gray-800">Register New Customer</h2>
 
-        <form action="{{ route('portal.user.store', ['portal' => $portal]) }}" method="POST" class="space-y-4">
+        <form action="{{ route('portal.user.store', ['portal' => currentPortal()]) }}" method="POST" class="space-y-4">
             @csrf
 
             <div>
@@ -26,7 +26,7 @@
                     placeholder="Password">
             </div>
 
-            <input type="hidden" name="portal_id" value="{{ $portal->id }}">
+            <input type="hidden" name="portal_id" value="{{ currentPortal()->id }}">
 
             <div>
                 <label for="role" class="block font-medium text-gray-700">Role</label>

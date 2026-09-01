@@ -1,4 +1,4 @@
-<x-app-layout :portal="$portal">
+<x-app-layout :portal="currentPortal()">
     <div class="max-w-6xl mx-auto">
 
         {{-- Header --}}
@@ -10,15 +10,15 @@
                 </p>
             </div>
 
-            <a href="{{ route('portal.user.create', ['portal' => $portal]) }}"
+            <a href="{{ route('portal.user.create', ['portal' => currentPortal()]) }}"
                 class="inline-flex items-center gap-2 bg-green-500 hover:bg-green-600 text-white px-5 py-3 rounded-xl shadow transition">
                 <i class="fa-solid fa-plus"></i>
                 New Customer
             </a>
         </div>
-        @if ($portal->users->where(fn($u) => $u->hasRole('client'))->count())
+        @if (currentPortal()->users->where(fn($u) => $u->hasRole('client'))->count())
             <div class="grid gap-4">
-                @foreach ($portal->users as $user)
+                @foreach (currentPortal()->users as $user)
                     @if ($user->hasRole('client'))
                         <div class="bg-white rounded-2xl shadow-sm hover:shadow-md transition p-5">
                             <div class="flex items-center justify-between">
@@ -30,7 +30,7 @@
                                     </div>
 
                                     <div>
-                                        <a href="{{ route('portal.user.show', ['user' => $user, 'portal' => $portal]) }}"
+                                        <a href="{{ route('portal.user.show', ['user' => $user, 'portal' => currentPortal()]) }}"
                                             class="font-semibold text-lg text-gray-800 hover:text-blue-600">
                                             {{ $user->name }}
                                         </a>
@@ -42,12 +42,12 @@
                                 </div>
 
                                 <div class="flex items-center gap-2">
-                                    <a href="{{ route('portal.user.show', ['portal' => $portal, 'user' => $user]) }}"
+                                    <a href="{{ route('portal.user.show', ['portal' => currentPortal(), 'user' => $user]) }}"
                                         class="inline-flex items-center gap-2 bg-blue-500 hover:bg-blue-600 text-white text-sm font-medium py-2 px-4 rounded-xl transition">
                                         Chat
                                     </a>
 
-                                    <a href="{{ route('portal.user.edit', ['portal' => $portal, 'user' => $user]) }}"
+                                    <a href="{{ route('portal.user.edit', ['portal' => currentPortal(), 'user' => $user]) }}"
                                         class="inline-flex items-center gap-2 bg-yellow-500 hover:bg-yellow-600 text-white text-sm font-medium py-2 px-4 rounded-xl transition">
                                         Edit
                                     </a>

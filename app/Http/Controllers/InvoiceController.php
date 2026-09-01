@@ -46,9 +46,7 @@ class InvoiceController extends Controller
 
         $invoice->user->files()->attach($file->id);
 
-        return redirect()->route('portal.invoice.index', [
-            'portal' => $portal,
-        ])->with('success', 'Invoice created successfully.');
+        return redirect()->route('portal.invoice.index')->with('success', 'Invoice created successfully.');
     }
 
     /**
@@ -57,7 +55,6 @@ class InvoiceController extends Controller
     public function show(Portal $portal, Invoice $invoice)
     {
         return view('invoice.show', [
-            'portal' => $portal,
             'invoice' => $invoice,
             'user' => auth()->user(),
         ]);
@@ -68,7 +65,7 @@ class InvoiceController extends Controller
      */
     public function edit(Portal $portal, Invoice $invoice)
     {
-        return view('invoice.edit', compact('invoice', 'portal'));
+        return view('invoice.edit', compact('invoice'));
     }
 
     /**
@@ -90,9 +87,7 @@ class InvoiceController extends Controller
 
         $invoice->delete();
 
-        return redirect()->route('portal.invoice.index', [
-            'portal' => $portal,
-        ])->with('success', 'Invoice deleted successfully.');
+        return redirect()->route('portal.invoice.index')->with('success', 'Invoice deleted successfully.');
     }
 
     public function download(Portal $portal, Invoice $invoice)
@@ -106,6 +101,6 @@ class InvoiceController extends Controller
             'price' => 0.00,
         ]);
 
-        return view('invoice.payment', compact('portal', 'invoice'));
+        return view('invoice.payment', compact('invoice'));
     }
 }

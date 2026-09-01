@@ -1,8 +1,8 @@
-<x-app-layout :portal="$portal">
+<x-app-layout :portal="currentPortal()">
     <div class="max-w-xl mx-auto bg-white shadow-2xl rounded-2xl p-8 space-y-6">
         <h2 class="text-2xl font-semibold text-gray-800">New invoice</h2>
 
-        <form action="{{ route('portal.invoice.store', ['portal' => $portal]) }}" method="POST" class="space-y-4"
+        <form action="{{ route('portal.invoice.store', ['portal' => currentPortal()]) }}" method="POST" class="space-y-4"
             enctype="multipart/form-data">
             @csrf
 
@@ -41,7 +41,7 @@
                 <label for="user" class="block font-medium text-gray-700">User</label>
                 <select name="user" id="user"
                     class="w-full border border-gray-300 rounded-md p-2 mt-1 bg-white focus:ring focus:ring-blue-200">
-                    @foreach ($portal->users as $user)
+                    @foreach (currentPortal()->users as $user)
                         @if ($user->hasRole('client'))
                             <option value="{{ $user->id }}">{{ ucfirst($user->name) }}</option>
                         @endif
@@ -52,7 +52,7 @@
                 <label for="project" class="block font-medium text-gray-700">Project</label>
                 <select name="project" id="project"
                     class="w-full border border-gray-300 rounded-md p-2 mt-1 bg-white focus:ring focus:ring-blue-200">
-                    @foreach ($portal->projects as $project)
+                    @foreach (currentPortal()->projects as $project)
                         <option value="{{ $project->id }}">{{ ucfirst($project->name) }}</option>
                     @endforeach
                 </select>
