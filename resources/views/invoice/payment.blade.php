@@ -1,4 +1,4 @@
-<x-app-layout :portal="$portal">
+<x-app-layout :portal="currentPortal()">
     <div class="max-w-3xl mx-auto bg-white shadow-2xl rounded-2xl p-8 space-y-6">
         <div class="text-center space-y-3">
             <div class="mx-auto flex h-16 w-16 items-center justify-center rounded-full bg-green-100 text-green-600">
@@ -32,12 +32,12 @@
         </div>
 
         <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-            <a href="{{ route('portal.invoice.show', ['portal' => $portal, 'invoice' => $invoice]) }}"
+            <a href="{{ route('portal.invoice.show', ['portal' => currentPortal(), 'invoice' => $invoice]) }}"
                 class="bg-blue-600 hover:bg-blue-700 text-white text-center py-3 rounded-xl transition">
                 View Invoice
             </a>
 
-            <a href="{{ route('portal.invoice.download', ['portal' => $portal, 'invoice' => $invoice]) }}"
+            <a href="{{ route('portal.invoice.download', ['portal' => currentPortal(), 'invoice' => $invoice]) }}"
                 class="bg-green-500 hover:bg-green-600 text-white text-center py-3 rounded-xl transition">
                 Download Invoice
             </a>

@@ -1,8 +1,8 @@
-<x-app-layout :portal="$portal">
+<x-app-layout :portal="currentPortal()">
     <div class="max-w-4xl mx-auto grid grid-cols-1 items-center gap-6 p-4">
 
         {{-- Update User Form --}}
-        <form action="{{ route('portal.invoice.update', ['invoice' => $invoice, 'portal' => $portal]) }}" method="POST"
+        <form action="{{ route('portal.invoice.update', ['invoice' => $invoice, 'portal' => currentPortal()]) }}" method="POST"
             class="bg-white shadow-xl rounded-2xl p-6 flex flex-col gap-4">
             @csrf
             @method('PUT')
@@ -48,7 +48,7 @@
                 <label for="customer" class="block font-medium text-gray-700">Customer</label>
                 <select name="user" id="customer"
                     class="w-full border border-gray-300 rounded-md p-2 mt-1 bg-white focus:ring focus:ring-blue-200">
-                    @foreach ($portal->users as $user)
+                    @foreach (currentPortal()->users as $user)
                         <option value="{{ $user->id }}">{{ $user->name }}</option>
                     @endforeach
                 </select>
@@ -57,7 +57,7 @@
                 <label for="project" class="block font-medium text-gray-700">Project</label>
                 <select name="project" id="project"
                     class="w-full border border-gray-300 rounded-md p-2 mt-1 bg-white focus:ring focus:ring-blue-200">
-                    @foreach ($portal->projects as $project)
+                    @foreach (currentPortal()->projects as $project)
                         <option value="{{ $project->id }}">{{ ucfirst($project->name) }}</option>
                     @endforeach
                 </select>
