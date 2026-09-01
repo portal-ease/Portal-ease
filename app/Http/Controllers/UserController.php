@@ -71,7 +71,7 @@ class UserController extends Controller
     {
         $conversationP2p = Conversation::query()->first();
 
-        return view('user.show', compact('user',  'conversationP2p'));
+        return view('user.show', compact('user', 'conversationP2p'));
     }
 
     /**

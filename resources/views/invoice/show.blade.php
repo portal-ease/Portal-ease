@@ -18,7 +18,8 @@
         <!-- Payment Button for Clients -->
         @if ($user->hasRole('client') && $invoice->price != 0)
             <div class="flex flex-row gap-5">
-                <form action="{{ route('portal.invoice.payment', ['portal' => currentPortal(), 'invoice' => $invoice]) }}"
+                <form
+                    action="{{ route('portal.invoice.payment', ['portal' => currentPortal(), 'invoice' => $invoice]) }}"
                     method="POST">
                     @csrf
                     @method('PATCH')
@@ -39,7 +40,8 @@
             <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 bg-green-100 p-4 rounded-xl">
                 <p class="text-xl font-semibold text-green-700">This invoice is paid</p>
                 @if ($user->hasRole('service_provider'))
-                    <form action="{{ route('portal.invoice.destroy', ['portal' => currentPortal(), 'invoice' => $invoice]) }}"
+                    <form
+                        action="{{ route('portal.invoice.destroy', ['portal' => currentPortal(), 'invoice' => $invoice]) }}"
                         method="POST">
                         @csrf
                         @method('DELETE')
@@ -59,7 +61,8 @@
                     class="bg-green-500 hover:bg-green-600 text-white py-3 rounded-xl">
                     Download Invoice
                 </a>
-                <form action="{{ route('portal.invoice.destroy', ['portal' => currentPortal(), 'invoice' => $invoice]) }}"
+                <form
+                    action="{{ route('portal.invoice.destroy', ['portal' => currentPortal(), 'invoice' => $invoice]) }}"
                     method="POST">
                     @csrf
                     @method('DELETE')

@@ -54,7 +54,7 @@ class ProjectController extends Controller
         $statusCollection = ['all', 'to do', 'in progress', 'completed'];
         $status = request()->query('status', 'default');
 
-        return view('project.show', compact( 'project', 'status', 'statusCollection'));
+        return view('project.show', compact('project', 'status', 'statusCollection'));
     }
 
     /**

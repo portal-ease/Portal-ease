@@ -82,11 +82,11 @@ class PortalController extends Controller
 
             $conversations = $this->chatService->getConversations($user);
 
-            return view('portal.show', compact( 'user', 'conversations'));
+            return view('portal.show', compact('user', 'conversations'));
         } else {
             $user = null;
 
-            return view('portal.show', compact( 'user'));
+            return view('portal.show', compact('user'));
         }
 
     }

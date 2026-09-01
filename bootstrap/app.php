@@ -18,7 +18,7 @@ return Application::configure(basePath: dirname(__DIR__))
             return route('welcome');
         });
         $middleware->web(append: [
-           ResolveCurrentPortal::class,
+            ResolveCurrentPortal::class,
         ]);
         $middleware->alias([
             'block-clients' => BlockClients::class,

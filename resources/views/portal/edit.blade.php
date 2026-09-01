@@ -71,8 +71,8 @@
                 </div>
 
                 {{-- Settings form --}}
-                <form method="POST" action="{{ route('portal.update', currentPortal()) }}" enctype="multipart/form-data"
-                    class="p-8">
+                <form method="POST" action="{{ route('portal.update', currentPortal()) }}"
+                    enctype="multipart/form-data" class="p-8">
                     @csrf
                     @method('PUT')
 
@@ -94,8 +94,8 @@
                                 Portal Name
                             </label>
 
-                            <input type="text" id="name" name="name" value="{{ old('name', currentPortal()->name) }}"
-                                required
+                            <input type="text" id="name" name="name"
+                                value="{{ old('name', currentPortal()->name) }}" required
                                 class="w-full border border-gray-300 rounded-md p-2 mt-1 focus:ring focus:ring-blue-200"
                                 placeholder="Enter portal name">
 
@@ -150,8 +150,8 @@
                                     aria-label="Choose branding colour"></button>
 
                                 <input type="text" id="branding" name="branding_color"
-                                    value="{{ old('branding_color', currentPortal()->branding_color ?? '#3B82F6') }}" required
-                                    readonly
+                                    value="{{ old('branding_color', currentPortal()->branding_color ?? '#3B82F6') }}"
+                                    required readonly
                                     class="flex-1 border border-gray-300 rounded-md p-2 focus:ring focus:ring-blue-200">
                             </div>
 

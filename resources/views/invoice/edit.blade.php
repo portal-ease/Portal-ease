@@ -2,8 +2,8 @@
     <div class="max-w-4xl mx-auto grid grid-cols-1 items-center gap-6 p-4">
 
         {{-- Update User Form --}}
-        <form action="{{ route('portal.invoice.update', ['invoice' => $invoice, 'portal' => currentPortal()]) }}" method="POST"
-            class="bg-white shadow-xl rounded-2xl p-6 flex flex-col gap-4">
+        <form action="{{ route('portal.invoice.update', ['invoice' => $invoice, 'portal' => currentPortal()]) }}"
+            method="POST" class="bg-white shadow-xl rounded-2xl p-6 flex flex-col gap-4">
             @csrf
             @method('PUT')
 

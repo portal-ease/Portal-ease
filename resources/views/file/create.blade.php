@@ -2,8 +2,8 @@
     <div class="max-w-xl mx-auto bg-white shadow-2xl rounded-2xl p-8 space-y-6">
         <h2 class="text-2xl font-semibold text-gray-800">Share a Document</h2>
 
-        <form action="{{ route('portal.file.store', ['portal' => currentPortal()]) }}" method="POST" enctype="multipart/form-data"
-            class="space-y-6">
+        <form action="{{ route('portal.file.store', ['portal' => currentPortal()]) }}" method="POST"
+            enctype="multipart/form-data" class="space-y-6">
             @csrf
 
             <!-- Document Name -->

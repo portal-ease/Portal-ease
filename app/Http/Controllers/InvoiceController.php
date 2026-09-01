@@ -101,6 +101,6 @@ class InvoiceController extends Controller
             'price' => 0.00,
         ]);
 
-        return view('invoice.payment', compact( 'invoice'));
+        return view('invoice.payment', compact('invoice'));
     }
 }

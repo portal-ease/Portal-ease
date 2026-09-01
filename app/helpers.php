@@ -11,5 +11,5 @@ use Psr\Container\NotFoundExceptionInterface;
  */
 function currentPortal(): Portal
 {
-   return app(CurrentPortal::class)->get();
+    return app(CurrentPortal::class)->get();
 }

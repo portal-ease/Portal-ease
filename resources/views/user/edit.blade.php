@@ -21,7 +21,8 @@
             </div>
 
             {{-- Delete User --}}
-            <form action="{{ route('portal.user.destroy', ['user' => $user, 'portal' => currentPortal()]) }}" method="POST"
+            <form action="{{ route('portal.user.destroy', ['user' => $user, 'portal' => currentPortal()]) }}"
+                method="POST"
                 onsubmit="return confirm('Are you sure you want to permanently delete {{ addslashes($user->name) }}? This action cannot be undone.');">
                 @csrf
                 @method('DELETE')
@@ -62,8 +63,8 @@
             </div>
 
             {{-- Form --}}
-            <form action="{{ route('portal.user.update', ['portal' => currentPortal(), 'user' => $user]) }}" method="POST"
-                class="p-5">
+            <form action="{{ route('portal.user.update', ['portal' => currentPortal(), 'user' => $user]) }}"
+                method="POST" class="p-5">
                 @csrf
                 @method('PUT')
 
