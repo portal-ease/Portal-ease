@@ -71,7 +71,7 @@ class UserController extends Controller
     {
         $conversationP2p = Conversation::query()->first();
 
-        return view('user.show', compact('user', 'conversationP2p'));
+        return view('user.show', compact('portal', 'user', 'conversationP2p'));
     }
 
     /**
@@ -83,7 +83,7 @@ class UserController extends Controller
 
         $roles = Role::all();
 
-        return view('user.edit', compact('user', 'file', 'roles'));
+        return view('user.edit', compact('portal', 'user', 'file', 'roles'));
     }
 
     /**
@@ -127,7 +127,7 @@ class UserController extends Controller
 
     public function notification(Portal $portal)
     {
-        return view('notification.index');
+        return view('notification.index', compact('portal'));
     }
 
     public function editProfilePicture(Request $request, Portal $portal, User $user)
