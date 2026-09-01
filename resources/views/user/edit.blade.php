@@ -3,7 +3,7 @@
 
     $profilePicturePath = app(FileStorageService::class)->userProfilePicture($user);
 @endphp
-<x-app-layout :portal="$portal">
+<x-app-layout :portal="currentPortal()">
 
     <div class="max-w-5xl mx-auto p-4 sm:p-6 space-y-6">
 
@@ -21,7 +21,7 @@
             </div>
 
             {{-- Delete User --}}
-            <form action="{{ route('portal.user.destroy', ['user' => $user, 'portal' => $portal]) }}" method="POST"
+            <form action="{{ route('portal.user.destroy', ['user' => $user, 'portal' => currentPortal()]) }}" method="POST"
                 onsubmit="return confirm('Are you sure you want to permanently delete {{ addslashes($user->name) }}? This action cannot be undone.');">
                 @csrf
                 @method('DELETE')
@@ -62,7 +62,7 @@
             </div>
 
             {{-- Form --}}
-            <form action="{{ route('portal.user.update', ['portal' => $portal, 'user' => $user]) }}" method="POST"
+            <form action="{{ route('portal.user.update', ['portal' => currentPortal(), 'user' => $user]) }}" method="POST"
                 class="p-5">
                 @csrf
                 @method('PUT')
@@ -209,7 +209,7 @@
                 </div>
 
                 {{-- Upload Form --}}
-                <form action="{{ route('portal.user.profile', ['portal' => $portal, 'user' => $user]) }}"
+                <form action="{{ route('portal.user.profile', ['portal' => currentPortal(), 'user' => $user]) }}"
                     method="POST" enctype="multipart/form-data" class="mt-5">
                     @csrf
 
@@ -236,7 +236,7 @@
 
                     </div>
 
-                    <input type="hidden" name="portal_id" value="{{ $portal->id }}">
+                    <input type="hidden" name="portal_id" value="{{ currentPortal()->id }}">
 
                     <button type="submit"
                         class="w-full mt-4
