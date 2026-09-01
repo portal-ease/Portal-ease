@@ -27,7 +27,7 @@ class FileController extends Controller
     {
         $user = auth()->user();
 
-        return view('file.index', compact('user', 'portal'));
+        return view('file.index', compact('user'));
     }
 
     /**
@@ -35,7 +35,7 @@ class FileController extends Controller
      */
     public function create(Portal $portal)
     {
-        return view('file.create', compact('portal'));
+        return view('file.create');
     }
 
     /**
@@ -69,7 +69,7 @@ class FileController extends Controller
      */
     public function show(Portal $portal, File $file)
     {
-        return view('file.show', compact('file', 'portal'));
+        return view('file.show', compact('file'));
     }
 
     /**

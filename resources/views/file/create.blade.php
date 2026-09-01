@@ -1,8 +1,8 @@
-<x-app-layout :portal="$portal">
+<x-app-layout :portal="currentPortal()">
     <div class="max-w-xl mx-auto bg-white shadow-2xl rounded-2xl p-8 space-y-6">
         <h2 class="text-2xl font-semibold text-gray-800">Share a Document</h2>
 
-        <form action="{{ route('portal.file.store', ['portal' => $portal]) }}" method="POST" enctype="multipart/form-data"
+        <form action="{{ route('portal.file.store', ['portal' => currentPortal()]) }}" method="POST" enctype="multipart/form-data"
             class="space-y-6">
             @csrf
 
@@ -26,7 +26,7 @@
                 <label for="user" class="block font-medium text-gray-700">Share With</label>
                 <select name="user" id="user" required
                     class="w-full border border-gray-300 rounded-md p-3 mt-1 bg-white focus:ring focus:ring-blue-200 focus:outline-none">
-                    @foreach ($portal->users as $user)
+                    @foreach (currentPortal()->users as $user)
                         @if ($user->hasRole('client'))
                             <option value="{{ $user->id }}">{{ ucfirst($user->name) }}</option>
                         @endif
@@ -44,7 +44,7 @@
                 </select>
             </div>
 
-            <input type="hidden" name="portal_id" value="{{ $portal->id }}">
+            <input type="hidden" name="portal_id" value="{{ currentPortal()->id }}">
 
             <!-- Submit Button -->
             <button type="submit"
