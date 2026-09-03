@@ -12,8 +12,9 @@ class ResetPasswordController extends Controller
     public function create(Portal $portal, Request $request, string $token)
     {
         return view('password.reset-password', [
-            'request' => $request,
+            'portal' => $portal,
             'token' => $token,
+            'request' => $request,
         ]);
     }
 
@@ -23,23 +24,25 @@ class ResetPasswordController extends Controller
             'token' => 'required',
             'email' => 'required|email',
             'password' => 'required',
+            'password_confirmation' => 'required|same:password',
         ]);
 
         $status = Password::reset(
-            $request->only(
-                'email',
-                'password',
-                'token'
-            ),
+            [
+                'email' => $request->email,
+                'password' => $request->password,
+                'password_confirmation' => $request->password_confirmation,
+                'token' => $request->token,
+            ],
             function ($user, $password) {
-                $user->update([
+                $user->forceFill([
                     'password' => Hash::make($password),
-                ]);
+                ])->save();
             }
         );
 
         return $status === Password::PASSWORD_RESET
-            ? redirect()->route('portal.index')
+            ? redirect()->route('portal.show', ['portal' => $portal])
                 ->with('status', 'Your password has been reset successfully.')
             : back()->withInput()
                 ->withErrors(['email' => [__($status)]]);
