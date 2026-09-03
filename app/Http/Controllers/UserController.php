@@ -39,7 +39,7 @@ class UserController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(Portal $portal, Request $request)
     {
         $validated = $request->validate([
             'name' => 'required|string|max:255',

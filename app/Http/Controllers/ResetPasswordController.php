@@ -2,13 +2,14 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Portal;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Password;
 
 class ResetPasswordController extends Controller
 {
-    public function create(Request $request, string $token)
+    public function create(Portal $portal, Request $request, string $token)
     {
         return view('password.reset-password', [
             'request' => $request,
@@ -16,7 +17,7 @@ class ResetPasswordController extends Controller
         ]);
     }
 
-    public function store(Request $request)
+    public function store(Portal $portal, Request $request)
     {
         $request->validate([
             'token' => 'required',

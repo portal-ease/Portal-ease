@@ -15,7 +15,7 @@ class ForgotPasswordController extends Controller
         ]);
     }
 
-    public function store(Request $request)
+    public function store(Portal $portal, Request $request)
     {
         $request->validate([
             'email' => 'required|email',
