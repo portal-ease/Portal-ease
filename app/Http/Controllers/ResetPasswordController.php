@@ -1,8 +1,7 @@
 <?php
 
-namespace App\Http\Controllers\Auth;
+namespace App\Http\Controllers;
 
-use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Password;
@@ -11,7 +10,7 @@ class ResetPasswordController extends Controller
 {
     public function create(Request $request, string $token)
     {
-        return view('auth.reset-password', [
+        return view('password.reset-password', [
             'request' => $request,
             'token' => $token,
         ]);

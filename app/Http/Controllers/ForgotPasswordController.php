@@ -1,16 +1,18 @@
 <?php
 
-namespace App\Http\Controllers\Auth;
+namespace App\Http\Controllers;
 
-use App\Http\Controllers\Controller;
+use App\Models\Portal;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Password;
 
 class ForgotPasswordController extends Controller
 {
-    public function create()
+    public function create(Portal $portal)
     {
-        return view('password.forgot-password');
+        return view('password.forgot-password', [
+            'portal' => $portal,
+        ]);
     }
 
     public function store(Request $request)
