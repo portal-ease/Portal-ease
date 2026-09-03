@@ -14,6 +14,7 @@ require __DIR__.'/resources/invoice.php';
 require __DIR__.'/resources/portal.php';
 require __DIR__.'/resources/project.php';
 require __DIR__.'/resources/user.php';
+require __DIR__.'/resources/password.php';
 
 /** @todo this will be replaced with controllers/service way */
 Route::middleware('auth')->group(function () {

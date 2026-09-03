@@ -188,6 +188,12 @@
                 Welcome back! Please sign in to continue.
             </p>
 
+            @if (session('status'))
+                <div class="mt-4 text-green-600">
+                    {{ session('status') }}
+                </div>
+            @endif
+
             <!-- Form -->
             <form action="{{ route('login.request') }}" method="POST" class="space-y-6">
                 @csrf
@@ -224,6 +230,11 @@
                             {{ $message }}
                         </div>
                     @enderror
+
+                    <a href="{{ route('password.request', currentPortal()) }}"
+                        class="text-sm text-blue-600 hover:underline">
+                        Forgot password?
+                    </a>
                 </div>
 
                 <input type="hidden" name="portal_id" value="{{ $portal->id }}">
