@@ -2,13 +2,21 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\StorePasswordRequest;
 use App\Models\Portal;
+use App\Services\PasswordService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Password;
 
 class ResetPasswordController extends Controller
 {
+    private PasswordService $passwordService;
+    public function __construct(PasswordService $passwordService)
+    {
+       $this->passwordService = $passwordService;
+    }
+
     public function create(Portal $portal, Request $request, string $token)
     {
         return view('password.reset-password', [
@@ -18,28 +26,11 @@ class ResetPasswordController extends Controller
         ]);
     }
 
-    public function store(Portal $portal, Request $request)
+    public function store(Portal $portal, StorePasswordRequest $request)
     {
-        $request->validate([
-            'token' => 'required',
-            'email' => 'required|email',
-            'password' => 'required',
-            'password_confirmation' => 'required|same:password',
-        ]);
+        $data = $request->validated();
 
-        $status = Password::reset(
-            [
-                'email' => $request->email,
-                'password' => $request->password,
-                'password_confirmation' => $request->password_confirmation,
-                'token' => $request->token,
-            ],
-            function ($user, $password) {
-                $user->forceFill([
-                    'password' => Hash::make($password),
-                ])->save();
-            }
-        );
+        $status = $this->passwordService->resetPassword($data);
 
         return $status === Password::PASSWORD_RESET
             ? redirect()->route('portal.show', ['portal' => $portal])

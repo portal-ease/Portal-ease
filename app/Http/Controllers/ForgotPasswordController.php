@@ -3,11 +3,17 @@
 namespace App\Http\Controllers;
 
 use App\Models\Portal;
+use App\Services\PasswordService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Password;
 
 class ForgotPasswordController extends Controller
 {
+    private PasswordService $passwordService;
+    public function __construct(PasswordService $passwordService)
+    {
+        $this->passwordService = $passwordService;
+    }
     public function create(Portal $portal)
     {
         return view('password.forgot-password', [
@@ -21,9 +27,7 @@ class ForgotPasswordController extends Controller
             'email' => 'required|email',
         ]);
 
-        $status = Password::sendResetLink(
-            $request->only('email')
-        );
+        $status = $this->passwordService->sendResetLink($request->only('email'));
 
         return $status === Password::RESET_LINK_SENT ?
             back()->with('status', __($status))
