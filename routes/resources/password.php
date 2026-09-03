@@ -1,4 +1,5 @@
 <?php
+
 use App\Http\Controllers\ForgotPasswordController;
 use App\Http\Controllers\ResetPasswordController;
 

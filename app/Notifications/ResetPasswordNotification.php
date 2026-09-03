@@ -11,8 +11,7 @@ class ResetPasswordNotification extends ResetPassword
     public function __construct(
         public $token,
         public Portal $portal
-    ) {
-    }
+    ) {}
 
     public function toMail($notifiable): MailMessage
     {

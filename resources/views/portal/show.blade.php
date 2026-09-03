@@ -232,7 +232,7 @@
                     @enderror
 
                     <a href="{{ route('password.request', currentPortal()) }}"
-                       class="text-sm text-blue-600 hover:underline">
+                        class="text-sm text-blue-600 hover:underline">
                         Forgot password?
                     </a>
                 </div>

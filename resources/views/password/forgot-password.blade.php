@@ -20,25 +20,16 @@
 
             @csrf
 
-            <input
-                type="email"
-                name="email"
-                value="{{ old('email') }}"
-                placeholder="Email address"
-                required
-                class="w-full border border-gray-300 rounded-lg p-3 mt-1 shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
-            >
+            <input type="email" name="email" value="{{ old('email') }}" placeholder="Email address" required
+                class="w-full border border-gray-300 rounded-lg p-3 mt-1 shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
 
             @error('email')
-            <p class="text-red-500 text-sm mt-2">
-                {{ $message }}
-            </p>
+                <p class="text-red-500 text-sm mt-2">
+                    {{ $message }}
+                </p>
             @enderror
 
-            <button
-                type="submit"
-                class="w-full mt-4 bg-blue-600 text-white py-3 rounded-lg cursor-pointer"
-            >
+            <button type="submit" class="w-full mt-4 bg-blue-600 text-white py-3 rounded-lg cursor-pointer">
                 Send Reset Link
             </button>
 
