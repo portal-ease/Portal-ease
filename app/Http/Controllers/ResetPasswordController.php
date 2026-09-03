@@ -6,15 +6,15 @@ use App\Http\Requests\StorePasswordRequest;
 use App\Models\Portal;
 use App\Services\PasswordService;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Password;
 
 class ResetPasswordController extends Controller
 {
     private PasswordService $passwordService;
+
     public function __construct(PasswordService $passwordService)
     {
-       $this->passwordService = $passwordService;
+        $this->passwordService = $passwordService;
     }
 
     public function create(Portal $portal, Request $request, string $token)

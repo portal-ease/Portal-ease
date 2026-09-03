@@ -10,10 +10,12 @@ use Illuminate\Support\Facades\Password;
 class ForgotPasswordController extends Controller
 {
     private PasswordService $passwordService;
+
     public function __construct(PasswordService $passwordService)
     {
         $this->passwordService = $passwordService;
     }
+
     public function create(Portal $portal)
     {
         return view('password.forgot-password', [

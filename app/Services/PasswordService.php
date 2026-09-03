@@ -16,7 +16,7 @@ class PasswordService
 
     public function resetPassword(array $data): string
     {
-       return Password::reset(
+        return Password::reset(
             [
                 'email' => $data->email,
                 'password' => $data->password,
