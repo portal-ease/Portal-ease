@@ -15,6 +15,8 @@ class Portal extends Model
         'name',
         'email',
         'branding_color',
+        'primary_text_color',
+        'secondary_text_color',
     ];
 
     public function users()

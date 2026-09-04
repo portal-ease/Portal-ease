@@ -49,12 +49,16 @@ class PortalController extends Controller
             'username' => 'required',
             'password' => 'required',
             'branding_color' => 'required',
+            'primary_text_color' => 'required',
+            'secondary_text_color' => 'required',
             'logo' => 'required|image',
         ]);
         $portal = Portal::create([
             'name' => $request->get('name'),
             'email' => $request->get('email'),
             'branding_color' => $request->get('branding_color'),
+            'primary_text_color' => $request->get('primary_text_color'),
+            'secondary_text_color' => $request->get('secondary_text_color'),
         ]);
         $user = User::create([
             'name' => $request->get('username'),
@@ -108,6 +112,8 @@ class PortalController extends Controller
             'name' => 'required',
             'email' => 'required',
             'branding_color' => 'required',
+            'primary_text_color' => 'required',
+            'secondary_text_color' => 'required',
         ]);
         $oldName = $portal->name;
 
@@ -115,6 +121,8 @@ class PortalController extends Controller
             'name' => $request->name,
             'email' => $request->email,
             'branding_color' => $request->branding_color,
+            'primary_text_color' => $request->primary_text_color,
+            'secondary_text_color' => $request->secondary_text_color,
         ]);
 
         if ($request->hasFile('logo')) {
