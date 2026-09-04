@@ -46,7 +46,7 @@
                 </div>
 
                 <div class="flex items-center gap-3">
-                    <button type="button" id="color-picker"
+                    <button type="button" id="color-picker-1"
                         class="w-10 h-10 rounded-lg border border-gray-300 shadow-sm"
                         aria-label="Choose branding colour">
                     </button>

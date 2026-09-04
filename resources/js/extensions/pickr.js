@@ -1,10 +1,20 @@
 import Pickr from '@simonwep/pickr';
 import '@simonwep/pickr/dist/themes/nano.min.css';
 
-const brandingInput = document.getElementById('branding');
-const colorPicker = document.getElementById('color-picker');
+const colorInputs = [
+    'branding',
+    'primary_text_color',
+    'secondary_text_color',
+];
 
-if (brandingInput && colorPicker) {
+colorInputs.forEach((inputId, index) => {
+    const brandingInput = document.getElementById(inputId);
+    const colorPicker = document.getElementById(`color-picker-${index + 1}`);
+
+    if (!brandingInput || !colorPicker) {
+        return;
+    }
+
     const pickr = Pickr.create({
         el: colorPicker,
         theme: 'nano',
@@ -26,7 +36,7 @@ if (brandingInput && colorPicker) {
     // Set initial button color
     colorPicker.style.backgroundColor = brandingInput.value;
 
-    // Open Pickr when clicking the HEX input
+    // Open Pickr when clicking the input
     brandingInput.addEventListener('click', () => {
         pickr.show();
     });
@@ -44,5 +54,7 @@ if (brandingInput && colorPicker) {
             brandingInput.value = hex;
             colorPicker.style.backgroundColor = hex;
         }
+
+        pickr.hide();
     });
-}
+});
