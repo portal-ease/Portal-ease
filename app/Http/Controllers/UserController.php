@@ -59,7 +59,6 @@ class UserController extends Controller
         } elseif ($validated['role'] == 'client') {
             $user->assignRole('client');
         }
-        Auth::login($user);
 
         return redirect()->back();
     }
