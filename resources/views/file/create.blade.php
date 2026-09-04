@@ -36,12 +36,7 @@
 
             <!-- Visibility -->
             <div>
-                <label for="visibility" class="block font-medium text-gray-700">Visibility</label>
-                <select name="visibility" id="visibility" required
-                    class="w-full border border-gray-300 rounded-md p-3 mt-1 bg-white focus:ring focus:ring-blue-200 focus:outline-none">
-                    <option value="visible">Visible</option>
-                    <option value="not visible">Not Visible</option>
-                </select>
+                <label for="visibility" class="flex flex-row gap-4 font-medium text-gray-700">Visible for client?<input type="checkbox" name="visibility" id="visibility"></label>
             </div>
 
             <input type="hidden" name="portal_id" value="{{ currentPortal()->id }}">

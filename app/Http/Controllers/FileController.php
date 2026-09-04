@@ -41,16 +41,15 @@ class FileController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(Portal $portal, Request $request)
     {
         $request->validate([
             'file' => 'required',
             'name' => 'required',
             'user' => 'required',
-            'visibility' => 'required',
         ]);
         $user = User::where('id', $request->get('user'))->first();
-        if ($request->get('visibility') == 'true') {
+        if ($request->get('visibility')) {
             $visibility = true;
         } else {
             $visibility = false;

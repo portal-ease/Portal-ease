@@ -11,7 +11,7 @@
             <p><span class="font-semibold">File name:</span> {{ $file->filename }}</p>
             <p>
                 <span class="font-semibold">Visibility:</span>
-                @if (!$file->visibility)
+                @if ($file->visibility)
                     <span class="text-green-600 font-medium">Visible</span>
                 @else
                     <span class="text-red-500 font-medium">Not visible</span>
