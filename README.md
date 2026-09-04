@@ -49,7 +49,7 @@ Build and start the Laravel Sail containers:
 ### 6. Install frontend dependencies
 
 ```bash
-npm install
+./vendor/bin/sail npm install
 ```
 
 ### 7. Run database migrations and seeders
@@ -58,13 +58,7 @@ npm install
 ./vendor/bin/sail artisan migrate --seed
 ```
 
-### 8. Start the Vite development server
-
-```bash
-./vendor/bin/sail npm run dev
-```
-
-### 9. Format the code
+### 8. Format the code
 
 ```bash
 ./vendor/bin/sail npm run format
@@ -144,16 +138,10 @@ Reset the database and run all seeders:
 
 ## Development
 
-Start the Laravel application:
+Start the Laravel and Vite application:
 
 ```bash
 ./vendor/bin/sail up -d
-```
-
-Start the Vite development server:
-
-```bash
-npm run dev
 ```
 
 Run the code formatter:
@@ -201,7 +189,6 @@ Run a specific test:
 
 ```bash
 ./vendor/bin/sail npm install
-./vendor/bin/sail npm run dev
 ./vendor/bin/sail npm run format
 ```
 
