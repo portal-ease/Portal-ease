@@ -161,6 +161,54 @@
                                 </p>
                             @enderror
                         </div>
+
+                        {{-- Primary text Colour --}}
+                        <div>
+                            <label for="primary_text_color" class="block font-medium text-gray-700 mb-1">
+                                Primary text colour
+                            </label>
+
+                            <div class="flex items-center gap-3">
+                                <button type="button" id="color-picker"
+                                        class="w-10 h-10 rounded-lg border border-gray-300 shadow-sm"
+                                        aria-label="Choose text colour"></button>
+
+                                <input type="text" id="primary_text_color" name="primary_text_color"
+                                       value="{{ old('primary_text_color', currentPortal()->primary_text_color ?? '#3B82F6') }}"
+                                       required readonly
+                                       class="flex-1 border border-gray-300 rounded-md p-2 focus:ring focus:ring-blue-200">
+                            </div>
+
+                            @error('primary_text_color')
+                            <p class="mt-1 text-sm text-red-600">
+                                {{ $message }}
+                            </p>
+                            @enderror
+                        </div>
+
+                        {{-- Secondary text Colour --}}
+                        <div>
+                            <label for="secondary_text_color" class="block font-medium text-gray-700 mb-1">
+                                Secondary text Colour
+                            </label>
+
+                            <div class="flex items-center gap-3">
+                                <button type="button" id="color-picker"
+                                        class="w-10 h-10 rounded-lg border border-gray-300 shadow-sm"
+                                        aria-label="Choose branding colour"></button>
+
+                                <input type="text" id="secondary_text_color" name="secondary_text_color"
+                                       value="{{ old('secondary_text_color', currentPortal()->secondary_text_color ?? '#3B82F6') }}"
+                                       required readonly
+                                       class="flex-1 border border-gray-300 rounded-md p-2 focus:ring focus:ring-blue-200">
+                            </div>
+
+                            @error('secondary_text_color')
+                            <p class="mt-1 text-sm text-red-600">
+                                {{ $message }}
+                            </p>
+                            @enderror
+                        </div>
                     </div>
 
                     {{-- Logos --}}
