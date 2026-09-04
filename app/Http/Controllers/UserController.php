@@ -60,7 +60,7 @@ class UserController extends Controller
             $user->assignRole('client');
         }
 
-        return redirect()->back();
+        return redirect()->route('portal.user.index', compact('portal'));
     }
 
     /**
