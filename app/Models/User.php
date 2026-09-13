@@ -3,6 +3,7 @@
 namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
+use App\Notifications\ResetPasswordNotification;
 use App\Observers\NewUserInPortal;
 use Database\Factories\UserFactory;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
@@ -72,5 +73,14 @@ class User extends Authenticatable implements MustVerifyEmail
     public function conversations()
     {
         return $this->belongsToMany(Conversation::class, 'conversation_user');
+    }
+
+    public function sendPasswordResetNotification($token): void
+    {
+        $portal = $this->portal;
+
+        $this->notify(
+            new ResetPasswordNotification($token, $portal)
+        );
     }
 }

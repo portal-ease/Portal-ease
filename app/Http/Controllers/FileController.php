@@ -27,7 +27,7 @@ class FileController extends Controller
     {
         $user = auth()->user();
 
-        return view('file.index', compact('user', 'portal'));
+        return view('file.index', compact('user'));
     }
 
     /**
@@ -35,22 +35,21 @@ class FileController extends Controller
      */
     public function create(Portal $portal)
     {
-        return view('file.create', compact('portal'));
+        return view('file.create');
     }
 
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(Portal $portal, Request $request)
     {
         $request->validate([
             'file' => 'required',
             'name' => 'required',
             'user' => 'required',
-            'visibility' => 'required',
         ]);
         $user = User::where('id', $request->get('user'))->first();
-        if ($request->get('visibility') == 'true') {
+        if ($request->get('visibility')) {
             $visibility = true;
         } else {
             $visibility = false;
@@ -69,7 +68,7 @@ class FileController extends Controller
      */
     public function show(Portal $portal, File $file)
     {
-        return view('file.show', compact('file', 'portal'));
+        return view('file.show', compact('file'));
     }
 
     /**

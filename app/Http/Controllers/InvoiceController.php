@@ -2,13 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\InvoiceRequest;
 use App\Models\Invoice;
 use App\Models\Portal;
-use App\Models\User;
 use App\Services\FileStorageService;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Storage;
 
 class InvoiceController extends Controller
 {
@@ -38,36 +35,18 @@ class InvoiceController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(Portal $portal, InvoiceRequest $request)
     {
-        $request->validate([
-            'name' => 'required|string|max:255',
-            'file' => 'required',
-            'description' => 'required|string',
-            'expiry_date' => 'required|date',
-            'payment' => 'required|numeric',
-            'user' => 'required|string',
-            'portal_id' => 'required|integer|exists:portals,id',
-            'project' => 'required',
-        ]);
-        $user = User::where('id', $request->get('user'))->first();
-
+        $data = $request->validated();
         $file = $this->storageService->storeDocument($request->file('file'), true);
 
-        Invoice::create([
-            'name' => $request['name'],
+        $invoice = Invoice::query()->create([...$data,
             'file_id' => $file->id,
-            'portal_id' => $request['portal_id'],
-            'description' => $request['description'],
-            'expiry_date' => $request['expiry_date'],
-            'price' => $request['payment'],
-            'user_id' => $request['user'],
-            'project_id' => $request['project'],
         ]);
-        $portal = Portal::where('id', $request['portal_id'])->first();
-        $user->files()->attach($file->id);
 
-        return view('invoice.index', compact('portal'));
+        $invoice->user->files()->attach($file->id);
+
+        return redirect()->route('portal.invoice.index', compact('portal'))->with('success', 'Invoice created successfully.');
     }
 
     /**
@@ -75,9 +54,11 @@ class InvoiceController extends Controller
      */
     public function show(Portal $portal, Invoice $invoice)
     {
-        $user = Auth::user();
-
-        return view('invoice.show', compact('invoice', 'portal', 'user'));
+        return view('invoice.show', [
+            'portal' => $portal,
+            'invoice' => $invoice,
+            'user' => auth()->user(),
+        ]);
     }
 
     /**
@@ -85,22 +66,15 @@ class InvoiceController extends Controller
      */
     public function edit(Portal $portal, Invoice $invoice)
     {
-        return view('invoice.edit', compact('invoice', 'portal'));
+        return view('invoice.edit', compact('portal', 'invoice'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Portal $portal, Request $request, Invoice $invoice)
+    public function update(Portal $portal, InvoiceRequest $request, Invoice $invoice)
     {
-        $request->validate([
-            'name' => 'required|string|max:255',
-            'description' => 'required|string',
-            'expiry_date' => 'required|date',
-            'price' => 'required|numeric',
-            'user_id' => 'required',
-        ]);
-        $invoice->update($request->all());
+        $invoice->update($request->validated());
 
         return redirect()->back();
     }
@@ -113,9 +87,8 @@ class InvoiceController extends Controller
         $this->storageService->delete($invoice->file);
 
         $invoice->delete();
-        $user = Auth::user();
 
-        return view('portal.show', compact('portal', 'user'));
+        return redirect()->route('portal.invoice.index', compact('portal'))->with('success', 'Invoice deleted successfully.');
     }
 
     public function download(Portal $portal, Invoice $invoice)
@@ -129,6 +102,6 @@ class InvoiceController extends Controller
             'price' => 0.00,
         ]);
 
-        return view('invoice.payment', compact('portal', 'invoice'));
+        return view('invoice.payment', compact('invoice'));
     }
 }

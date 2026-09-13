@@ -2,8 +2,11 @@
 
 namespace App\Models;
 
+use App\Observers\PortalObserver;
+use Illuminate\Database\Eloquent\Attributes\ObservedBy;
 use Illuminate\Database\Eloquent\Model;
 
+#[ObservedBy([PortalObserver::class])]
 class Portal extends Model
 {
     protected $table = 'portals';

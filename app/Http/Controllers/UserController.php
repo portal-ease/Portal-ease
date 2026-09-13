@@ -9,6 +9,7 @@ use App\Models\User;
 use App\Services\FileStorageService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Spatie\Permission\Models\Role;
 
 class UserController extends Controller
 {
@@ -38,7 +39,7 @@ class UserController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(Portal $portal, Request $request)
     {
         $validated = $request->validate([
             'name' => 'required|string|max:255',
@@ -58,9 +59,8 @@ class UserController extends Controller
         } elseif ($validated['role'] == 'client') {
             $user->assignRole('client');
         }
-        Auth::login($user);
 
-        return redirect()->back();
+        return redirect()->route('portal.user.index', compact('portal'));
     }
 
     /**
@@ -70,7 +70,7 @@ class UserController extends Controller
     {
         $conversationP2p = Conversation::query()->first();
 
-        return view('user.show', compact('user', 'portal', 'conversationP2p'));
+        return view('user.show', compact('portal', 'user', 'conversationP2p'));
     }
 
     /**
@@ -80,7 +80,9 @@ class UserController extends Controller
     {
         $file = File::where('filename', $user->name.$user->id.'.jpg')->first();
 
-        return view('user.edit', compact('user', 'portal', 'file'));
+        $roles = Role::all();
+
+        return view('user.edit', compact('portal', 'user', 'file', 'roles'));
     }
 
     /**

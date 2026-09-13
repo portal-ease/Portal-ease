@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Portal;
 use App\Models\User;
+use App\Services\ChatService;
 use App\Services\FileStorageService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -13,9 +14,12 @@ class PortalController extends Controller
 {
     private FileStorageService $storageService;
 
-    public function __construct(FileStorageService $storageService)
+    private ChatService $chatService;
+
+    public function __construct(FileStorageService $storageService, ChatService $chatService)
     {
         $this->storageService = $storageService;
+        $this->chatService = $chatService;
     }
 
     /**
@@ -76,7 +80,9 @@ class PortalController extends Controller
         if (Auth::check()) {
             $user = User::where('id', Auth::id())->first();
 
-            return view('portal.show', compact('portal', 'user'));
+            $conversations = $this->chatService->getConversations($user);
+
+            return view('portal.show', compact('portal', 'user', 'conversations'));
         } else {
             $user = null;
 
@@ -103,12 +109,29 @@ class PortalController extends Controller
             'email' => 'required',
             'branding_color' => 'required',
         ]);
+        $oldName = $portal->name;
 
-        $this->storageService->renamePortalLogo($portal->name, $request->input('name'));
+        $portal->update([
+            'name' => $request->name,
+            'email' => $request->email,
+            'branding_color' => $request->branding_color,
+        ]);
 
-        $portal->update($request->all());
+        if ($request->hasFile('logo')) {
+            $this->storageService->storePortalLogo(
+                $request->file('logo'),
+                $request->get('name')
+            );
+        }
 
-        return redirect()->route('portal.edit', $portal);
+        if ($oldName !== $request->get('name')) {
+            $this->storageService->renamePortalLogo(
+                $oldName,
+                $request->get('name')
+            );
+        }
+
+        return redirect()->route('portal.edit', compact('portal'));
     }
 
     /**
@@ -125,6 +148,6 @@ class PortalController extends Controller
     {
         Auth::user()->sendEmailVerificationNotification();
 
-        return view('portal.verify', compact('portal'));
+        return view('portal.verify');
     }
 }

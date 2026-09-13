@@ -1,4 +1,4 @@
-<x-app-layout :portal="$portal">
+<x-app-layout :portal="currentPortal()">
     <div class="bg-white shadow-2xl rounded-2xl p-8 space-y-6 max-w-4xl mx-auto">
         <!-- Invoice Header -->
         <div class="text-center">
@@ -18,7 +18,8 @@
         <!-- Payment Button for Clients -->
         @if ($user->hasRole('client') && $invoice->price != 0)
             <div class="flex flex-row gap-5">
-                <form action="{{ route('portal.invoice.payment', ['portal' => $portal, 'invoice' => $invoice]) }}"
+                <form
+                    action="{{ route('portal.invoice.payment', ['portal' => currentPortal(), 'invoice' => $invoice]) }}"
                     method="POST">
                     @csrf
                     @method('PATCH')
@@ -27,7 +28,7 @@
                         Pay Invoice
                     </button>
                 </form>
-                <a href="{{ route('portal.invoice.download', ['portal' => $portal, 'invoice' => $invoice]) }}"
+                <a href="{{ route('portal.invoice.download', ['portal' => currentPortal(), 'invoice' => $invoice]) }}"
                     class="bg-green-500 hover:bg-green-600 text-white py-3 rounded-xl">
                     Download Invoice
                 </a>
@@ -39,7 +40,8 @@
             <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 bg-green-100 p-4 rounded-xl">
                 <p class="text-xl font-semibold text-green-700">This invoice is paid</p>
                 @if ($user->hasRole('service_provider'))
-                    <form action="{{ route('portal.invoice.destroy', ['portal' => $portal, 'invoice' => $invoice]) }}"
+                    <form
+                        action="{{ route('portal.invoice.destroy', ['portal' => currentPortal(), 'invoice' => $invoice]) }}"
                         method="POST">
                         @csrf
                         @method('DELETE')
@@ -55,11 +57,12 @@
         <!-- Action Buttons -->
         @if ($user->hasRole('service_provider'))
             <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 text-center">
-                <a href="{{ route('portal.invoice.download', ['portal' => $portal, 'invoice' => $invoice]) }}"
+                <a href="{{ route('portal.invoice.download', ['portal' => currentPortal(), 'invoice' => $invoice]) }}"
                     class="bg-green-500 hover:bg-green-600 text-white py-3 rounded-xl">
                     Download Invoice
                 </a>
-                <form action="{{ route('portal.invoice.destroy', ['portal' => $portal, 'invoice' => $invoice]) }}"
+                <form
+                    action="{{ route('portal.invoice.destroy', ['portal' => currentPortal(), 'invoice' => $invoice]) }}"
                     method="POST">
                     @csrf
                     @method('DELETE')
@@ -69,7 +72,7 @@
                     </button>
                 </form>
 
-                <a href="{{ route('portal.invoice.edit', ['invoice' => $invoice, 'portal' => $portal]) }}"
+                <a href="{{ route('portal.invoice.edit', ['invoice' => $invoice, 'portal' => currentPortal()]) }}"
                     class="bg-blue-600 hover:bg-blue-700 text-white py-3 rounded-xl">
                     Edit Invoice
                 </a>
