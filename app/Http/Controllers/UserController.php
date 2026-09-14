@@ -8,7 +8,6 @@ use App\Models\Portal;
 use App\Models\User;
 use App\Services\FileStorageService;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
 use Spatie\Permission\Models\Role;
 
 class UserController extends Controller

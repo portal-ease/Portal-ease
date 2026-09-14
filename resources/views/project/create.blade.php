@@ -1,22 +1,32 @@
 <x-app-layout :portal="currentPortal()">
-    <div class="max-w-xl mx-auto bg-white shadow-2xl rounded-2xl p-10 space-y-8">
-        <h2 class="text-3xl font-bold text-center text-gray-800">Start New Project</h2>
+    <div class="mx-auto max-w-xl space-y-8 rounded-2xl bg-white p-10 shadow-2xl">
+        <h2 class="text-center text-3xl font-bold text-gray-800">Start New Project</h2>
 
         <form method="POST" action="{{ route('portal.project.store', currentPortal()) }}" class="space-y-6">
             @csrf
 
             <!-- Project Name -->
             <div>
-                <label for="name" class="block text-sm font-medium text-gray-700 mb-1">Project Name</label>
-                <input type="text" id="name" name="name" required placeholder="Enter project name"
-                    class="w-full border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-400">
+                <label for="name" class="mb-1 block text-sm font-medium text-gray-700">Project Name</label>
+                <input
+                    type="text"
+                    id="name"
+                    name="name"
+                    required
+                    placeholder="Enter project name"
+                    class="w-full rounded-lg border border-gray-300 px-4 py-2 focus:ring-2 focus:ring-blue-400 focus:outline-none"
+                />
             </div>
 
             <!-- Customer Email/User -->
             <div>
-                <label for="customer_id" class="block text-sm font-medium text-gray-700 mb-1">Customer</label>
-                <select name="customer_id" id="customer_id" required
-                    class="w-full border border-gray-300 rounded-lg px-4 py-2 bg-white focus:outline-none focus:ring-2 focus:ring-blue-400">
+                <label for="customer_id" class="mb-1 block text-sm font-medium text-gray-700">Customer</label>
+                <select
+                    name="customer_id"
+                    id="customer_id"
+                    required
+                    class="w-full rounded-lg border border-gray-300 bg-white px-4 py-2 focus:ring-2 focus:ring-blue-400 focus:outline-none"
+                >
                     <option value="" disabled selected>Select a user</option>
                     @foreach (currentPortal()->users as $user)
                         @if ($user->hasRole('client'))
@@ -27,21 +37,33 @@
             </div>
 
             <!-- Dates -->
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div class="grid grid-cols-1 gap-4 md:grid-cols-2">
                 <div>
-                    <label for="start_date" class="block text-sm font-medium text-gray-700 mb-1">Start Date</label>
-                    <input type="date" id="start_date" name="start_date" required
-                        class="w-full border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-400">
+                    <label for="start_date" class="mb-1 block text-sm font-medium text-gray-700">Start Date</label>
+                    <input
+                        type="date"
+                        id="start_date"
+                        name="start_date"
+                        required
+                        class="w-full rounded-lg border border-gray-300 px-4 py-2 focus:ring-2 focus:ring-blue-400 focus:outline-none"
+                    />
                 </div>
                 <div>
-                    <label for="end_date" class="block text-sm font-medium text-gray-700 mb-1">End Date</label>
-                    <input type="date" id="end_date" name="end_date" required
-                        class="w-full border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-400">
+                    <label for="end_date" class="mb-1 block text-sm font-medium text-gray-700">End Date</label>
+                    <input
+                        type="date"
+                        id="end_date"
+                        name="end_date"
+                        required
+                        class="w-full rounded-lg border border-gray-300 px-4 py-2 focus:ring-2 focus:ring-blue-400 focus:outline-none"
+                    />
                 </div>
             </div>
             <div>
-                <button type="submit"
-                    class="w-full bg-green-600 hover:bg-green-700 text-white font-semibold rounded-xl px-6 py-3 transition-colors duration-300">
+                <button
+                    type="submit"
+                    class="w-full rounded-xl bg-green-600 px-6 py-3 font-semibold text-white transition-colors duration-300 hover:bg-green-700"
+                >
                     Create Project
                 </button>
             </div>

@@ -4,9 +4,7 @@
     "scripts": {
         "build": "vite build",
         "dev": "vite",
-        "format": "npm run format:blade && npm run format:php",
-        "format:blade": "blade-formatter --write \"resources/views/**/*.blade.php\"",
-        "format:php": "vendor/bin/pint"
+        "format": "vendor/bin/pint"
     },
     "devDependencies": {
         "@tailwindcss/vite": "^4.3.3",
@@ -15,11 +13,13 @@
         "concurrently": "^10.0.5",
         "laravel-vite-plugin": "^3.2.0",
         "postcss": "^8.5.28",
+        "prettier": "^3.9.6",
+        "prettier-plugin-blade": "^3.3.3",
+        "prettier-plugin-tailwindcss": "^0.8.1",
         "tailwindcss": "^4.1.13",
         "vite": "^8.2.2"
     },
     "dependencies": {
-        "@simonwep/pickr": "^1.10.2",
-        "blade-formatter": "^1.44.4"
+        "@simonwep/pickr": "^1.10.2"
     }
 }

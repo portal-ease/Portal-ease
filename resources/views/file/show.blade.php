@@ -1,9 +1,9 @@
 <x-app-layout :portal="currentPortal()">
-    <div class="bg-white shadow-2xl rounded-2xl p-8 space-y-8 max-w-4xl mx-auto">
+    <div class="mx-auto max-w-4xl space-y-8 rounded-2xl bg-white p-8 shadow-2xl">
         <!-- File Header -->
         <div class="text-center">
             <h2 class="text-3xl font-bold text-gray-800">{{ $file->filename }}</h2>
-            <p class="text-sm text-gray-500 mt-2">Shared file</p>
+            <p class="mt-2 text-sm text-gray-500">Shared file</p>
         </div>
 
         <!-- File Info -->
@@ -12,17 +12,19 @@
             <p>
                 <span class="font-semibold">Visibility:</span>
                 @if ($file->visibility)
-                    <span class="text-green-600 font-medium">Visible</span>
+                    <span class="font-medium text-green-600">Visible</span>
                 @else
-                    <span class="text-red-500 font-medium">Not visible</span>
+                    <span class="font-medium text-red-500">Not visible</span>
                 @endif
             </p>
         </div>
 
         <!-- Actions -->
-        <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 text-center">
-            <a href="{{ route('portal.file.download', ['portal' => currentPortal(), 'file' => $file]) }}"
-                class="bg-blue-600 hover:bg-blue-700 transition text-white py-3 rounded-xl font-medium shadow">
+        <div class="grid grid-cols-1 gap-4 text-center sm:grid-cols-3">
+            <a
+                href="{{ route('portal.file.download', ['portal' => currentPortal(), 'file' => $file]) }}"
+                class="rounded-xl bg-blue-600 py-3 font-medium text-white shadow transition hover:bg-blue-700"
+            >
                 📥 Download file
             </a>
         </div>
