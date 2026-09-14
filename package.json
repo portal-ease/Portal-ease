@@ -4,9 +4,7 @@
     "scripts": {
         "build": "vite build",
         "dev": "vite",
-        "format": "npm run format:blade && npm run format:php",
-        "format:blade": "blade-formatter --write \"resources/views/**/*.blade.php\"",
-        "format:php": "vendor/bin/pint"
+        "format": "vendor/bin/pint"
     },
     "devDependencies": {
         "@tailwindcss/vite": "^4.3.3",
@@ -19,7 +17,6 @@
         "vite": "^8.2.2"
     },
     "dependencies": {
-        "@simonwep/pickr": "^1.10.2",
-        "blade-formatter": "^1.44.4"
+        "@simonwep/pickr": "^1.10.2"
     }
 }
