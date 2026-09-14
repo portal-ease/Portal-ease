@@ -64,7 +64,8 @@
         "test": [
             "@php artisan config:clear --ansi",
             "@php artisan test"
-        ]
+        ],
+        "phpstan": "vendor/bin/phpstan analyse app database config tests -l 0"
     },
     "extra": {
         "laravel": {

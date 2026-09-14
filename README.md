@@ -64,6 +64,12 @@ Build and start the Laravel Sail containers:
 ./vendor/bin/sail npm run format
 ```
 
+### 9. Check for code issues
+
+```bash
+./vendor/bin/sail composer phpstan
+```
+
 After completing the installation, PortalEase should be available at:
 
 ```text
@@ -150,6 +156,11 @@ Run the code formatter:
 ./vendor/bin/sail npm run format
 ```
 
+Run the code style check to catch bugs:
+```bash
+./vendor/bin/sail composer phpstan
+```
+
 ## Testing
 
 Run the Laravel test suite:
@@ -166,7 +177,7 @@ Run a specific test:
 
 ## Useful Commands
 
-### Laravel
+### Laravel and composer
 
 ```bash
 ./vendor/bin/sail artisan migrate
@@ -174,6 +185,7 @@ Run a specific test:
 ./vendor/bin/sail artisan db:seed
 ./vendor/bin/sail artisan route:list
 ./vendor/bin/sail artisan optimize:clear
+./vendor/bin/sail composer phpstan
 ```
 
 ### Docker
