@@ -2,25 +2,20 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\StorePortalRequest;
+use App\Http\Requests\UpdatePortalRequest;
 use App\Models\Portal;
-use App\Models\User;
 use App\Services\ChatService;
-use App\Services\FileStorageService;
-use Illuminate\Http\Request;
+use App\Services\PortalService;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Storage;
 
 class PortalController extends Controller
 {
-    private FileStorageService $storageService;
-
-    private ChatService $chatService;
-
-    public function __construct(FileStorageService $storageService, ChatService $chatService)
-    {
-        $this->storageService = $storageService;
-        $this->chatService = $chatService;
-    }
+    public function __construct(
+        private readonly ChatService $chatService,
+        private readonly PortalService $portalService,
+    )
+    {}
 
     /**
      * Display a listing of the resource.
@@ -41,33 +36,9 @@ class PortalController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(StorePortalRequest $request)
     {
-        $request->validate([
-            'name' => 'required',
-            'email' => 'required',
-            'username' => 'required',
-            'password' => 'required',
-            'branding_color' => 'required',
-            'logo' => 'required|image',
-        ]);
-        $portal = Portal::create([
-            'name' => $request->get('name'),
-            'email' => $request->get('email'),
-            'branding_color' => $request->get('branding_color'),
-        ]);
-        $user = User::create([
-            'name' => $request->get('username'),
-            'email' => $request->get('email'),
-            'password' => bcrypt($request->get('password')),
-            'portal_id' => $portal->id,
-        ]);
-
-        $this->storageService->storePortalLogo($request->file('logo'), $portal->name);
-
-        $user->assignRole('service_provider');
-        $user->assignRole('admin');
-        Auth::login($user);
+        $portal = $this->portalService->create($request->validated(), $request->file('logo'));
 
         return redirect()->route('portal.verify', $portal);
     }
@@ -77,18 +48,18 @@ class PortalController extends Controller
      */
     public function show(Portal $portal)
     {
-        if (Auth::check()) {
-            $user = User::where('id', Auth::id())->first();
+        $user = Auth::user();
 
-            $conversations = $this->chatService->getConversations($user);
-
-            return view('portal.show', compact('portal', 'user', 'conversations'));
-        } else {
-            $user = null;
-
-            return view('portal.show', compact('portal', 'user'));
+        if (!$user){
+            return view('portal.show', [
+                'portal' => $portal,
+                'user' => null,
+            ]);
         }
 
+        $conversations = $this->chatService->getConversations($user);
+
+        return view('portal.show', compact('portal', 'user', 'conversations'));
     }
 
     /**
@@ -96,42 +67,17 @@ class PortalController extends Controller
      */
     public function edit(Portal $portal)
     {
-        return view('portal.edit', compact('portal'));
+        return view('portal.edit', $portal);
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Portal $portal)
+    public function update(UpdatePortalRequest $request, Portal $portal)
     {
-        $request->validate([
-            'name' => 'required',
-            'email' => 'required',
-            'branding_color' => 'required',
-        ]);
-        $oldName = $portal->name;
+        $this->portalService->update($portal, $request->validated(), $request->file('logo'));
 
-        $portal->update([
-            'name' => $request->name,
-            'email' => $request->email,
-            'branding_color' => $request->branding_color,
-        ]);
-
-        if ($request->hasFile('logo')) {
-            $this->storageService->storePortalLogo(
-                $request->file('logo'),
-                $request->get('name')
-            );
-        }
-
-        if ($oldName !== $request->get('name')) {
-            $this->storageService->renamePortalLogo(
-                $oldName,
-                $request->get('name')
-            );
-        }
-
-        return redirect()->route('portal.edit', compact('portal'));
+        return redirect()->route('portal.edit', $portal);
     }
 
     /**
