@@ -18,6 +18,9 @@
         @if (currentPortal()->users)
             <div class="grid gap-4">
                 @foreach (currentPortal()->users as $user)
+                    @if($user->id === auth()->id())
+                        @continue
+                    @endif
                     <div class="rounded-2xl bg-white p-5 shadow-sm transition hover:shadow-md">
                         <div class="flex items-center justify-between">
                             <div class="flex items-center gap-4">
