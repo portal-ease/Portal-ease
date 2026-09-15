@@ -3,18 +3,15 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\StorePortalRequest;
+use App\Http\Requests\UpdatePortalRequest;
 use App\Models\Portal;
-use App\Models\User;
 use App\Services\ChatService;
-use App\Services\FileStorageService;
 use App\Services\PortalService;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
 class PortalController extends Controller
 {
     public function __construct(
-        private readonly FileStorageService $storageService,
         private readonly ChatService $chatService,
         private readonly PortalService $portalService,
     )
@@ -70,42 +67,17 @@ class PortalController extends Controller
      */
     public function edit(Portal $portal)
     {
-        return view('portal.edit', compact('portal'));
+        return view('portal.edit', $portal);
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Portal $portal)
+    public function update(UpdatePortalRequest $request, Portal $portal)
     {
-        $request->validate([
-            'name' => 'required',
-            'email' => 'required',
-            'branding_color' => 'required',
-        ]);
-        $oldName = $portal->name;
+        $this->portalService->update($portal, $request->validated(), $request->file('logo'));
 
-        $portal->update([
-            'name' => $request->name,
-            'email' => $request->email,
-            'branding_color' => $request->branding_color,
-        ]);
-
-        if ($request->hasFile('logo')) {
-            $this->storageService->storePortalLogo(
-                $request->file('logo'),
-                $request->get('name')
-            );
-        }
-
-        if ($oldName !== $request->get('name')) {
-            $this->storageService->renamePortalLogo(
-                $oldName,
-                $request->get('name')
-            );
-        }
-
-        return redirect()->route('portal.edit', compact('portal'));
+        return redirect()->route('portal.edit', $portal);
     }
 
     /**

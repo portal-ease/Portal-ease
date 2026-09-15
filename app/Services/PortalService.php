@@ -40,4 +40,30 @@ class PortalService
             return $portal;
         });
     }
+
+    public function update(Portal $portal, array $data, ?UploadedFile $logo = null){
+        $oldName = $portal->name;
+
+        $portal->update([
+            'name' => $data['name'],
+            'email' => $data['email'],
+            'branding_color' => $data['branding_color'],
+        ]);
+
+        if ($logo) {
+            $this->storageService->storePortalLogo(
+                $logo,
+                $data['name'],
+            );
+        }
+
+        if ($oldName !== $data['name']) {
+            $this->storageService->renamePortalLogo(
+                $oldName,
+                $data['name'],
+            );
+        }
+
+        return $portal;
+    }
 }
