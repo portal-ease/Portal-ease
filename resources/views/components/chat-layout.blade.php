@@ -65,7 +65,7 @@
                     }}"
                 >
                     <x-lucide-users width="22" height="22" />
-                    Customers
+                    Users
                 </a>
 
                 <!-- Invoices -->

@@ -49,12 +49,14 @@
                                     Chat
                                 </a>
 
-                                <a
-                                    href="{{ route('portal.user.edit', ['portal' => currentPortal(), 'user' => $user]) }}"
-                                    class="inline-flex items-center gap-2 rounded-xl bg-yellow-500 px-4 py-2 text-sm font-medium text-white transition hover:bg-yellow-600"
-                                >
-                                    Edit
-                                </a>
+                                @if(auth()->user()->hasRole('service_provider'))
+                                    <a
+                                        href="{{ route('portal.user.edit', ['portal' => currentPortal(), 'user' => $user]) }}"
+                                        class="inline-flex items-center gap-2 rounded-xl bg-yellow-500 px-4 py-2 text-sm font-medium text-white transition hover:bg-yellow-600"
+                                    >
+                                        Edit
+                                    </a>
+                                @endif
                             </div>
                         </div>
                     </div>

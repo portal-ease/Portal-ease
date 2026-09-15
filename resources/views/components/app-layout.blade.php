@@ -53,7 +53,7 @@
                 Dashboard
             </a>
 
-            @if (Auth::user()->hasRole('service_provider'))
+            @if (Auth::user()->hasRole('service_provider') || Auth::user()->hasRole('manager') || Auth::user()->hasRole('employee'))
                 <!-- Users -->
                 <a
                     href="{{ route('portal.user.index', $portal) }}"
