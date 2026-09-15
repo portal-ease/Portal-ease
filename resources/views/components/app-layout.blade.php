@@ -54,7 +54,7 @@
             </a>
 
             @if (Auth::user()->hasRole('service_provider'))
-                <!-- Customers -->
+                <!-- Users -->
                 <a
                     href="{{ route('portal.user.index', $portal) }}"
                     wire:navigate.hover
@@ -66,7 +66,7 @@
                     }}"
                 >
                     <x-lucide-users width="22" height="22" />
-                    Customers
+                    Users
                 </a>
 
                 <!-- Invoices -->
