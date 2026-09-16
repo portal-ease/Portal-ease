@@ -54,6 +54,7 @@
             </a>
 
             @if (Auth::user()->hasRole('service_provider') || Auth::user()->hasRole('manager') || Auth::user()->hasRole('employee'))
+                @if(Auth::user()->hasRole('service_provider') || Auth::user()->hasRole('manager'))
                 <!-- Users -->
                 <a
                     href="{{ route('portal.user.index', $portal) }}"
@@ -68,6 +69,7 @@
                     <x-lucide-users width="22" height="22" />
                     Users
                 </a>
+                @endif
 
                 <!-- Invoices -->
                 <a

@@ -44,7 +44,7 @@
         @if ($invoice->price == 0)
             <div class="flex flex-col justify-between gap-4 rounded-xl bg-green-100 p-4 sm:flex-row sm:items-center">
                 <p class="text-xl font-semibold text-green-700">This invoice is paid</p>
-                @if ($user->hasRole('service_provider'))
+                @if ($user->hasRole('service_provider') || $user->hasRole('manager'))
                     <form
                         action="{{ route('portal.invoice.destroy', ['portal' => currentPortal(), 'invoice' => $invoice]) }}"
                         method="POST"
@@ -63,7 +63,7 @@
         @endif
 
         <!-- Action Buttons -->
-        @if ($user->hasRole('service_provider'))
+        @if ($user->hasRole('service_provider') || $user->hasRole('manager') || $user->hasRole('employee'))
             <div class="grid grid-cols-1 gap-4 text-center sm:grid-cols-3">
                 <a
                     href="{{ route('portal.invoice.download', ['portal' => currentPortal(), 'invoice' => $invoice]) }}"
@@ -71,6 +71,7 @@
                 >
                     Download Invoice
                 </a>
+                @if($user->hasRole('service_provider') || $user->hasRole('manager'))
                 <form
                     action="{{ route('portal.invoice.destroy', ['portal' => currentPortal(), 'invoice' => $invoice]) }}"
                     method="POST"
@@ -84,6 +85,7 @@
                         Delete Invoice
                     </button>
                 </form>
+                @endif
 
                 <a
                     href="{{ route('portal.invoice.edit', ['invoice' => $invoice, 'portal' => currentPortal()]) }}"
