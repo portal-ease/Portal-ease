@@ -11,7 +11,7 @@
                 <p><span class="font-medium">Name:</span> {{ $project->name }}</p>
                 <p><span class="font-medium">Status:</span> {{ $project->status }}</p>
                 <p><span class="font-medium">Deadline:</span> {{ $project->end_date }}</p>
-                @if (\Illuminate\Support\Facades\Auth::user()->hasRole('service_provider'))
+                @if (Auth::user()->hasRole('service_provider') || Auth::user()->hasRole('manager'))
                     <p><span class="font-medium">Customer:</span> {{ $project->customer->name }}</p>
                     <div class="flex flex-row gap-12">
                         <form

@@ -52,8 +52,8 @@
                 Dashboard
             </a>
 
-            @if (Auth::user()->hasRole('service_provider'))
-                <!-- Customers -->
+            @if (Auth::user()->hasRole('service_provider') || Auth::user()->hasRole('manager') || Auth::user()->hasRole('employee'))
+            <!-- Customers -->
                 <a
                     href="{{ route('portal.user.index', $portal) }}"
                     wire:navigate.hover

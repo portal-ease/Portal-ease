@@ -7,6 +7,7 @@
                 <p class="text-sm text-gray-500">Manage your user accounts.</p>
             </div>
 
+            @if(auth()->user()->hasRole('service_provider'))
             <a
                 href="{{ route('portal.user.create', ['portal' => currentPortal()]) }}"
                 class="inline-flex items-center gap-2 rounded-xl bg-green-500 px-5 py-3 text-white shadow transition hover:bg-green-600"
@@ -14,6 +15,7 @@
                 <i class="fa-solid fa-plus"></i>
                 New User
             </a>
+            @endif
         </div>
         @if (currentPortal()->users)
             <div class="grid gap-4">
