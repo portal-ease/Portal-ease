@@ -11,7 +11,7 @@ use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
 {
-    public const array ROLES = ["service_provider", "admin", "client", "manager", "employee"];
+    public const array ROLES = ['service_provider', 'admin', 'client', 'manager', 'employee'];
 
     /**
      * Seed the application's database.

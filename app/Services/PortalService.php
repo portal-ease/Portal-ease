@@ -12,7 +12,7 @@ class PortalService
 {
     public function __construct(
         private FileStorageService $storageService,
-    ){}
+    ) {}
 
     public function create(array $data, UploadedFile $logo)
     {
@@ -41,7 +41,8 @@ class PortalService
         });
     }
 
-    public function update(Portal $portal, array $data, ?UploadedFile $logo = null){
+    public function update(Portal $portal, array $data, ?UploadedFile $logo = null)
+    {
         $oldName = $portal->name;
 
         $portal->update([

@@ -8,7 +8,7 @@
     <x-app-layout :portal="currentPortal()">
         <div class="mx-auto w-full max-w-4xl px-4 sm:px-6 lg:px-0">
             @if (Auth::user()->hasRole('service_provider') || Auth::user()->hasRole('manager') || Auth::user()->hasRole('employee'))
-            @if (\Illuminate\Support\Facades\Auth::user()->email_verified_at == null)
+                @if (\Illuminate\Support\Facades\Auth::user()->email_verified_at == null)
                     <!-- Email verification -->
                     <div class="mb-4 flex items-center gap-3 rounded-xl bg-red-600 p-5 shadow-md transition hover:shadow-lg">
                         <x-lucide-circle-alert class="text-red-400" width="22" height="22" />
@@ -24,19 +24,19 @@
                     </div>
                 @endif
                 <div class="mb-4 grid grid-cols-2 gap-4">
-                    @if(auth()->user()->hasRole('service_provider'))
-                    <!-- Customers -->
-                    <a
-                        href="{{ route('portal.user.index', currentPortal()) }}"
-                        class="flex items-center gap-3 rounded-xl bg-white p-5 shadow-md transition hover:shadow-lg"
-                    >
-                        <x-lucide-users width="22" height="22" class="text-blue-500" />
+                    @if (auth()->user()->hasRole('service_provider'))
+                        <!-- Customers -->
+                        <a
+                            href="{{ route('portal.user.index', currentPortal()) }}"
+                            class="flex items-center gap-3 rounded-xl bg-white p-5 shadow-md transition hover:shadow-lg"
+                        >
+                            <x-lucide-users width="22" height="22" class="text-blue-500" />
 
-                        <h2 class="text-lg font-semibold text-gray-700">
-                            Portal Users: {{ count(currentPortal()->users) }}
-                        </h2>
-                    </a>
-                        @endif
+                            <h2 class="text-lg font-semibold text-gray-700">
+                                Portal Users: {{ count(currentPortal()->users) }}
+                            </h2>
+                        </a>
+                    @endif
 
                     <!-- Projects -->
                     <a

@@ -7,27 +7,26 @@
                 <p class="text-sm text-gray-500">Manage your user accounts.</p>
             </div>
 
-            @if(auth()->user()->hasRole('service_provider'))
-            <a
-                href="{{ route('portal.user.create', ['portal' => currentPortal()]) }}"
-                class="inline-flex items-center gap-2 rounded-xl bg-green-500 px-5 py-3 text-white shadow transition hover:bg-green-600"
-            >
-                <i class="fa-solid fa-plus"></i>
-                New User
-            </a>
+            @if (auth()->user()->hasRole('service_provider'))
+                <a
+                    href="{{ route('portal.user.create', ['portal' => currentPortal()]) }}"
+                    class="inline-flex items-center gap-2 rounded-xl bg-green-500 px-5 py-3 text-white shadow transition hover:bg-green-600"
+                >
+                    <i class="fa-solid fa-plus"></i>
+                    New User
+                </a>
             @endif
         </div>
         @if (currentPortal()->users)
             <div class="grid gap-4">
                 @foreach (currentPortal()->users as $user)
-                    @if($user->id === auth()->id())
+                    @if ($user->id === auth()->id())
                         @continue
                     @endif
                     <div class="rounded-2xl bg-white p-5 shadow-sm transition hover:shadow-md">
                         <div class="flex items-center justify-between">
                             <div class="flex items-center gap-4">
-                                <div
-                                    class="flex h-12 w-12 items-center justify-center rounded-full bg-gray-200 font-semibold text-gray-700">
+                                <div class="flex h-12 w-12 items-center justify-center rounded-full bg-gray-200 font-semibold text-gray-700">
                                     {{ strtoupper(substr($user->name, 0, 1)) }}
                                 </div>
 
@@ -51,7 +50,7 @@
                                     Chat
                                 </a>
 
-                                @if(auth()->user()->hasRole('service_provider'))
+                                @if (auth()->user()->hasRole('service_provider'))
                                     <a
                                         href="{{ route('portal.user.edit', ['portal' => currentPortal(), 'user' => $user]) }}"
                                         class="inline-flex items-center gap-2 rounded-xl bg-yellow-500 px-4 py-2 text-sm font-medium text-white transition hover:bg-yellow-600"

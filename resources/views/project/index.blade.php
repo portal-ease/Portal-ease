@@ -1,13 +1,13 @@
 <x-app-layout :portal="currentPortal()">
     <!-- Top action bar -->
     <div class="mb-8 flex justify-end">
-        @if(Auth::user()->hasRole('service_provider') || Auth::user()->hasRole('manager'))
-        <a
-            href="{{ route('portal.project.create', ['portal' => currentPortal()]) }}"
-            class="inline-flex items-center rounded-xl bg-green-500 px-5 py-2 text-sm font-semibold text-white shadow transition duration-200 hover:bg-green-600"
-        >
-            + New Project
-        </a>
+        @if (Auth::user()->hasRole('service_provider') || Auth::user()->hasRole('manager'))
+            <a
+                href="{{ route('portal.project.create', ['portal' => currentPortal()]) }}"
+                class="inline-flex items-center rounded-xl bg-green-500 px-5 py-2 text-sm font-semibold text-white shadow transition duration-200 hover:bg-green-600"
+            >
+                + New Project
+            </a>
         @endif
     </div>
     <div class="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">

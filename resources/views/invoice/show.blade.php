@@ -71,20 +71,20 @@
                 >
                     Download Invoice
                 </a>
-                @if($user->hasRole('service_provider') || $user->hasRole('manager'))
-                <form
-                    action="{{ route('portal.invoice.destroy', ['portal' => currentPortal(), 'invoice' => $invoice]) }}"
-                    method="POST"
-                >
-                    @csrf
-                    @method('DELETE')
-                    <button
-                        type="submit"
-                        class="w-full cursor-pointer rounded-xl bg-red-600 py-3 text-white hover:bg-red-700"
+                @if ($user->hasRole('service_provider') || $user->hasRole('manager'))
+                    <form
+                        action="{{ route('portal.invoice.destroy', ['portal' => currentPortal(), 'invoice' => $invoice]) }}"
+                        method="POST"
                     >
-                        Delete Invoice
-                    </button>
-                </form>
+                        @csrf
+                        @method('DELETE')
+                        <button
+                            type="submit"
+                            class="w-full cursor-pointer rounded-xl bg-red-600 py-3 text-white hover:bg-red-700"
+                        >
+                            Delete Invoice
+                        </button>
+                    </form>
                 @endif
 
                 <a
