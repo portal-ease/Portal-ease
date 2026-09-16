@@ -25,7 +25,7 @@
                         href="{{ route('portal.user.edit', ['portal' => currentPortal(), 'user' => $user]) }}"
                         class="block w-full rounded-xl bg-yellow-500 py-2 text-center text-white hover:bg-yellow-600"
                     >
-                        Edit Customer
+                        Edit User
                     </a>
                 </div>
             </div>

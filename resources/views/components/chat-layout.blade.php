@@ -52,21 +52,23 @@
                 Dashboard
             </a>
 
-            @if (Auth::user()->hasRole('service_provider'))
-                <!-- Customers -->
-                <a
-                    href="{{ route('portal.user.index', $portal) }}"
-                    wire:navigate.hover
-                    class="flex items-center gap-2 text-lg focus-visible:outline focus-visible:outline-2 focus-visible:outline-white transition
+            @if (Auth::user()->hasRole('service_provider') || Auth::user()->hasRole('manager') || Auth::user()->hasRole('employee'))
+                @if (Auth::user()->hasRole('service_provider') || Auth::user()->hasRole('manager'))
+                    <!-- Users -->
+                    <a
+                        href="{{ route('portal.user.index', $portal) }}"
+                        wire:navigate.hover
+                        class="flex items-center gap-2 text-lg focus-visible:outline focus-visible:outline-2 focus-visible:outline-white transition
                     {{
                         request()->routeIs('portal.user.*')
                         ? 'border-l-4 border-white pl-3'
                         : 'pl-3 hover:border-l-4 hover:border-white'
                     }}"
-                >
-                    <x-lucide-users width="22" height="22" />
-                    Customers
-                </a>
+                    >
+                        <x-lucide-users width="22" height="22" />
+                        Users
+                    </a>
+                @endif
 
                 <!-- Invoices -->
                 <a

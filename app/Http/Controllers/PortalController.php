@@ -14,8 +14,7 @@ class PortalController extends Controller
     public function __construct(
         private readonly ChatService $chatService,
         private readonly PortalService $portalService,
-    )
-    {}
+    ) {}
 
     /**
      * Display a listing of the resource.
@@ -50,7 +49,7 @@ class PortalController extends Controller
     {
         $user = Auth::user();
 
-        if (!$user){
+        if (! $user) {
             return view('portal.show', [
                 'portal' => $portal,
                 'user' => null,

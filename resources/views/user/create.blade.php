@@ -1,6 +1,6 @@
 <x-app-layout :portal="currentPortal()">
     <div class="mx-auto max-w-xl space-y-6 rounded-2xl bg-white p-8 shadow-2xl">
-        <h2 class="text-2xl font-semibold text-gray-800">Register New Customer</h2>
+        <h2 class="text-2xl font-semibold text-gray-800">Register New User</h2>
 
         <form action="{{ route('portal.user.store', ['portal' => currentPortal()]) }}" method="POST" class="space-y-4">
             @csrf
@@ -13,7 +13,7 @@
                     name="name"
                     required
                     class="mt-1 w-full rounded-md border border-gray-300 p-2 focus:ring focus:ring-blue-200"
-                    placeholder="Customer name"
+                    placeholder="User name"
                 />
             </div>
 
