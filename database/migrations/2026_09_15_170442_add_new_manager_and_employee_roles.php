@@ -12,8 +12,10 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Role::create(['name' => 'manager', 'guard_name' => 'web']);
-        Role::create(['name' => 'employee', 'guard_name' => 'web']);
+        if (app()->environment() === 'production') {
+            Role::create(['name' => 'manager', 'guard_name' => 'web']);
+            Role::create(['name' => 'employee', 'guard_name' => 'web']);
+        }
     }
 
     /**
@@ -21,7 +23,9 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Role::destroy(['name' => 'manager', 'guard_name' => 'web']);
-        Role::destroy(['name' => 'employee', 'guard_name' => 'web']);
+        if (app()->environment() === 'production') {
+            Role::destroy(['name' => 'manager', 'guard_name' => 'web']);
+            Role::destroy(['name' => 'employee', 'guard_name' => 'web']);
+        }
     }
 };

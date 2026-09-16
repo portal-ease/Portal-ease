@@ -7,11 +7,12 @@ use App\Models\Invoice;
 use App\Models\Portal;
 use App\Models\Project;
 use App\Models\User;
-// use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
 {
+    public const array ROLES = ["service_provider", "admin", "client", "manager", "employee"];
+
     /**
      * Seed the application's database.
      */
@@ -23,13 +24,20 @@ class DatabaseSeeder extends Seeder
             'email' => config('seeders.portal.email'),
             'branding_color' => config('seeders.portal.branding_color'),
         ]);
-        $admin = User::factory()->create([
-            'name' => 'admin',
-            'email' => 'admin@portalease.com',
-            'portal_id' => $portal->id,
-        ]);
-        $admin->assignRole('service_provider');
-        $admin->assignRole('admin');
+
+        foreach (self::ROLES as $role) {
+            if ($role === 'client') {
+                continue;
+            }
+
+            $user = User::factory()->create([
+                'name' => $role,
+                'email' => $role.'@portalease.com',
+                'portal_id' => $portal->id,
+            ]);
+
+            $user->assignRole($role);
+        }
 
         $client = User::factory()->create([
             'name' => 'client',
