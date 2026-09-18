@@ -3,16 +3,20 @@
 namespace App\Observers;
 
 use App\Models\Portal;
-use Illuminate\Support\Facades\Cache;
+use App\Services\RedisCacheService;
 
 class PortalObserver
 {
+    public function __construct(
+        private readonly RedisCacheService $cache
+    ) {}
+
     /**
      * Handle the Portal "created" event.
      */
     public function created(Portal $portal): void
     {
-        Cache::forget("portal:{$portal->id}");
+        $this->cache->forget("portal:{$portal->id}");
     }
 
     /**
@@ -20,7 +24,7 @@ class PortalObserver
      */
     public function updated(Portal $portal): void
     {
-        Cache::forget("portal:{$portal->id}");
+        $this->cache->forget("portal:{$portal->id}");
     }
 
     /**
@@ -28,6 +32,6 @@ class PortalObserver
      */
     public function deleted(Portal $portal): void
     {
-        Cache::forget("portal:{$portal->id}");
+        $this->cache->forget("portal:{$portal->id}");
     }
 }
