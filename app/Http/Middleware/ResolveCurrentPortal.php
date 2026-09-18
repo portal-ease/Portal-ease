@@ -7,15 +7,14 @@ use App\Models\Portal;
 use App\Services\RedisCacheService;
 use Closure;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Cache;
 use Symfony\Component\HttpFoundation\Response;
 
 class ResolveCurrentPortal
 {
     public function __construct(
         private readonly RedisCacheService $cache
-    )
-    {}
+    ) {}
+
     /**
      * Handle an incoming request.
      *

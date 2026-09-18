@@ -26,7 +26,7 @@ class RedisCacheService
 
     public function has(string $key): bool
     {
-       return Redis::exists($key) > 0;
+        return Redis::exists($key) > 0;
     }
 
     public function remember(string $key, Closure $callback, int $ttl = 1800): mixed

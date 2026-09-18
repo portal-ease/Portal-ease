@@ -4,14 +4,13 @@ namespace App\Observers;
 
 use App\Models\Portal;
 use App\Services\RedisCacheService;
-use Illuminate\Support\Facades\Cache;
 
 class PortalObserver
 {
     public function __construct(
         private readonly RedisCacheService $cache
-    )
-    {}
+    ) {}
+
     /**
      * Handle the Portal "created" event.
      */
