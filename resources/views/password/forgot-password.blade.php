@@ -1,40 +1,32 @@
 <x-guestLayout>
+    <div class="mx-auto mt-12 mb-6 max-w-md rounded-2xl bg-white p-10 shadow-2xl">
+        <h1 class="text-2xl font-bold text-gray-800">Forgot your password?</h1>
 
-    <div class="max-w-md mb-6 mx-auto bg-white shadow-2xl rounded-2xl p-10 mt-12">
-
-        <h1 class="text-2xl font-bold text-gray-800">
-            Forgot your password?
-        </h1>
-
-        <p class="text-gray-500 mt-2">
-            Enter your email address and we'll send you a reset link.
-        </p>
+        <p class="mt-2 text-gray-500">Enter your email address and we'll send you a reset link.</p>
 
         @if (session('status'))
-            <div class="mt-4 text-green-600">
-                {{ session('status') }}
-            </div>
+            <div class="mt-4 text-green-600">{{ session('status') }}</div>
         @endif
 
         <form method="POST" action="{{ route('password.email', currentPortal()) }}" class="mt-6">
-
             @csrf
 
-            <input type="email" name="email" value="{{ old('email') }}" placeholder="Email address" required
-                class="w-full border border-gray-300 rounded-lg p-3 mt-1 shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
+            <input
+                type="email"
+                name="email"
+                value="{{ old('email') }}"
+                placeholder="Email address"
+                required
+                class="mt-1 w-full rounded-lg border border-gray-300 p-3 shadow-sm focus:border-blue-500 focus:ring-2 focus:ring-blue-500 focus:outline-none"
+            />
 
             @error('email')
-                <p class="text-red-500 text-sm mt-2">
-                    {{ $message }}
-                </p>
+                <p class="mt-2 text-sm text-red-500">{{ $message }}</p>
             @enderror
 
-            <button type="submit" class="w-full mt-4 bg-blue-600 text-white py-3 rounded-lg cursor-pointer">
+            <button type="submit" class="mt-4 w-full cursor-pointer rounded-lg bg-blue-600 py-3 text-white">
                 Send Reset Link
             </button>
-
         </form>
-
     </div>
-
 </x-guestLayout>
