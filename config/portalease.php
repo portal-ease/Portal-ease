@@ -1,6 +1,6 @@
 <?php
 
 return [
-    'version' => '0.3.3',
+    'version' => '0.3.4',
     'contact_email' => env('CONTACT_EMAIL', env('MAIL_FROM_ADDRESS')),
 ];
