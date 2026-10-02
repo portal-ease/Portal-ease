@@ -62,7 +62,7 @@ class PortalController extends Controller
             'portal' => $portal,
             'conversations' => $conversations,
             'user' => $user,
-            'features' => $portal->features()->get()->toArray(),
+            'features' => $portal->features()->pluck('enabled', 'feature')->toArray(),
         ]);
     }
 
