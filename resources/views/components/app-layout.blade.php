@@ -70,135 +70,143 @@
                         Users
                     </a>
                 @endif
-
-                <!-- Invoices -->
-                <a
-                    href="{{ route('portal.invoice.index', $portal) }}"
-                    wire:navigate.hover
-                    class="flex items-center gap-2 text-lg focus-visible:outline focus-visible:outline-2 focus-visible:outline-white transition
+                @if ($features['invoices'])
+                    <!-- Invoices -->
+                    <a
+                        href="{{ route('portal.invoice.index', $portal) }}"
+                        wire:navigate.hover
+                        class="flex items-center gap-2 text-lg focus-visible:outline focus-visible:outline-2 focus-visible:outline-white transition
                     {{
                         request()->routeIs('portal.invoice.*')
                         ? 'border-l-4 border-white pl-3'
                         : 'pl-3 hover:border-l-4 hover:border-white'
                     }}"
-                >
-                    <x-lucide-file-text width="22" height="22" />
-                    Invoices
-                </a>
-
-                <!-- Projects -->
-                <a
-                    href="{{ route('portal.project.index', $portal) }}"
-                    wire:navigate.hover
-                    class="flex items-center gap-2 text-lg focus-visible:outline focus-visible:outline-2 focus-visible:outline-white transition
+                    >
+                        <x-lucide-file-text width="22" height="22" />
+                        Invoices
+                    </a>
+                @endif
+                @if ($features['projects'])
+                    <!-- Projects -->
+                    <a
+                        href="{{ route('portal.project.index', $portal) }}"
+                        wire:navigate.hover
+                        class="flex items-center gap-2 text-lg focus-visible:outline focus-visible:outline-2 focus-visible:outline-white transition
                     {{
                         request()->routeIs('portal.project.*')
                         ? 'border-l-4 border-white pl-3'
                         : 'pl-3 hover:border-l-4 hover:border-white'
                     }}"
-                >
-                    <x-lucide-briefcase width="22" height="22" />
-                    Projects
-                </a>
-
-                <!-- Share files -->
-                <a
-                    href="{{ route('portal.file.create', $portal) }}"
-                    wire:navigate.hover
-                    class="flex items-center gap-2 text-lg focus-visible:outline focus-visible:outline-2 focus-visible:outline-white transition
+                    >
+                        <x-lucide-briefcase width="22" height="22" />
+                        Projects
+                    </a>
+                @endif
+                @if ($features['document_sharing'])
+                    <!-- Share files -->
+                    <a
+                        href="{{ route('portal.file.create', $portal) }}"
+                        wire:navigate.hover
+                        class="flex items-center gap-2 text-lg focus-visible:outline focus-visible:outline-2 focus-visible:outline-white transition
                     {{
                         request()->routeIs('portal.file.create')
                         ? 'border-l-4 border-white pl-3'
                         : 'pl-3 hover:border-l-4 hover:border-white'
                     }}"
-                >
-                    <x-lucide-upload width="22" height="22" />
-                    Share files/documents
-                </a>
-
-                <!-- Conversations -->
-                <a
-                    href="{{
-                        route('portal.user.chat', [
-                            'portal' => $portal,
-                            'user' => \Illuminate\Support\Facades\Auth::user(),
-                        ])
-                    }}"
-                    wire:navigate.hover
-                    class="flex items-center gap-2 text-lg focus-visible:outline focus-visible:outline-2 focus-visible:outline-white transition
+                    >
+                        <x-lucide-upload width="22" height="22" />
+                        Share files/documents
+                    </a>
+                @endif
+                @if ($features['conversations'])
+                    <!-- Conversations -->
+                    <a
+                        href="{{
+                            route('portal.user.chat', [
+                                'portal' => $portal,
+                                'user' => \Illuminate\Support\Facades\Auth::user(),
+                            ])
+                        }}"
+                        wire:navigate.hover
+                        class="flex items-center gap-2 text-lg focus-visible:outline focus-visible:outline-2 focus-visible:outline-white transition
                     {{
                         request()->routeIs('portal.user.chat')
                         ? 'border-l-4 border-white pl-3'
                         : 'pl-3 hover:border-l-4 hover:border-white'
                     }}"
-                >
-                    <x-lucide-message-circle width="22" height="22" />
-                    Conversations
-                </a>
+                    >
+                        <x-lucide-message-circle width="22" height="22" />
+                        Conversations
+                    </a>
+                @endif
             @else
-                <!-- Shared files -->
-                <a
-                    href="{{ route('portal.file.index', $portal) }}"
-                    wire:navigate.hover
-                    class="flex items-center gap-2 text-lg focus-visible:outline focus-visible:outline-2 focus-visible:outline-white transition
+                @if ($features['document_sharing'])
+                    <!-- Shared files -->
+                    <a
+                        href="{{ route('portal.file.index', $portal) }}"
+                        wire:navigate.hover
+                        class="flex items-center gap-2 text-lg focus-visible:outline focus-visible:outline-2 focus-visible:outline-white transition
                     {{
                         request()->routeIs('portal.file.index')
                         ? 'border-l-4 border-white pl-3'
                         : 'pl-3 hover:border-l-4 hover:border-white'
                     }}"
-                >
-                    <x-lucide-folder width="22" height="22" />
-                    Shared files/documents
-                </a>
-
-                <!-- Conversations -->
-                <a
-                    href="{{
-                        route('portal.user.chat', [
-                            'portal' => $portal,
-                            'user' => \Illuminate\Support\Facades\Auth::user(),
-                        ])
-                    }}"
-                    wire:navigate.hover
-                    class="flex items-center gap-2 text-lg focus-visible:outline focus-visible:outline-2 focus-visible:outline-white transition
+                    >
+                        <x-lucide-folder width="22" height="22" />
+                        Shared files/documents
+                    </a>
+                @endif
+                @if ($features['conversations'])
+                    <!-- Conversations -->
+                    <a
+                        href="{{
+                            route('portal.user.chat', [
+                                'portal' => $portal,
+                                'user' => \Illuminate\Support\Facades\Auth::user(),
+                            ])
+                        }}"
+                        wire:navigate.hover
+                        class="flex items-center gap-2 text-lg focus-visible:outline focus-visible:outline-2 focus-visible:outline-white transition
                     {{
                         request()->routeIs('portal.user.chat')
                         ? 'border-l-4 border-white pl-3'
                         : 'pl-3 hover:border-l-4 hover:border-white'
                     }}"
-                >
-                    <x-lucide-message-circle width="22" height="22" />
-                    Conversations
-                </a>
-
-                <!-- Invoices -->
-                @foreach ($portal->invoices as $invoice)
-                    @if ($invoice->user->id === auth()->id())
-                        <a
-                            href="{{ route('portal.invoice.show', [$portal, $invoice]) }}"
-                            wire:navigate.hover
-                            class="flex items-center gap-2 pl-3 text-lg hover:border-l-4 hover:border-white focus-visible:outline focus-visible:outline-2 focus-visible:outline-white"
-                        >
-                            <x-lucide-receipt width="22" height="22" />
-                            Invoice: {{ $invoice->name }}
-                        </a>
-                    @endif
-                @endforeach
-
-                <!-- Projects -->
-                @foreach ($portal->projects as $project)
-                    @if ($project->customer->id === auth()->id())
-                        <a
-                            href="{{ route('portal.project.show', [$portal, $project]) }}?status=all"
-                            wire:navigate.hover
-                            class="flex items-center gap-2 pl-3 text-lg hover:border-l-4 hover:border-white focus-visible:outline focus-visible:outline-2 focus-visible:outline-white"
-                        >
-                            <x-lucide-clipboard-list width="22" height="22" />
-                            Project: {{ $project->name }}
-                        </a>
-                    @endif
-                @endforeach
-
+                    >
+                        <x-lucide-message-circle width="22" height="22" />
+                        Conversations
+                    </a>
+                @endif
+                @if ($features['invoices'])
+                    <!-- Invoices -->
+                    @foreach ($portal->invoices as $invoice)
+                        @if ($invoice->user->id === auth()->id())
+                            <a
+                                href="{{ route('portal.invoice.show', [$portal, $invoice]) }}"
+                                wire:navigate.hover
+                                class="flex items-center gap-2 pl-3 text-lg hover:border-l-4 hover:border-white focus-visible:outline focus-visible:outline-2 focus-visible:outline-white"
+                            >
+                                <x-lucide-receipt width="22" height="22" />
+                                Invoice: {{ $invoice->name }}
+                            </a>
+                        @endif
+                    @endforeach
+                @endif
+                @if ($features['projects'])
+                    <!-- Projects -->
+                    @foreach ($portal->projects as $project)
+                        @if ($project->customer->id === auth()->id())
+                            <a
+                                href="{{ route('portal.project.show', [$portal, $project]) }}?status=all"
+                                wire:navigate.hover
+                                class="flex items-center gap-2 pl-3 text-lg hover:border-l-4 hover:border-white focus-visible:outline focus-visible:outline-2 focus-visible:outline-white"
+                            >
+                                <x-lucide-clipboard-list width="22" height="22" />
+                                Project: {{ $project->name }}
+                            </a>
+                        @endif
+                    @endforeach
+                @endif
             @endif
 
             <!-- Version -->
