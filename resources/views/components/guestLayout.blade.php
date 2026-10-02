@@ -30,6 +30,7 @@
         <!-- Navigation -->
         <nav class="flex items-center gap-14">
             <a href="{{ route('features') }}" class="transition hover:text-blue-600">Features</a>
+            <a href="{{ route('documentation') }}" class="transition hover:text-blue-600">Documentation</a>
             <a href="{{ route('about') }}" class="transition hover:text-blue-600">About</a>
             <a href="{{ route('support') }}" class="transition hover:text-blue-600">Contact</a>
         </nav>
@@ -69,7 +70,7 @@
             <div>
                 <h3 class="mb-4 text-lg font-semibold">Resources</h3>
                 <ul class="space-y-2">
-                    <li><a href="#" class="hover:underline">Documentation</a></li>
+                    <li><a href="{{ route('documentation') }}" class="hover:underline">Documentation</a></li>
                     <li>
                         <a href="https://www.youtube.com/channel/UC-HSpoaud4ZjTlPdTBtW0Ig" class="hover:underline"
                             >Tutorials</a>

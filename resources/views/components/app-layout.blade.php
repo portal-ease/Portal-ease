@@ -243,6 +243,13 @@
                     <x-lucide-bell width="22" height="22" class="text-black transition hover:text-gray-500" />
                 </a>
 
+                <a
+                    href="{{ route('documentation') }}"
+                    class="rounded transition focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-300"
+                >
+                    <x-lucide-book-open width="22" height="22" />
+                </a>
+
                 @if (Auth::user()->hasRole('service_provider'))
                     <!-- Settings -->
                     <a
