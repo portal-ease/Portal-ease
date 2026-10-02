@@ -15,6 +15,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/).
 * Added Documentation page to make it more clear how portal ease works
 * Added pest tests for functionalities to customers like the controller and model
 * Added changelog.md file for clearer changes and to follow more into open source
+* Added phpstan to portal ease
 
 ### Changed
 
