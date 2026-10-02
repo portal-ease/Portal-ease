@@ -3,7 +3,7 @@
     @php
         $logoPath = app(FileStorageService::class)->portalLogoUrl(currentPortal());
     @endphp
-    <div x-data="{ activeTab: 'general' }" class="mx-auto max-w-3xl">
+    <div x-data="{ activeTab: '{{ session('activeTab', 'general') }}' }" class="mx-auto max-w-3xl">
         <div class="overflow-hidden rounded-2xl bg-white shadow-2xl">
             {{-- Header --}}
             <div class="px-8 pt-8">
@@ -58,6 +58,20 @@
                             <span>Logos</span>
                         </button>
 
+                        {{-- Features --}}
+                        <button
+                            type="button"
+                            @click="activeTab = 'features'"
+                            :class="activeTab === 'features'
+                                ? 'border-blue-500 text-blue-600'
+                                : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300'"
+                            class="flex cursor-pointer items-center gap-2 border-b-2 py-4 text-sm font-medium transition"
+                        >
+                            <x-lucide-toggle-right width="20" height="20" />
+
+                            <span>Features</span>
+                        </button>
+
                         {{-- Danger Zone --}}
                         <button
                             type="button"
@@ -76,6 +90,7 @@
 
                 {{-- Settings form --}}
                 <form
+                    x-show="activeTab != 'features' && activeTab != 'danger'"
                     method="POST"
                     action="{{ route('portal.update', currentPortal()) }}"
                     enctype="multipart/form-data"
@@ -234,7 +249,7 @@
                     </div>
 
                     {{-- Save button --}}
-                    <div x-show="activeTab !== 'danger'" x-cloak class="mt-8">
+                    <div x-show="activeTab !== 'danger' && activeTab !== 'features'" x-cloak class="mt-8">
                         <button
                             type="submit"
                             class="w-full cursor-pointer rounded-xl bg-green-500 p-3 text-white transition hover:bg-green-600"
@@ -242,6 +257,67 @@
                             Save changes
                         </button>
                     </div>
+                </form>
+
+                {{-- Features --}}
+                <form
+                    method="POST"
+                    action="{{ route('portal.features.update', currentPortal()) }}"
+                    x-show="activeTab === 'features'"
+                    x-cloak
+                    class="space-y-6 p-8"
+                >
+                    @csrf
+                    @method('PUT')
+
+                    <div>
+                        <h3 class="text-lg font-semibold text-gray-800">Portal features</h3>
+
+                        <p class="mt-1 text-sm text-gray-500">
+                            Choose which features are available to users in this portal.
+                        </p>
+                    </div>
+
+                    <div class="space-y-3">
+                        @forelse ($features as $feature)
+                            @php
+                                $featureName = str($feature->feature)->replace('_', ' ')->title();
+                            @endphp
+
+                            <label class="flex cursor-pointer items-center justify-between gap-4 rounded-xl border border-gray-200 p-4 transition hover:border-blue-300">
+                                <div>
+                                    <p class="font-medium text-gray-800">{{ $featureName }}</p>
+
+                                    <p class="mt-1 text-sm text-gray-500">
+                                        {{ $feature->enabled ? 'Enabled and available to portal users.' : 'Disabled and hidden from portal users.' }}
+                                    </p>
+                                </div>
+
+                                <input
+                                    type="checkbox"
+                                    name="features[]"
+                                    value="{{ $feature->feature }}"
+                                    @checked($feature->enabled)
+                                    class="h-5 w-5 rounded border-gray-300 text-blue-600 focus:ring-blue-500"
+                                />
+                            </label>
+                        @empty
+                            <div class="rounded-xl border border-dashed border-gray-300 p-6 text-center text-sm text-gray-500">
+                                No features are configured for this portal.
+                            </div>
+                        @endforelse
+                    </div>
+
+                    @error('features')
+                        <p class="text-sm text-red-600">{{ $message }}</p>
+                    @enderror
+
+                    <button
+                        type="submit"
+                        class="w-full cursor-pointer rounded-xl bg-green-500 p-3 text-white transition hover:bg-green-600"
+                    >
+                        Save feature settings
+                    </button>
                 </form>
 
                 {{-- Danger Zone --}}

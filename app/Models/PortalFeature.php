@@ -17,6 +17,13 @@ class PortalFeature extends Model
         'enabled',
     ];
 
+    protected function casts(): array
+    {
+        return [
+            'enabled' => 'boolean',
+        ];
+    }
+
     public function portal()
     {
         return $this->belongsTo(Portal::class);
