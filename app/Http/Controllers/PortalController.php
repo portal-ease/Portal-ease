@@ -58,7 +58,12 @@ class PortalController extends Controller
 
         $conversations = $this->chatService->getConversations($user);
 
-        return view('portal.show', compact('portal', 'user', 'conversations'));
+        return view('portal.show', [
+            'portal' => $portal,
+            'conversations' => $conversations,
+            'user' => $user,
+            'features' => $portal->features()->pluck('enabled', 'feature')->toArray(),
+        ]);
     }
 
     /**
@@ -66,7 +71,10 @@ class PortalController extends Controller
      */
     public function edit(Portal $portal)
     {
-        return view('portal.edit', $portal);
+        return view('portal.edit', [
+            'portal' => $portal,
+            'features' => $portal->features()->get(),
+        ]);
     }
 
     /**
@@ -77,6 +85,25 @@ class PortalController extends Controller
         $this->portalService->update($portal, $request->validated(), $request->file('logo'));
 
         return redirect()->route('portal.edit', $portal);
+    }
+
+    /**
+     * Update the features available in a portal.
+     */
+    public function updateFeatures(Portal $portal)
+    {
+        $enabledFeatures = request()->validate([
+            'features' => ['nullable', 'array'],
+            'features.*' => ['string', 'distinct'],
+        ])['features'] ?? [];
+
+        $portal->features()->get()->each(function ($feature) use ($enabledFeatures) {
+            $feature->update([
+                'enabled' => in_array($feature->feature, $enabledFeatures, true),
+            ]);
+        });
+
+        return redirect()->route('portal.edit', $portal)->with('activeTab', 'features');
     }
 
     /**

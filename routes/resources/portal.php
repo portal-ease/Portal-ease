@@ -15,6 +15,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::middleware('block-clients')->group(function () {
         Route::get('/{portal}/edit', [PortalController::class, 'edit'])->name('portal.edit');
         Route::put('/{portal}', [PortalController::class, 'update'])->name('portal.update');
+        Route::put('/{portal}/features', [PortalController::class, 'updateFeatures'])->name('portal.features.update');
         Route::delete('/{portal}', [PortalController::class, 'destroy'])->name('portal.destroy');
     });
 });

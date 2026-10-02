@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Middleware\BlockClients;
+use App\Http\Middleware\EnsurePortalFeatureIsEnabled;
 use App\Http\Middleware\ResolveCurrentPortal;
 use Illuminate\Foundation\Application;
 use Illuminate\Foundation\Configuration\Exceptions;
@@ -22,6 +23,7 @@ return Application::configure(basePath: dirname(__DIR__))
         ]);
         $middleware->alias([
             'block-clients' => BlockClients::class,
+            'portal-feature' => EnsurePortalFeatureIsEnabled::class,
         ]);
     })
     ->withExceptions(function (Exceptions $exceptions) {

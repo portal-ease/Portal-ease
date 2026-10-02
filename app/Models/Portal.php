@@ -41,4 +41,9 @@ class Portal extends Model
     {
         return 'name';
     }
+
+    public function features()
+    {
+        return $this->hasMany(PortalFeature::class);
+    }
 }

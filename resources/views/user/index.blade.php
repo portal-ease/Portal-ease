@@ -43,13 +43,14 @@
                             </div>
 
                             <div class="flex items-center gap-2">
-                                <a
-                                    href="{{ route('portal.user.show', ['portal' => currentPortal(), 'user' => $user]) }}"
-                                    class="inline-flex items-center gap-2 rounded-xl bg-blue-500 px-4 py-2 text-sm font-medium text-white transition hover:bg-blue-600"
-                                >
-                                    Chat
-                                </a>
-
+                                @if (currentPortal()->features()->where('feature', 'conversations')->where('enabled', true)->exists())
+                                    <a
+                                        href="{{ route('portal.user.show', ['portal' => currentPortal(), 'user' => $user]) }}"
+                                        class="inline-flex items-center gap-2 rounded-xl bg-blue-500 px-4 py-2 text-sm font-medium text-white transition hover:bg-blue-600"
+                                    >
+                                        Chat
+                                    </a>
+                                @endif
                                 @if (auth()->user()->hasRole('service_provider'))
                                     <a
                                         href="{{ route('portal.user.edit', ['portal' => currentPortal(), 'user' => $user]) }}"
