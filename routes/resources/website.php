@@ -10,6 +10,10 @@ Route::get('/features', function () {
     return view('features');
 })->name('features');
 
+Route::get('/documentation', function () {
+    return view('documentation');
+})->name('documentation');
+
 Route::get('/support', function () {
     return view('support');
 })->name('support');
