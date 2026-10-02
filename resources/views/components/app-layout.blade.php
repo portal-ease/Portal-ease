@@ -53,19 +53,6 @@
                 Dashboard
             </a>
 
-            <a
-                href="{{ route('documentation') }}"
-                class="flex items-center gap-2 text-lg transition focus-visible:outline focus-visible:outline-2 focus-visible:outline-white
-                {{
-                    request()->routeIs('documentation')
-                    ? 'border-l-4 border-white pl-3'
-                    : 'pl-3 hover:border-l-4 hover:border-white'
-                }}"
-            >
-                <x-lucide-book-open width="22" height="22" />
-                Documentation
-            </a>
-
             @if (Auth::user()->hasRole('service_provider') || Auth::user()->hasRole('manager') || Auth::user()->hasRole('employee'))
                 @if (Auth::user()->hasRole('service_provider') || Auth::user()->hasRole('manager'))
                     <!-- Users -->
@@ -254,6 +241,13 @@
                     class="rounded transition focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-300"
                 >
                     <x-lucide-bell width="22" height="22" class="text-black transition hover:text-gray-500" />
+                </a>
+
+                <a
+                    href="{{ route('documentation') }}"
+                    class="rounded transition focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-300"
+                >
+                    <x-lucide-book-open width="22" height="22" />
                 </a>
 
                 @if (Auth::user()->hasRole('service_provider'))
