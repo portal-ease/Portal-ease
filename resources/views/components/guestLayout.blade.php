@@ -23,7 +23,10 @@
     <header class="border-b border-gray-100 bg-white shadow-sm">
         <div class="mx-auto flex max-w-7xl items-center justify-between px-4 py-3 sm:px-6 lg:px-8">
             <!-- Logo -->
-            <a href="{{ route('welcome') }}" class="flex shrink-0 items-center text-lg font-semibold text-blue-700 transition hover:text-blue-900 sm:text-xl">
+            <a
+                href="{{ route('welcome') }}"
+                class="flex shrink-0 items-center text-lg font-semibold text-blue-700 transition hover:text-blue-900 sm:text-xl"
+            >
                 <img src="{{ asset('portalEaseLogo.png') }}" alt="PortalEase logo" class="mr-2 h-8 sm:h-10" />
                 <span><b class="text-blue-600">P</b>ortal<b class="text-blue-600">E</b>ase</span>
             </a>
@@ -49,12 +52,24 @@
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
                     </svg>
                 </summary>
-                <nav class="absolute right-0 z-50 mt-3 w-56 rounded-xl border border-gray-100 bg-white p-2 shadow-xl" aria-label="Mobile navigation">
-                    <a href="{{ route('features') }}" class="block rounded-lg px-4 py-3 transition hover:bg-blue-50">Features</a>
-                    <a href="{{ route('documentation') }}" class="block rounded-lg px-4 py-3 transition hover:bg-blue-50">Documentation</a>
-                    <a href="{{ route('about') }}" class="block rounded-lg px-4 py-3 transition hover:bg-blue-50">About</a>
-                    <a href="{{ route('support') }}" class="block rounded-lg px-4 py-3 transition hover:bg-blue-50">Contact</a>
-                    <a href="{{ route('portal.index') }}" class="mt-2 block rounded-lg bg-blue-600 px-4 py-3 text-center font-medium text-white transition hover:bg-blue-700">Log in</a>
+                <nav
+                    class="absolute right-0 z-50 mt-3 w-56 rounded-xl border border-gray-100 bg-white p-2 shadow-xl"
+                    aria-label="Mobile navigation"
+                >
+                    <a href="{{ route('features') }}" class="block rounded-lg px-4 py-3 transition hover:bg-blue-50"
+                        >Features</a>
+                    <a
+                        href="{{ route('documentation') }}"
+                        class="block rounded-lg px-4 py-3 transition hover:bg-blue-50"
+                    >Documentation</a>
+                    <a href="{{ route('about') }}" class="block rounded-lg px-4 py-3 transition hover:bg-blue-50"
+                        >About</a>
+                    <a href="{{ route('support') }}" class="block rounded-lg px-4 py-3 transition hover:bg-blue-50"
+                        >Contact</a>
+                    <a
+                        href="{{ route('portal.index') }}"
+                        class="mt-2 block rounded-lg bg-blue-600 px-4 py-3 text-center font-medium text-white transition hover:bg-blue-700"
+                    >Log in</a>
                 </nav>
             </details>
         </div>

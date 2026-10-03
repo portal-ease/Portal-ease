@@ -35,7 +35,11 @@
             </div>
 
             <div>
-                <img src="{{ asset('creativeagency.jpg') }}" class="w-full rounded-3xl shadow-2xl" alt="PortalEase Features" />
+                <img
+                    src="{{ asset('creativeagency.jpg') }}"
+                    class="w-full rounded-3xl shadow-2xl"
+                    alt="PortalEase Features"
+                />
             </div>
         </div>
     </section>

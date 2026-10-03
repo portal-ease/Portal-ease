@@ -2,22 +2,20 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Conversation;
 use App\Models\File;
 use App\Models\Portal;
 use App\Models\User;
+use App\Services\ChatService;
 use App\Services\FileStorageService;
 use Illuminate\Http\Request;
 use Spatie\Permission\Models\Role;
 
 class UserController extends Controller
 {
-    private FileStorageService $fileStorageService;
-
-    public function __construct(FileStorageService $fileStorageService)
-    {
-        $this->fileStorageService = $fileStorageService;
-    }
+    public function __construct(
+        private readonly FileStorageService $fileStorageService,
+        private readonly ChatService $chatService,
+    ) {}
 
     /**
      * Display a listing of the resource.
@@ -67,7 +65,7 @@ class UserController extends Controller
      */
     public function show(Portal $portal, User $user)
     {
-        $conversationP2p = Conversation::query()->first();
+        $conversationP2p = $this->chatService->getP2pConversation($user);
 
         return view('user.show', compact('portal', 'user', 'conversationP2p'));
     }
