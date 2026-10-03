@@ -1,17 +1,17 @@
 <x-guestLayout>
     <!-- Hero -->
-    <section class="bg-gradient-to-br from-blue-700 to-blue-900 px-6 py-28 text-white">
-        <div class="mx-auto grid max-w-6xl items-center gap-16 lg:grid-cols-2">
+    <section class="bg-gradient-to-br from-blue-700 to-blue-900 px-6 py-16 text-white sm:py-20 lg:py-28">
+        <div class="mx-auto grid max-w-6xl items-center gap-10 lg:grid-cols-2 lg:gap-16">
             <div>
                 <span class="inline-block rounded-full bg-blue-500/30 px-4 py-2 text-sm font-semibold">
                     Everything in one workspace
                 </span>
 
-                <h1 class="mt-6 mb-6 text-5xl leading-tight font-extrabold md:text-6xl">
+                <h1 class="mt-6 mb-6 text-4xl leading-tight font-extrabold sm:text-5xl md:text-6xl">
                     Powerful features built for client collaboration.
                 </h1>
 
-                <p class="mb-10 text-xl text-blue-100">
+                <p class="mb-10 text-lg text-blue-100 sm:text-xl">
                     PortalEase helps you organize projects, communicate with clients, share files securely, and create a
                     professional experience—all from one intuitive dashboard.
                 </p>
@@ -19,7 +19,7 @@
                 <div class="flex flex-wrap gap-4">
                     <a
                         href="{{ route('portal.create') }}"
-                        class="rounded-2xl bg-white px-8 py-4 font-semibold text-blue-700 transition hover:bg-blue-100"
+                        class="w-full rounded-2xl bg-white px-8 py-4 text-center font-semibold text-blue-700 transition hover:bg-blue-100 sm:w-auto"
                     >
                         Create Your Portal
                     </a>
@@ -27,7 +27,7 @@
                     <a
                         href="https://www.youtube.com/watch?v=7NKmIakO1vw"
                         target="_blank"
-                        class="rounded-2xl border border-white px-8 py-4 transition hover:bg-white hover:text-blue-700"
+                        class="w-full rounded-2xl border border-white px-8 py-4 text-center transition hover:bg-white hover:text-blue-700 sm:w-auto"
                     >
                         Watch Demo
                     </a>
@@ -35,15 +35,15 @@
             </div>
 
             <div>
-                <img src="{{ asset('creativeagency.jpg') }}" class="rounded-3xl shadow-2xl" alt="PortalEase Features" />
+                <img src="{{ asset('creativeagency.jpg') }}" class="w-full rounded-3xl shadow-2xl" alt="PortalEase Features" />
             </div>
         </div>
     </section>
 
-    <section class="bg-white px-6 py-24">
+    <section class="bg-white px-6 py-16 sm:py-24">
         <div class="mx-auto max-w-7xl">
             <div class="mb-16 text-center">
-                <h2 class="text-5xl font-bold text-blue-900">Everything you need</h2>
+                <h2 class="text-3xl font-bold text-blue-900 sm:text-5xl">Everything you need</h2>
 
                 <p class="mt-4 text-lg text-blue-700">Designed to simplify every interaction with your clients.</p>
             </div>
@@ -89,10 +89,10 @@
     </section>
 
     <!-- Extended Features -->
-    <section class="bg-blue-50 px-6 py-20 md:px-28">
+    <section class="bg-blue-50 px-6 py-16 sm:py-20 md:px-12 lg:px-28">
         <div class="grid grid-cols-1 items-center gap-16 md:grid-cols-2">
             <div class="flex flex-col gap-8">
-                <h2 class="text-4xl font-extrabold text-blue-900">More than just a portal</h2>
+                <h2 class="text-3xl font-extrabold text-blue-900 sm:text-4xl">More than just a portal</h2>
                 <ul class="space-y-4 text-lg text-blue-800">
                     <li>🔹 Custom branding with your logo & colors</li>
                     <li>🔹 Invite unlimited team members</li>
@@ -115,9 +115,9 @@
         </div>
     </section>
 
-    <section class="bg-blue-50 py-24">
+    <section class="bg-blue-50 px-6 py-16 sm:py-24 md:px-12">
         <div class="mx-auto max-w-5xl text-center">
-            <h2 class="mb-12 text-4xl font-bold text-blue-900">Why businesses choose PortalEase</h2>
+            <h2 class="mb-12 text-3xl font-bold text-blue-900 sm:text-4xl">Why businesses choose PortalEase</h2>
 
             <div class="grid gap-10 md:grid-cols-2">
                 <div class="rounded-2xl bg-white p-8 shadow">
@@ -146,8 +146,8 @@
     </section>
 
     <!-- Call to Action -->
-    <section class="bg-blue-700 py-24 text-center text-white">
-        <h2 class="mb-6 text-5xl font-bold">Ready to transform your client experience?</h2>
+    <section class="bg-blue-700 px-6 py-16 text-center text-white sm:py-24 md:px-12">
+        <h2 class="mb-6 text-3xl font-bold sm:text-5xl">Ready to transform your client experience?</h2>
 
         <p class="mx-auto mb-10 max-w-3xl text-xl text-blue-100">
             Everything your business needs to communicate, collaborate, and grow— all in one professional client portal.
