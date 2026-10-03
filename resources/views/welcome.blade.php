@@ -1,7 +1,7 @@
 <x-guestLayout>
     <!-- Hero Section -->
     <!-- Hero Section -->
-    <section class="relative h-screen overflow-hidden">
+    <section class="relative min-h-[36rem] overflow-hidden md:min-h-screen">
         <!-- YouTube Background -->
         <div class="absolute inset-0 overflow-hidden">
             <video class="absolute inset-0 h-full w-full object-cover" autoplay muted loop playsinline>
@@ -14,19 +14,19 @@
         <div class="absolute inset-0 bg-black/40"></div>
 
         <!-- Content -->
-        <div class="relative z-10 flex h-full items-center justify-center px-6">
+        <div class="relative z-10 flex min-h-[36rem] items-center justify-center px-6 py-20 md:min-h-screen">
             <div class="max-w-4xl text-center text-white">
                 <span class="mb-6 inline-block rounded-full bg-blue-600 px-4 py-2 text-sm font-semibold">
                     Build Professional Client Portals
                 </span>
 
-                <h1 class="mb-6 text-5xl leading-tight font-extrabold md:text-7xl">
+                <h1 class="mb-6 text-4xl leading-tight font-extrabold sm:text-5xl md:text-7xl">
                     Your Business.
                     <span class="text-blue-400">Your Brand.</span>
                     Your Client Portal.
                 </h1>
 
-                <p class="mx-auto mb-10 max-w-3xl text-xl text-gray-200 md:text-2xl">
+                <p class="mx-auto mb-10 max-w-3xl text-lg text-gray-200 sm:text-xl md:text-2xl">
                     Create beautiful branded client portals where you can securely share documents, communicate with
                     clients, and manage projects— all without writing code.
                 </p>
@@ -34,7 +34,7 @@
                 <div class="flex flex-wrap justify-center gap-4">
                     <a
                         href="{{ route('portal.create') }}"
-                        class="rounded-2xl bg-blue-600 px-8 py-4 font-semibold shadow-lg transition hover:bg-blue-700"
+                        class="w-full rounded-2xl bg-blue-600 px-8 py-4 font-semibold shadow-lg transition hover:bg-blue-700 sm:w-auto"
                     >
                         Get Started
                     </a>
@@ -42,7 +42,7 @@
                     <a
                         href="https://www.youtube.com/watch?v=7NKmIakO1vw"
                         target="_blank"
-                        class="rounded-2xl border-2 border-white px-8 py-4 font-semibold transition hover:bg-white hover:text-black"
+                        class="w-full rounded-2xl border-2 border-white px-8 py-4 font-semibold transition hover:bg-white hover:text-black sm:w-auto"
                     >
                         Watch Demo
                     </a>
@@ -52,8 +52,8 @@
     </section>
 
     <!-- Audience Section -->
-    <section class="bg-white px-6 py-20 md:px-28">
-        <h2 class="mb-12 text-4xl font-extrabold text-blue-900">Who is this for?</h2>
+    <section class="bg-white px-6 py-16 sm:py-20 md:px-12 lg:px-28">
+        <h2 class="mb-12 text-3xl font-extrabold text-blue-900 sm:text-4xl">Who is this for?</h2>
         <div class="grid grid-cols-1 gap-12 md:grid-cols-2">
             <div class="space-y-6">
                 <div class="flex items-center gap-4">
@@ -103,11 +103,11 @@
     </section>
 
     <!-- Problem/Solution Section -->
-    <section class="bg-blue-50 px-6 py-20 md:px-28">
+    <section class="bg-blue-50 px-6 py-16 sm:py-20 md:px-12 lg:px-28">
         <div class="grid grid-cols-1 items-center gap-12 md:grid-cols-2">
             <img src="{{ asset('central.png') }}" alt="Illustration of a problem" class="w-full rounded-xl shadow-lg" />
             <div class="flex flex-col gap-8">
-                <h2 class="text-4xl font-extrabold text-blue-900">Why a client portal?</h2>
+                <h2 class="text-3xl font-extrabold text-blue-900 sm:text-4xl">Why a client portal?</h2>
                 <p class="text-lg leading-relaxed text-blue-800 md:text-xl">
                     Many service providers don’t have a central place to communicate with their clients.<br />
                     Portalease gives your clients a safe, organized place for collaboration, documents, and updates.
@@ -117,10 +117,10 @@
     </section>
 
     <!-- Features Section -->
-    <section class="bg-white px-6 py-20 md:px-28">
+    <section class="bg-white px-6 py-16 sm:py-20 md:px-12 lg:px-28">
         <div class="grid grid-cols-1 items-start gap-12 md:grid-cols-2">
             <div class="flex flex-col gap-6">
-                <h2 class="text-4xl font-extrabold text-blue-900">No technical knowledge required</h2>
+                <h2 class="text-3xl font-extrabold text-blue-900 sm:text-4xl">No technical knowledge required</h2>
                 <p class="text-lg text-blue-800 md:text-xl">
                     You don’t need developers or expensive systems. Get started within 5 minutes and give your clients
                     the experience they deserve.
@@ -136,9 +136,9 @@
         </div>
     </section>
     <!-- Everything Included -->
-    <section class="bg-blue-50 px-6 py-20 md:px-28">
+    <section class="bg-blue-50 px-6 py-16 sm:py-20 md:px-12 lg:px-28">
         <div class="mx-auto max-w-5xl text-center">
-            <h2 class="mb-6 text-4xl font-extrabold text-blue-900">Everything You Need to Manage Your Clients</h2>
+            <h2 class="mb-6 text-3xl font-extrabold text-blue-900 sm:text-4xl">Everything You Need to Manage Your Clients</h2>
 
             <p class="mx-auto mb-12 max-w-3xl text-lg text-blue-800">
                 PortalEase provides everything you need to communicate, collaborate, and share information with your
@@ -197,8 +197,8 @@
     </section>
 
     <!-- Call to Action -->
-    <section class="bg-blue-600 px-6 py-20 text-center text-white md:px-28">
-        <h2 class="mb-4 text-4xl font-extrabold">Leave emails, Dropbox links, and scattered PDFs behind.</h2>
+    <section class="bg-blue-600 px-6 py-16 text-center text-white sm:py-20 md:px-12 lg:px-28">
+        <h2 class="mb-4 text-3xl font-extrabold sm:text-4xl">Leave emails, Dropbox links, and scattered PDFs behind.</h2>
         <p class="mb-8 text-lg md:text-xl">Start today with your own client portal.</p>
         <div class="flex flex-wrap justify-center gap-4">
             <a

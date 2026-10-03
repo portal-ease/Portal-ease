@@ -18,29 +18,45 @@
     @endif
 </head>
 
-<body class="bg-white text-[#1b1b18]">
+<body class="min-w-0 bg-white text-[#1b1b18]">
     <!-- Header -->
-    <header class="flex items-center justify-between px-8 py-4 shadow-sm">
-        <!-- Logo -->
-        <a href="/" class="flex items-center text-xl font-semibold text-blue-700 transition hover:text-blue-900">
-            <img src="{{ asset('portalEaseLogo.png') }}" alt="PortalEase logo" class="mr-2 h-10" />
-            <span> <b class="text-blue-600">P</b>ortal<b class="text-blue-600">E</b>ase </span>
-        </a>
+    <header class="border-b border-gray-100 bg-white shadow-sm">
+        <div class="mx-auto flex max-w-7xl items-center justify-between px-4 py-3 sm:px-6 lg:px-8">
+            <!-- Logo -->
+            <a href="{{ route('welcome') }}" class="flex shrink-0 items-center text-lg font-semibold text-blue-700 transition hover:text-blue-900 sm:text-xl">
+                <img src="{{ asset('portalEaseLogo.png') }}" alt="PortalEase logo" class="mr-2 h-8 sm:h-10" />
+                <span><b class="text-blue-600">P</b>ortal<b class="text-blue-600">E</b>ase</span>
+            </a>
 
-        <!-- Navigation -->
-        <nav class="flex items-center gap-14">
-            <a href="{{ route('features') }}" class="transition hover:text-blue-600">Features</a>
-            <a href="{{ route('documentation') }}" class="transition hover:text-blue-600">Documentation</a>
-            <a href="{{ route('about') }}" class="transition hover:text-blue-600">About</a>
-            <a href="{{ route('support') }}" class="transition hover:text-blue-600">Contact</a>
-        </nav>
+            <!-- Desktop navigation -->
+            <nav class="hidden items-center gap-6 lg:flex" aria-label="Primary navigation">
+                <a href="{{ route('features') }}" class="transition hover:text-blue-600">Features</a>
+                <a href="{{ route('documentation') }}" class="transition hover:text-blue-600">Documentation</a>
+                <a href="{{ route('about') }}" class="transition hover:text-blue-600">About</a>
+                <a href="{{ route('support') }}" class="transition hover:text-blue-600">Contact</a>
+            </nav>
 
-        <!-- Actions -->
-        <div class="flex items-center space-x-4">
             <a
                 href="{{ route('portal.index') }}"
-                class="rounded-xl bg-blue-600 px-4 py-2 text-white shadow transition hover:bg-blue-700"
+                class="hidden rounded-xl bg-blue-600 px-4 py-2 text-white shadow transition hover:bg-blue-700 lg:inline-flex"
             >Log in</a>
+
+            <!-- Mobile navigation -->
+            <details class="relative lg:hidden">
+                <summary class="flex cursor-pointer list-none items-center rounded-lg p-2 text-blue-800 transition hover:bg-blue-50 focus-visible:outline focus-visible:outline-2 focus-visible:outline-blue-600">
+                    <span class="sr-only">Open navigation menu</span>
+                    <svg class="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+                    </svg>
+                </summary>
+                <nav class="absolute right-0 z-50 mt-3 w-56 rounded-xl border border-gray-100 bg-white p-2 shadow-xl" aria-label="Mobile navigation">
+                    <a href="{{ route('features') }}" class="block rounded-lg px-4 py-3 transition hover:bg-blue-50">Features</a>
+                    <a href="{{ route('documentation') }}" class="block rounded-lg px-4 py-3 transition hover:bg-blue-50">Documentation</a>
+                    <a href="{{ route('about') }}" class="block rounded-lg px-4 py-3 transition hover:bg-blue-50">About</a>
+                    <a href="{{ route('support') }}" class="block rounded-lg px-4 py-3 transition hover:bg-blue-50">Contact</a>
+                    <a href="{{ route('portal.index') }}" class="mt-2 block rounded-lg bg-blue-600 px-4 py-3 text-center font-medium text-white transition hover:bg-blue-700">Log in</a>
+                </nav>
+            </details>
         </div>
     </header>
     <!-- Main Content -->
@@ -48,7 +64,7 @@
         <main class="flex flex-col gap-10">{{ $slot }}</main>
     </div>
     <footer class="bg-blue-900 py-12 text-white">
-        <div class="mx-auto grid max-w-7xl grid-cols-1 gap-12 px-6 md:grid-cols-4 md:px-12">
+        <div class="mx-auto grid max-w-7xl grid-cols-1 gap-10 px-6 sm:grid-cols-2 lg:grid-cols-4 lg:px-8">
             <!-- Brand -->
             <div>
                 <h2 class="mb-4 text-2xl font-extrabold">Portalease</h2>
