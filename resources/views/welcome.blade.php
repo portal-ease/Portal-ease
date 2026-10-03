@@ -138,7 +138,9 @@
     <!-- Everything Included -->
     <section class="bg-blue-50 px-6 py-16 sm:py-20 md:px-12 lg:px-28">
         <div class="mx-auto max-w-5xl text-center">
-            <h2 class="mb-6 text-3xl font-extrabold text-blue-900 sm:text-4xl">Everything You Need to Manage Your Clients</h2>
+            <h2 class="mb-6 text-3xl font-extrabold text-blue-900 sm:text-4xl">
+                Everything You Need to Manage Your Clients
+            </h2>
 
             <p class="mx-auto mb-12 max-w-3xl text-lg text-blue-800">
                 PortalEase provides everything you need to communicate, collaborate, and share information with your
@@ -198,7 +200,9 @@
 
     <!-- Call to Action -->
     <section class="bg-blue-600 px-6 py-16 text-center text-white sm:py-20 md:px-12 lg:px-28">
-        <h2 class="mb-4 text-3xl font-extrabold sm:text-4xl">Leave emails, Dropbox links, and scattered PDFs behind.</h2>
+        <h2 class="mb-4 text-3xl font-extrabold sm:text-4xl">
+            Leave emails, Dropbox links, and scattered PDFs behind.
+        </h2>
         <p class="mb-8 text-lg md:text-xl">Start today with your own client portal.</p>
         <div class="flex flex-wrap justify-center gap-4">
             <a

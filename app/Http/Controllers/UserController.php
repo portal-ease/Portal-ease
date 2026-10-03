@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Conversation;
 use App\Models\File;
 use App\Models\Portal;
 use App\Models\User;
@@ -14,9 +13,9 @@ use Spatie\Permission\Models\Role;
 class UserController extends Controller
 {
     public function __construct(
-        readonly private FileStorageService $fileStorageService,
-        readonly private ChatService $chatService,
-    ){}
+        private readonly FileStorageService $fileStorageService,
+        private readonly ChatService $chatService,
+    ) {}
 
     /**
      * Display a listing of the resource.
