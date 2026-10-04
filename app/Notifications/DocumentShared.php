@@ -15,7 +15,7 @@ class DocumentShared extends Notification
     public function __construct(
         public readonly User $user,
         public readonly File $file
-    ){}
+    ) {}
 
     /**
      * Get the notification's delivery channels.
@@ -35,7 +35,7 @@ class DocumentShared extends Notification
         return (new MailMessage)
             ->subject('New document shared to you!')
             ->line($this->notificationMessage())
-            ->action('View document', $this->chatUrl($notifiable))
+            ->action('View document', $this->fileUrl($notifiable))
             ->line('Thank you for using Portal Ease!');
     }
 
@@ -56,7 +56,7 @@ class DocumentShared extends Notification
         return "{$this->user->name} shared document {$this->file->filename} with you!";
     }
 
-    private function chatUrl(object $notifiable): string
+    private function fileUrl(object $notifiable): string
     {
         return route('portal.file.index', [
             'portal' => $notifiable->portal,
