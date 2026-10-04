@@ -2,6 +2,8 @@
 
 namespace App\Notifications;
 
+use App\Models\File;
+use App\Models\User;
 use Illuminate\Bus\Queueable;
 use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Notification;
@@ -10,15 +12,10 @@ class DocumentShared extends Notification
 {
     use Queueable;
 
-    /**
-     * Create a new notification instance.
-     */
-    public string $message;
-
-    public function __construct(string $user, string $document)
-    {
-        $this->message = "{$user} shared document {$document} with you!";
-    }
+    public function __construct(
+        public readonly User $user,
+        public readonly File $file
+    ) {}
 
     /**
      * Get the notification's delivery channels.
@@ -27,7 +24,7 @@ class DocumentShared extends Notification
      */
     public function via(object $notifiable): array
     {
-        return ['database'];
+        return ['database', 'mail'];
     }
 
     /**
@@ -36,9 +33,10 @@ class DocumentShared extends Notification
     public function toMail(object $notifiable): MailMessage
     {
         return (new MailMessage)
-            ->line('The introduction to the notification.')
-            ->action('Notification Action', url('/'))
-            ->line('Thank you for using our application!');
+            ->subject('New document shared to you!')
+            ->line($this->notificationMessage())
+            ->action('View document', $this->fileUrl($notifiable))
+            ->line('Thank you for using Portal Ease!');
     }
 
     /**
@@ -49,7 +47,19 @@ class DocumentShared extends Notification
     public function toArray(object $notifiable): array
     {
         return [
-            'message' => $this->message,
+            'message' => $this->notificationMessage(),
         ];
+    }
+
+    private function notificationMessage(): string
+    {
+        return "{$this->user->name} shared document {$this->file->filename} with you!";
+    }
+
+    private function fileUrl(object $notifiable): string
+    {
+        return route('portal.file.index', [
+            'portal' => $notifiable->portal,
+        ]);
     }
 }
