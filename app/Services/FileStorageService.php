@@ -16,10 +16,11 @@ class FileStorageService
      */
     public function storeDocument(UploadedFile $upload, bool $visibility): File|string
     {
-        $path = $upload->store('files');
+        $disk = config('filesystems.default');
+        $path = $upload->store('files', $disk);
 
         return $this->createFile($upload->getClientOriginalName(),
-            $upload->getClientMimeType(), $path, $visibility);
+            $upload->getClientMimeType(), $path, $visibility, $disk);
     }
 
     /**
@@ -27,10 +28,12 @@ class FileStorageService
      */
     public function storePortalLogo(UploadedFile $image, string $portalName): void
     {
-        $filename = $portalName.'.'.$image->getClientOriginalExtension();
-        $path = $image->storeAs('profile-pictures', $filename);
+        $disk = config('filesystems.default');
 
-        $this->createFile($filename, $image->getClientMimeType(), $path, true);
+        $filename = $portalName.'.'.$image->getClientOriginalExtension();
+        $path = $image->storeAs('profile-pictures', $filename, $disk);
+
+        $this->createFile($filename, $image->getClientMimeType(), $path, true, $disk);
     }
 
     /**
@@ -38,11 +41,13 @@ class FileStorageService
      */
     public function storeUserProfilePicture(User $user, UploadedFile $upload): File|string
     {
+        $disk = config('filesystems.default');
+
         $filename = $user->name.$user->id.'.'.$upload->getClientOriginalExtension();
-        $path = $upload->storeAs('profile-pictures', $filename);
+        $path = $upload->storeAs('profile-pictures', $filename, $disk);
 
         return $this->createFile($filename,
-            $upload->getClientMimeType(), $path, true);
+            $upload->getClientMimeType(), $path, true, $disk);
     }
 
     /**
@@ -50,7 +55,7 @@ class FileStorageService
      */
     public function download(File $file): StreamedResponse
     {
-        return Storage::download($file->path, $file->filename);
+        return Storage::disk($file->disk)->download($file->path, $file->filename);
     }
 
     /**
@@ -61,8 +66,10 @@ class FileStorageService
         foreach (['jpg', 'png', 'jpeg'] as $extension) {
             $path = "profile-pictures/{$portal->name}.{$extension}";
 
-            if (Storage::disk()->exists($path)) {
-                return Storage::disk()->url($path);
+            $disk = config('filesystems.default');
+
+            if (Storage::disk($disk)->exists($path)) {
+                return Storage::disk($disk)->url($path);
             }
         }
 
@@ -77,8 +84,10 @@ class FileStorageService
         foreach (['jpg', 'png', 'jpeg'] as $extension) {
             $path = "profile-pictures/{$user->name}{$user->id}.{$extension}";
 
-            if (Storage::disk()->exists($path)) {
-                return Storage::disk()->url($path);
+            $disk = config('filesystems.default');
+
+            if (Storage::disk($disk)->exists($path)) {
+                return Storage::disk($disk)->url($path);
             }
         }
 
@@ -90,19 +99,20 @@ class FileStorageService
      */
     public function renamePortalLogo(string $oldPortalName, string $newPortalName): void
     {
+        $disk = config('filesystems.default');
         $directory = 'profile-pictures';
 
         foreach (['jpg', 'png', 'jpeg'] as $extension) {
             $oldPath = "{$directory}/{$oldPortalName}.{$extension}";
 
-            if (! Storage::disk()->exists($oldPath)) {
+            if (! Storage::disk($disk)->exists($oldPath)) {
                 continue;
             }
 
             $newFileName = "{$newPortalName}.{$extension}";
             $newPath = "{$directory}/{$newFileName}";
 
-            Storage::disk()->move($oldPath, $newPath);
+            Storage::disk($disk)->move($oldPath, $newPath);
 
             File::where('filename', basename($oldPath))
                 ->update([
@@ -119,7 +129,7 @@ class FileStorageService
      */
     public function delete(File $file): void
     {
-        Storage::disk()->delete($file->path);
+        Storage::disk($file->disk)->delete($file->path);
 
         $file->delete();
     }
@@ -127,13 +137,14 @@ class FileStorageService
     /**
      * Create a file record in the database
      */
-    private function createFile(string $filename, string $mimeType, string $path, bool $visibility): File
+    private function createFile(string $filename, string $mimeType, string $path, bool $visibility, string $disk): File
     {
         return File::create([
             'filename' => $filename,
             'mime_type' => $mimeType,
             'path' => $path,
             'visibility' => $visibility,
+            'disk' => $disk,
         ]);
     }
 }
