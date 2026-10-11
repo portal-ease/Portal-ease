@@ -16,18 +16,44 @@ and this project adheres to [Semantic Versioning](https://semver.org/).
 * Added pest tests for functionalities to customers like the controller and model
 * Added changelog.md file for clearer changes and to follow more into open source
 * Added phpstan to portal ease
+* Added disks to the file systems
 
 ### Changed
 
 * Refactored the portal controller to make optimizations
+* Refactored document shared notification to make optimizations and make it better.
 
 ### Fixed
 
-*
+* Fixed mobile responsiveness on the header
+* Fixed a bug that multiple users could appear in the same conversation
 
 ### Removed
 
 *
+
+## v0.4.0
+
+### Added
+
+* Added a manager and employee role to portal ease.
+* Added Redis to optimize queries and caching in portal ease.
+* Added portal features to chose what features you want in your portal.
+* Added Documentation page to make it more clear how portal ease works.
+* Added pest tests for functionalities to customers like the controller and model.
+* Added changelog.md file for clearer changes and to follow more into open source.
+* Added phpstan to portal ease.
+* Added disks to the file systems.
+
+### Changed
+
+* Refactored the portal controller to make optimizations.
+* Refactored document shared notification to make optimizations and make it better.
+
+### Fixed
+
+* Fixed mobile responsiveness on the header.
+* Fixed a bug that multiple users could appear in the same conversation.
 
 ---
 
