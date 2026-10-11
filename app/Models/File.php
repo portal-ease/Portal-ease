@@ -17,6 +17,7 @@ class File extends Model
         'path',
         'id',
         'visibility',
+        'disk',
     ];
 
     public function download()

@@ -11,7 +11,7 @@
                 <p><span class="font-medium">Name:</span> {{ $project->name }}</p>
                 <p><span class="font-medium">Status:</span> {{ $project->status }}</p>
                 <p><span class="font-medium">Deadline:</span> {{ $project->end_date }}</p>
-                @if (\Illuminate\Support\Facades\Auth::user()->hasRole('service_provider'))
+                @if (Auth::user()->hasRole('service_provider') || Auth::user()->hasRole('manager'))
                     <p><span class="font-medium">Customer:</span> {{ $project->customer->name }}</p>
                     <div class="flex flex-row gap-12">
                         <form
@@ -32,28 +32,30 @@
                 @endif
             </div>
         </div>
-        <div class="grid grid-cols-2 gap-8">
-            <div class="rounded-xl bg-white p-6 shadow-md">
-                <h2 class="mb-4 text-xl font-semibold text-gray-800">
-                    Payment
+        @if (currentPortal()->features()->where('feature', 'invoices')->where('enabled', true)->exists())
+            <div class="grid grid-cols-2 gap-8">
+                <div class="rounded-xl bg-white p-6 shadow-md">
+                    <h2 class="mb-4 text-xl font-semibold text-gray-800">
+                        Payment
+                        @foreach (currentPortal()->invoices as $invoice)
+                            @if ($invoice->project_id == $project->id)
+                                <h2>${{ $invoice->price }}</h2>
+                            @endif
+                        @endforeach
+                    </h2>
+                </div>
+                <div class="rounded-xl bg-white p-6 shadow-md">
+                    <h2 class="mb-4 text-xl font-semibold text-gray-800">Invoice(s)</h2>
                     @foreach (currentPortal()->invoices as $invoice)
                         @if ($invoice->project_id == $project->id)
-                            <h2>${{ $invoice->price }}</h2>
+                            <a
+                                href="{{ route('portal.invoice.show', ['portal' => currentPortal(), 'invoice' => $invoice]) }}"
+                                class="hover:text-blue-300"
+                            >{{ $invoice->name }}</a>
                         @endif
                     @endforeach
-                </h2>
+                </div>
             </div>
-            <div class="rounded-xl bg-white p-6 shadow-md">
-                <h2 class="mb-4 text-xl font-semibold text-gray-800">Invoice(s)</h2>
-                @foreach (currentPortal()->invoices as $invoice)
-                    @if ($invoice->project_id == $project->id)
-                        <a
-                            href="{{ route('portal.invoice.show', ['portal' => currentPortal(), 'invoice' => $invoice]) }}"
-                            class="hover:text-blue-300"
-                        >{{ $invoice->name }}</a>
-                    @endif
-                @endforeach
-            </div>
-        </div>
+        @endif
     </div>
 </x-app-layout>

@@ -2,7 +2,7 @@
 
 use App\Http\Controllers\ProjectController;
 
-Route::middleware(['auth', 'verified'])->group(function () {
+Route::middleware(['auth', 'verified', 'portal-feature:projects'])->group(function () {
     Route::middleware('block-clients')->group(function () {
         Route::get('/{portal}/project', [ProjectController::class, 'index'])->name('portal.project.index');
         Route::get('/{portal}/project/create', [ProjectController::class, 'create'])->name('portal.project.create');

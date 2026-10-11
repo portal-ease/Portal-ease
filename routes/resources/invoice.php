@@ -2,7 +2,7 @@
 
 use App\Http\Controllers\InvoiceController;
 
-Route::middleware(['auth', 'verified'])->group(function () {
+Route::middleware(['auth', 'verified', 'portal-feature:invoices'])->group(function () {
     Route::middleware('block-clients')->group(function () {
         Route::get('{portal}/invoice', [InvoiceController::class, 'index'])->name('portal.invoice.index');
         Route::get('/{portal}/invoice/create', [InvoiceController::class, 'create'])->name('portal.invoice.create');

@@ -2,7 +2,7 @@
 
 use App\Http\Controllers\FileController;
 
-Route::middleware(['auth', 'verified'])->group(function () {
+Route::middleware(['auth', 'verified', 'portal-feature:document_sharing'])->group(function () {
     Route::middleware('block-clients')->group(function () {
         Route::get('/{portal}/file/create', [FileController::class, 'create'])->name('portal.file.create');
         Route::post('/{portal}/file', [FileController::class, 'store'])->name('portal.file.store');

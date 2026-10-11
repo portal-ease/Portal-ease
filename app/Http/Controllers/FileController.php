@@ -54,9 +54,10 @@ class FileController extends Controller
         } else {
             $visibility = false;
         }
-        $user->notify(new DocumentShared(Auth::user()->name, $request->file('file')->getClientOriginalName()));
 
         $file = $this->storageService->storeDocument($request->file('file'), $visibility);
+
+        $user->notify(new DocumentShared(Auth::user(), $file));
 
         $user->files()->attach($file->id);
 
