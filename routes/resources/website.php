@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\WebsiteController;
+use Spatie\Honeypot\ProtectAgainstSpam;
 
 Route::get('/', function () {
     return view('welcome');
@@ -22,4 +23,4 @@ Route::get('/about', function () {
     return view('about');
 })->name('about');
 
-Route::post('/contact', [WebsiteController::class, 'contact'])->name('website.contact');
+Route::post('/contact', [WebsiteController::class, 'contact'])->middleware(ProtectAgainstSpam::class)->name('website.contact');
