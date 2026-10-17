@@ -290,38 +290,7 @@
                             Project actions
                         </h2>
 
-                        <p class="mt-1 text-sm text-gray-500">
-                            Manage the project's lifecycle.
-                        </p>
-
-                        <div class="mt-4 space-y-3">
-                            <a
-                                href="{{ request()->fullUrlWithQuery(['tab' => 'tasks']) }}"
-                                class="flex items-center gap-3 rounded-lg p-3 text-sm font-medium text-gray-700 transition hover:bg-gray-50"
-                            >
-                                <x-lucide-list-checks class="h-5 w-5 text-gray-400" />
-                                View tasks
-                                <x-lucide-chevron-right class="ml-auto h-4 w-4 text-gray-400" />
-                            </a>
-
-                            <a
-                                href="{{ request()->fullUrlWithQuery(['tab' => 'files']) }}"
-                                class="flex items-center gap-3 rounded-lg p-3 text-sm font-medium text-gray-700 transition hover:bg-gray-50"
-                            >
-                                <x-lucide-list-checks class="h-5 w-5 text-gray-400" />
-                                Project files
-                                <x-lucide-chevron-right class="ml-auto h-4 w-4 text-gray-400" />
-                            </a>
-
-                            <a
-                                href="{{ request()->fullUrlWithQuery(['tab' => 'activity']) }}"
-                                class="flex items-center gap-3 rounded-lg p-3 text-sm font-medium text-gray-700 transition hover:bg-gray-50"
-                            >
-                                <x-lucide-history class="h-5 w-5 text-gray-400" />
-                                Activity history
-                                <x-lucide-chevron-right class="ml-auto h-4 w-4 text-gray-400" />
-                            </a>
-                        </div>
+                        <h2 class="mt-2 text-sm text-gray-500">Coming soon...</h2>
                     </section>
                 </aside>
             </div>
