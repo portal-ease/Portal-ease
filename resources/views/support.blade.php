@@ -115,6 +115,7 @@
 
             <form action="{{ route('website.contact') }}" method="POST" class="space-y-6">
                 @csrf
+                @honeypot
                 <div>
                     <label for="name" class="mb-2 block font-semibold text-blue-800">Name</label>
                     <input
