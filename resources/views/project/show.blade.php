@@ -18,14 +18,10 @@
     }
 
     $statusClasses = match ($project->status) {
-        'finished', 'completed' =>
-            'bg-green-100 text-green-700',
-        'in_progress', 'in progress' =>
-            'bg-blue-100 text-blue-700',
-        'in_review', 'in review' =>
-            'bg-amber-100 text-amber-700',
-        default =>
-            'bg-gray-100 text-gray-700',
+        'finished', 'completed' => 'bg-green-100 text-green-700',
+        'in_progress', 'in progress' => 'bg-blue-100 text-blue-700',
+        'in_review', 'in review' => 'bg-amber-100 text-amber-700',
+        default => 'bg-gray-100 text-gray-700',
     };
 @endphp
 
@@ -48,7 +44,7 @@
                         @endif
                     </div>
 
-                    <h1 class="break-words text-2xl font-bold tracking-tight text-gray-900 sm:text-3xl">
+                    <h1 class="text-2xl font-bold tracking-tight break-words text-gray-900 sm:text-3xl">
                         {{ $project->name }}
                     </h1>
 
@@ -67,10 +63,12 @@
                     @if ($canManageProject)
                         <form
                             method="POST"
-                            action="{{ route('portal.project.destroy', [
-                                'project' => $project,
-                                'portal' => $portal,
-                            ]) }}"
+                            action="{{
+                                route('portal.project.destroy', [
+                                    'project' => $project,
+                                    'portal' => $portal,
+                                ])
+                            }}"
                             onsubmit="return confirm('Are you sure you want to delete this project?');"
                         >
                             @csrf
@@ -90,10 +88,7 @@
         </section>
 
         {{-- Project navigation --}}
-        <nav
-            class="overflow-x-auto rounded-xl border border-gray-200 bg-white"
-            aria-label="Project navigation"
-        >
+        <nav class="overflow-x-auto rounded-xl border border-gray-200 bg-white" aria-label="Project navigation">
             <div class="flex min-w-max gap-1 p-2">
                 @php
                     $tabs = [
@@ -112,9 +107,11 @@
                             href="{{ request()->fullUrlWithQuery(['tab' => $key]) }}"
                             @if ($activeTab === $key) aria-current="page" @endif
                             class="rounded-lg px-4 py-2.5 text-sm font-medium transition
-                                {{ $activeTab === $key
+                                {{
+                                    $activeTab === $key
                                     ? 'bg-green-50 text-green-700'
-                                    : 'text-gray-500 hover:bg-gray-50 hover:text-gray-900' }}"
+                                    : 'text-gray-500 hover:bg-gray-50 hover:text-gray-900'
+                                }}"
                         >
                             {{ $label }}
 
@@ -131,26 +128,19 @@
 
         {{-- Tab content --}}
         @if ($activeTab === 'overview')
-
             <div class="grid grid-cols-1 gap-6 lg:grid-cols-3">
-
                 {{-- Main overview --}}
                 <div class="space-y-6 lg:col-span-2">
-
                     <section class="rounded-2xl border border-gray-200 bg-white p-6 shadow-sm">
                         <div class="mb-5">
-                            <h2 class="text-lg font-semibold text-gray-900">
-                                Project overview
-                            </h2>
-                            <p class="mt-1 text-sm text-gray-500">
-                                Key information about this project.
-                            </p>
+                            <h2 class="text-lg font-semibold text-gray-900">Project overview</h2>
+                            <p class="mt-1 text-sm text-gray-500">Key information about this project.</p>
                         </div>
 
                         <dl class="divide-y divide-gray-100">
                             <div class="flex flex-col gap-1 py-4 sm:flex-row sm:justify-between sm:gap-4">
                                 <dt class="text-sm text-gray-500">Project name</dt>
-                                <dd class="break-words text-sm font-medium text-gray-900 sm:text-right">
+                                <dd class="text-sm font-medium break-words text-gray-900 sm:text-right">
                                     {{ $project->name }}
                                 </dd>
                             </div>
@@ -165,9 +155,11 @@
                             <div class="flex flex-col gap-1 py-4 sm:flex-row sm:justify-between sm:gap-4">
                                 <dt class="text-sm text-gray-500">Deadline</dt>
                                 <dd class="text-sm font-medium text-gray-900 sm:text-right">
-                                    {{ $project->end_date
+                                    {{
+                                        $project->end_date
                                         ? \Illuminate\Support\Carbon::parse($project->end_date)->format('d F Y')
-                                        : 'No deadline set' }}
+                                        : 'No deadline set'
+                                    }}
                                 </dd>
                             </div>
 
@@ -187,12 +179,8 @@
                         <section class="rounded-2xl border border-gray-200 bg-white p-6 shadow-sm">
                             <div class="mb-5 flex items-center justify-between gap-4">
                                 <div>
-                                    <h2 class="text-lg font-semibold text-gray-900">
-                                        Recent invoices
-                                    </h2>
-                                    <p class="mt-1 text-sm text-gray-500">
-                                        Invoices associated with this project.
-                                    </p>
+                                    <h2 class="text-lg font-semibold text-gray-900">Recent invoices</h2>
+                                    <p class="mt-1 text-sm text-gray-500">Invoices associated with this project.</p>
                                 </div>
 
                                 <a
@@ -205,10 +193,12 @@
 
                             @forelse ($projectInvoices->take(3) as $invoice)
                                 <a
-                                    href="{{ route('portal.invoice.show', [
-                                        'portal' => $portal,
-                                        'invoice' => $invoice,
-                                    ]) }}"
+                                    href="{{
+                                        route('portal.invoice.show', [
+                                            'portal' => $portal,
+                                            'invoice' => $invoice,
+                                        ])
+                                    }}"
                                     class="flex items-center justify-between gap-4 rounded-xl border border-gray-100 p-4 transition hover:border-gray-200 hover:bg-gray-50"
                                 >
                                     <div class="flex min-w-0 items-center gap-3">
@@ -220,9 +210,7 @@
                                             <p class="truncate text-sm font-medium text-gray-900">
                                                 {{ $invoice->name }}
                                             </p>
-                                            <p class="mt-1 text-xs text-gray-500">
-                                                View invoice
-                                            </p>
+                                            <p class="mt-1 text-xs text-gray-500">View invoice</p>
                                         </div>
                                     </div>
 
@@ -233,9 +221,7 @@
                             @empty
                                 <div class="rounded-xl border border-dashed border-gray-200 px-4 py-8 text-center">
                                     <x-lucide-file-text class="mx-auto h-8 w-8 text-gray-400" />
-                                    <p class="mt-2 text-sm font-medium text-gray-700">
-                                        No invoices yet
-                                    </p>
+                                    <p class="mt-2 text-sm font-medium text-gray-700">No invoices yet</p>
                                     <p class="mt-1 text-sm text-gray-500">
                                         Invoices for this project will appear here.
                                     </p>
@@ -247,25 +233,18 @@
 
                 {{-- Right sidebar --}}
                 <aside class="space-y-6">
-
                     <section class="rounded-2xl border border-gray-200 bg-white p-6 shadow-sm">
-                        <h2 class="text-lg font-semibold text-gray-900">
-                            Financial overview
-                        </h2>
+                        <h2 class="text-lg font-semibold text-gray-900">Financial overview</h2>
 
                         @if ($invoicesEnabled)
-                            <p class="mt-4 text-sm text-gray-500">
-                                Total invoiced
-                            </p>
+                            <p class="mt-4 text-sm text-gray-500">Total invoiced</p>
 
                             <p class="mt-1 text-3xl font-bold tracking-tight text-gray-900">
                                 ${{ number_format((float) $projectInvoices->sum('price'), 2) }}
                             </p>
 
                             <div class="mt-4 flex items-center justify-between border-t border-gray-100 pt-4">
-                                <span class="text-sm text-gray-500">
-                                    Invoices
-                                </span>
+                                <span class="text-sm text-gray-500"> Invoices </span>
                                 <span class="text-sm font-semibold text-gray-900">
                                     {{ $projectInvoices->count() }}
                                 </span>
@@ -286,9 +265,7 @@
                     </section>
 
                     <section class="rounded-2xl border border-gray-200 bg-white p-6 shadow-sm">
-                        <h2 class="text-lg font-semibold text-gray-900">
-                            Project actions
-                        </h2>
+                        <h2 class="text-lg font-semibold text-gray-900">Project actions</h2>
 
                         <h2 class="mt-2 text-sm text-gray-500">Coming soon...</h2>
                     </section>
@@ -296,12 +273,9 @@
             </div>
 
         @elseif ($activeTab === 'payments')
-
             <section class="rounded-2xl border border-gray-200 bg-white p-6 shadow-sm">
                 <h2 class="text-xl font-semibold text-gray-900">Payments</h2>
-                <p class="mt-1 text-sm text-gray-500">
-                    Financial summary for this project.
-                </p>
+                <p class="mt-1 text-sm text-gray-500">Financial summary for this project.</p>
 
                 <div class="mt-6 grid gap-4 sm:grid-cols-2">
                     <div class="rounded-xl bg-gray-50 p-5">
@@ -313,43 +287,38 @@
 
                     <div class="rounded-xl bg-gray-50 p-5">
                         <p class="text-sm text-gray-500">Invoices issued</p>
-                        <p class="mt-2 text-2xl font-bold text-gray-900">
-                            {{ $projectInvoices->count() }}
-                        </p>
+                        <p class="mt-2 text-2xl font-bold text-gray-900">{{ $projectInvoices->count() }}</p>
                     </div>
                 </div>
 
                 <p class="mt-5 text-sm text-gray-500">
-                    These figures represent invoice totals, not confirmed payments.
-                    Payment status can be displayed here when payment records are available.
+                    These figures represent invoice totals, not confirmed payments. Payment status can be displayed here
+                    when payment records are available.
                 </p>
             </section>
 
         @elseif ($activeTab === 'invoices')
-
             <section class="rounded-2xl border border-gray-200 bg-white p-6 shadow-sm">
                 <div class="mb-6">
                     <h2 class="text-xl font-semibold text-gray-900">Invoices</h2>
-                    <p class="mt-1 text-sm text-gray-500">
-                        All invoices associated with this project.
-                    </p>
+                    <p class="mt-1 text-sm text-gray-500">All invoices associated with this project.</p>
                 </div>
 
                 @forelse ($projectInvoices as $invoice)
                     <a
-                        href="{{ route('portal.invoice.show', [
-                            'portal' => $portal,
-                            'invoice' => $invoice,
-                        ]) }}"
+                        href="{{
+                            route('portal.invoice.show', [
+                                'portal' => $portal,
+                                'invoice' => $invoice,
+                            ])
+                        }}"
                         class="flex items-center justify-between gap-4 border-b border-gray-100 py-4 last:border-0"
                     >
                         <div class="flex min-w-0 items-center gap-3">
                             <div class="rounded-lg bg-green-50 p-3 text-green-700">
                                 <x-lucide-list-checks class="h-5 w-5" />
                             </div>
-                            <span class="truncate text-sm font-medium text-gray-900">
-                                {{ $invoice->name }}
-                            </span>
+                            <span class="truncate text-sm font-medium text-gray-900"> {{ $invoice->name }} </span>
                         </div>
 
                         <div class="flex shrink-0 items-center gap-3">
@@ -366,6 +335,5 @@
                 @endforelse
             </section>
         @endif
-
     </div>
 </x-app-layout>
