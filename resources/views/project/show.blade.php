@@ -1,28 +1,10 @@
 @php
-    $portal = currentPortal();
-    $user = Auth::user();
-
-    $canManageProject = $user
-        && ($user->hasRole('service_provider')
-            || $user->hasRole('manager'));
-
-    $invoicesEnabled = $portal->features()
-        ->where('feature', 'invoices')
-        ->where('enabled', true)
-        ->exists();
-
-    $projectInvoices = $portal->invoices
-        ->where('project_id', $project->id);
-
     $activeTab = request()->query('tab', 'overview');
 
     $allowedTabs = [
         'overview',
-        'tasks',
-        'files',
         'payments',
         'invoices',
-        'activity',
     ];
 
     if (
@@ -116,11 +98,8 @@
                 @php
                     $tabs = [
                         'overview' => 'Overview',
-                        'tasks' => 'Tasks',
-                        'files' => 'Files',
                         'payments' => 'Payments',
                         'invoices' => 'Invoices',
-                        'activity' => 'Activity',
                     ];
                 @endphp
 
@@ -417,40 +396,6 @@
                     </p>
                 @endforelse
             </section>
-
-        @elseif ($activeTab === 'tasks')
-
-            <section class="rounded-2xl border border-dashed border-gray-300 bg-white p-10 text-center">
-                <x-lucide-list-checks class="mx-auto h-10 w-10 text-gray-400" />
-                <h2 class="mt-4 text-lg font-semibold text-gray-900">Project tasks</h2>
-                <p class="mx-auto mt-2 max-w-md text-sm text-gray-500">
-                    This section is ready for your task-management feature.
-                    Connect it to your project tasks when that functionality is available.
-                </p>
-            </section>
-
-        @elseif ($activeTab === 'files')
-
-            <section class="rounded-2xl border border-dashed border-gray-300 bg-white p-10 text-center">
-                <x-lucide-folder class="mx-auto h-10 w-10 text-gray-400" />
-                <h2 class="mt-4 text-lg font-semibold text-gray-900">Project files</h2>
-                <p class="mx-auto mt-2 max-w-md text-sm text-gray-500">
-                    A central place for project documents and shared files.
-                    Connect this section to your existing file-storage feature.
-                </p>
-            </section>
-
-        @elseif ($activeTab === 'activity')
-
-            <section class="rounded-2xl border border-dashed border-gray-300 bg-white p-10 text-center">
-                <x-lucide-history class="mx-auto h-10 w-10 text-gray-400" />
-                <h2 class="mt-4 text-lg font-semibold text-gray-900">Project activity</h2>
-                <p class="mx-auto mt-2 max-w-md text-sm text-gray-500">
-                    Project updates, status changes and comments can appear here
-                    when an activity log is connected.
-                </p>
-            </section>
-
         @endif
 
     </div>
