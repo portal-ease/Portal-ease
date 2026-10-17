@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Portal;
 use App\Models\Project;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class ProjectController extends Controller
 {
@@ -51,10 +52,15 @@ class ProjectController extends Controller
      */
     public function show(Portal $portal, Project $project)
     {
-        $statusCollection = ['all', 'to do', 'in progress', 'completed'];
-        $status = request()->query('status', 'default');
+        $user = Auth::user();
 
-        return view('project.show', compact('portal', 'project', 'status', 'statusCollection'));
+        $canManageProject = $user && ($user->hasRole('service_provider') || $user->hasRole('manager'));
+
+        $invoicesEnabled = $portal->features()->where('feature', 'invoices')->where('enabled', true)->exists();
+
+        $projectInvoices = $portal->invoices->where('project_id', $project->id);
+
+        return view('project.show', compact('portal', 'project', 'canManageProject', 'invoicesEnabled', 'projectInvoices'));
     }
 
     /**
