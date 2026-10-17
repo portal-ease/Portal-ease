@@ -13,6 +13,7 @@
         "mallardduck/blade-lucide-icons": "^2.0",
         "predis/predis": "^3.6",
         "resend/resend-laravel": "^1.4",
+        "spatie/laravel-honeypot": "^4.7",
         "spatie/laravel-permission": "^6.17"
     },
     "require-dev": {
