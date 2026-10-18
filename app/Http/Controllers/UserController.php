@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\StoreUserRequest;
 use App\Models\File;
 use App\Models\Portal;
 use App\Models\User;
@@ -36,26 +37,18 @@ class UserController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Portal $portal, Request $request)
+    public function store(Portal $portal, StoreUserRequest $request)
     {
-        $validated = $request->validate([
-            'name' => 'required|string|max:255',
-            'email' => 'required|email|unique:users,email',
-            'password' => 'required|string|min:8',
-            'portal_id' => 'required|integer|exists:portals,id',
-            'role' => 'required',
-        ]);
+        $validated = $request->validated();
+
         $user = User::create([
             'name' => $validated['name'],
             'email' => $validated['email'],
             'password' => bcrypt($validated['password']),
             'portal_id' => $validated['portal_id'],
         ]);
-        if ($validated['role'] == 'service_provider') {
-            $user->assignRole('service_provider');
-        } elseif ($validated['role'] == 'client') {
-            $user->assignRole('client');
-        }
+
+        $user->assignRole($validated['role']);
 
         return redirect()->route('portal.user.index', compact('portal'));
     }
@@ -75,11 +68,9 @@ class UserController extends Controller
      */
     public function edit(Portal $portal, User $user)
     {
-        $file = File::where('filename', $user->name.$user->id.'.jpg')->first();
-
         $roles = Role::all();
 
-        return view('user.edit', compact('portal', 'user', 'file', 'roles'));
+        return view('user.edit', compact('portal', 'user', 'roles'));
     }
 
     /**
