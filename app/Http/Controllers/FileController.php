@@ -27,7 +27,9 @@ class FileController extends Controller
     {
         $user = auth()->user();
 
-        return view('file.index', compact('user'));
+        $files = $user->sharedDocuments()->latest()->get();
+
+        return view('file.index', compact('user', 'files'));
     }
 
     /**

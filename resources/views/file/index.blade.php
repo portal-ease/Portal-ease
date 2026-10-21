@@ -15,13 +15,13 @@
             </div>
 
             <div class="flex flex-wrap items-center gap-2">
-                <button
+                <a href="{{ route('portal.file.create', currentPortal()) }}"
                     type="button"
                     class="inline-flex items-center gap-2 rounded-lg border border-gray-200 bg-white px-4 py-2.5 text-sm font-medium text-gray-700 shadow-sm transition hover:bg-gray-50"
                 >
                     <x-lucide-upload class="size-4" />
                     Upload
-                </button>
+                </a>
 
                 <button
                     type="button"
@@ -143,7 +143,7 @@
                         </h2>
 
                         <span class="text-xs text-gray-500">
-                            {{ $user->files->count() }} files
+                            {{ $files->count() }} files
                         </span>
                     </div>
 
@@ -160,9 +160,9 @@
                             class="divide-y divide-gray-100"
                             :class="view === 'grid' ? 'grid grid-cols-1 gap-3 divide-y-0 p-3 sm:grid-cols-2 xl:grid-cols-3' : ''"
                         >
-                            @forelse ($user->files as $file)
+                            @forelse ($files as $file)
                                 <div
-                                    x-show="{{ Illuminate\Support\Js::from((bool) $file->visibility) }} && {{ Illuminate\Support\Js::from(strtolower($file->filename)) }}.includes(search.toLowerCase())"
+                                    x-show="{{ Illuminate\Support\Js::from(strtolower($file->filename)) }}.includes(search.toLowerCase())"
                                     class="group grid grid-cols-1 gap-3 px-5 py-4 transition hover:bg-gray-50 md:grid-cols-[minmax(0,1fr)_150px_120px_40px] md:items-center md:gap-4"
                                     :class="view === 'grid' ? 'rounded-xl border border-gray-200 p-4 hover:border-blue-200' : ''"
                                 >

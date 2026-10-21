@@ -105,17 +105,17 @@
                 @if ($features['document_sharing'])
                     <!-- Share files -->
                     <a
-                        href="{{ route('portal.file.create', $portal) }}"
+                        href="{{ route('portal.file.index', $portal) }}"
                         wire:navigate.hover
                         class="flex items-center gap-2 text-lg focus-visible:outline focus-visible:outline-2 focus-visible:outline-white transition
                     {{
-                        request()->routeIs('portal.file.create')
+                        request()->routeIs('portal.file.index')
                         ? 'border-l-4 border-white pl-3'
                         : 'pl-3 hover:border-l-4 hover:border-white'
                     }}"
                     >
-                        <x-lucide-upload width="22" height="22" />
-                        Share files/documents
+                        <x-lucide-folder-open width="22" height="22" />
+                        Document hub
                     </a>
                 @endif
                 @if ($features['conversations'])
