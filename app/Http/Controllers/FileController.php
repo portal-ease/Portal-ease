@@ -27,7 +27,11 @@ class FileController extends Controller
     {
         $user = auth()->user();
 
-        $files = $user->sharedDocuments()->latest()->get();
+        $files = $user->sharedDocuments()->latest()->get()
+            ->merge($user->documentsSharedBy()->latest()->get())
+            ->unique('id')
+            ->sortByDesc('created_at')
+            ->values();
 
         return view('file.index', compact('user', 'files'));
     }
@@ -58,6 +62,8 @@ class FileController extends Controller
         }
 
         $file = $this->storageService->storeDocument($request->file('file'), $visibility);
+
+        $file->update(['shared_by' => Auth::id()]);
 
         $user->notify(new DocumentShared(Auth::user(), $file));
 

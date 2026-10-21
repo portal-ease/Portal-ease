@@ -10,6 +10,7 @@ use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Attributes\ObservedBy;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Spatie\Permission\Traits\HasRoles;
@@ -77,6 +78,14 @@ class User extends Authenticatable implements MustVerifyEmail
     public function sharedDocuments(): BelongsToMany
     {
         return $this->files()->where('files.visibility', true);
+    }
+
+    /**
+     * Get documents shared by this user.
+     */
+    public function documentsSharedBy(): HasMany
+    {
+        return $this->hasMany(File::class, 'shared_by');
     }
 
     public function conversations()
