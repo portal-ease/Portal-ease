@@ -149,7 +149,10 @@
 
                     <div class="overflow-hidden rounded-xl border border-gray-200 bg-white shadow-sm">
                         {{-- Table header --}}
-                        <div class="hidden grid-cols-[minmax(0,1fr)_150px_120px_40px] gap-4 border-b border-gray-100 bg-gray-50 px-5 py-3 text-xs font-medium uppercase tracking-wide text-gray-500 md:grid">
+                        <div
+                            class="hidden gap-4 border-b border-gray-100 bg-gray-50 px-5 py-3 text-xs font-medium uppercase tracking-wide text-gray-500"
+                            :class="view === 'list' ? 'md:grid md:grid-cols-[minmax(0,1fr)_150px_120px_40px]' : ''"
+                        >
                             <span>Name</span>
                             <span>Shared with</span>
                             <span>Date</span>
@@ -163,8 +166,10 @@
                             @forelse ($files as $file)
                                 <div
                                     x-show="{{ Illuminate\Support\Js::from(strtolower($file->filename)) }}.includes(search.toLowerCase())"
-                                    class="group grid grid-cols-1 gap-3 px-5 py-4 transition hover:bg-gray-50 md:grid-cols-[minmax(0,1fr)_150px_120px_40px] md:items-center md:gap-4"
-                                    :class="view === 'grid' ? 'rounded-xl border border-gray-200 p-4 hover:border-blue-200' : ''"
+                                    class="group grid grid-cols-1 gap-3 px-5 py-4 transition hover:bg-gray-50"
+                                    :class="view === 'grid'
+                                        ? 'rounded-xl border border-gray-200 p-4 hover:border-blue-200'
+                                        : 'md:grid-cols-[minmax(0,1fr)_150px_120px_40px] md:items-center md:gap-4'"
                                 >
                                     <a
                                         href="{{ route('portal.file.show', [
