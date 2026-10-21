@@ -3,7 +3,6 @@
 namespace App\Services;
 
 use App\Models\Portal;
-use App\Models\User;
 use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
