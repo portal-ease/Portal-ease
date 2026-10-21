@@ -12,6 +12,7 @@ class PortalService
 {
     public function __construct(
         private FileStorageService $storageService,
+        private UserService $userService,
     ) {}
 
     public function create(array $data, UploadedFile $logo)
@@ -23,12 +24,7 @@ class PortalService
                 'branding_color' => $data['branding_color'],
             ]);
 
-            $user = User::create([
-                'name' => $data['username'],
-                'email' => $data['email'],
-                'password' => bcrypt($data['password']),
-                'portal_id' => $portal->id,
-            ]);
+            $user = $this->userService->create($data, $portal->id);
 
             $this->storageService->storePortalLogo($logo, $portal->name);
 

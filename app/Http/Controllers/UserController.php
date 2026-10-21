@@ -2,13 +2,14 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\FileRequest;
 use App\Http\Requests\StoreUserRequest;
-use App\Models\File;
+use App\Http\Requests\UpdateUserRequest;
 use App\Models\Portal;
 use App\Models\User;
 use App\Services\ChatService;
 use App\Services\FileStorageService;
-use Illuminate\Http\Request;
+use App\Services\UserService;
 use Spatie\Permission\Models\Role;
 
 class UserController extends Controller
@@ -16,6 +17,7 @@ class UserController extends Controller
     public function __construct(
         private readonly FileStorageService $fileStorageService,
         private readonly ChatService $chatService,
+        private readonly UserService $userService
     ) {}
 
     /**
@@ -39,16 +41,7 @@ class UserController extends Controller
      */
     public function store(Portal $portal, StoreUserRequest $request)
     {
-        $validated = $request->validated();
-
-        $user = User::create([
-            'name' => $validated['name'],
-            'email' => $validated['email'],
-            'password' => bcrypt($validated['password']),
-            'portal_id' => $validated['portal_id'],
-        ]);
-
-        $user->assignRole($validated['role']);
+        $this->userService->create($request->validated());
 
         return redirect()->route('portal.user.index', compact('portal'));
     }
@@ -76,28 +69,9 @@ class UserController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Portal $portal, User $user)
+    public function update(UpdateUserRequest $request, Portal $portal, User $user)
     {
-        $request->validate([
-            'name' => 'required',
-            'email' => 'required|email',
-            'role' => 'required',
-        ]);
-        $user->fill([
-            'name' => $request->get('name'),
-            'email' => $request->get('email'),
-        ]);
-
-        if ($user->isDirty('email')) {
-            $user->email_verified_at = null;
-        }
-
-        $user->save();
-
-        foreach ($user->getRoleNames() as $role) {
-            $user->removeRole($role);
-        }
-        $user->assignRole($request->get('role'));
+        $this->userService->update($user, $request->validated());
 
         return redirect()->back();
     }
@@ -117,13 +91,11 @@ class UserController extends Controller
         return view('notification.index', compact('portal'));
     }
 
-    public function editProfilePicture(Request $request, Portal $portal, User $user)
+    public function editProfilePicture(FileRequest $request, Portal $portal, User $user)
     {
-        $request->validate([
-            'file' => 'required|image',
-        ]);
+        $validated = $request->validated();
 
-        $this->fileStorageService->storeUserProfilePicture($user, $request->file('file'));
+        $this->fileStorageService->storeUserProfilePicture($user, $validated->file('file'));
 
         return redirect()->back();
     }
