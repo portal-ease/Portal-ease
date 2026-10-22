@@ -23,13 +23,13 @@
                     Upload
                 </a>
 
-                <button
-                    type="button"
-                    class="inline-flex items-center gap-2 rounded-lg bg-blue-600 px-4 py-2.5 text-sm font-medium text-white shadow-sm transition hover:bg-blue-700"
-                >
-                    <x-lucide-folder-plus class="size-4" />
-                    New folder
-                </button>
+{{--                <button--}}
+{{--                    type="button"--}}
+{{--                    class="inline-flex items-center gap-2 rounded-lg bg-blue-600 px-4 py-2.5 text-sm font-medium text-white shadow-sm transition hover:bg-blue-700"--}}
+{{--                >--}}
+{{--                    <x-lucide-folder-plus class="size-4" />--}}
+{{--                    New folder--}}
+{{--                </button>--}}
             </div>
         </div>
 
@@ -78,62 +78,55 @@
 
             {{-- Document browser --}}
             <section class="min-w-0 space-y-5">
+{{--                --}}{{-- Folders --}}
+{{--                <div>--}}
+{{--                    <div class="mb-3 flex items-center justify-between">--}}
+{{--                        <h2 class="text-sm font-semibold text-gray-900">--}}
+{{--                            Folders--}}
+{{--                        </h2>--}}
 
-                {{-- Breadcrumbs --}}
-                <div class="flex flex-wrap items-center gap-2 text-sm">
-                    <x-lucide-folder-open class="size-4 text-blue-600" />
-                    <span class="font-medium text-gray-900">All documents</span>
-                </div>
+{{--                        <span class="text-xs text-gray-500">--}}
+{{--                             0 mappen--}}
+{{--                        </span>--}}
+{{--                    </div>--}}
 
-                {{-- Folders --}}
-                <div>
-                    <div class="mb-3 flex items-center justify-between">
-                        <h2 class="text-sm font-semibold text-gray-900">
-                            Folders
-                        </h2>
+{{--                    <div class="grid grid-cols-1 gap-3 sm:grid-cols-2 xl:grid-cols-3">--}}
+{{--                        @forelse ([] as $folder)--}}
+{{--                            <a--}}
+{{--                                href="{{ route('portal.documents.index', [--}}
+{{--                                    'portal' => currentPortal(),--}}
+{{--                                    'folder' => $folder,--}}
+{{--                                ]) }}"--}}
+{{--                                class="group flex items-center gap-3 rounded-xl border border-gray-200 bg-white p-4 transition hover:border-blue-200 hover:bg-blue-50/30 hover:shadow-sm"--}}
+{{--                            >--}}
+{{--                                <div class="flex size-11 shrink-0 items-center justify-center rounded-lg bg-amber-50 text-amber-600">--}}
+{{--                                    <i data-lucide="folder" class="size-5"></i>--}}
+{{--                                </div>--}}
 
-                        <span class="text-xs text-gray-500">
-                             0 mappen
-                        </span>
-                    </div>
+{{--                                <div class="min-w-0 flex-1">--}}
+{{--                                    <p class="truncate text-sm font-medium text-gray-900">--}}
+{{--                                        {{ $folder->name }}--}}
+{{--                                    </p>--}}
+{{--                                    <p class="mt-1 text-xs text-gray-500">--}}
+{{--                                        Open folder--}}
+{{--                                    </p>--}}
+{{--                                </div>--}}
 
-                    <div class="grid grid-cols-1 gap-3 sm:grid-cols-2 xl:grid-cols-3">
-                        @forelse ([] as $folder)
-                            <a
-                                href="{{ route('portal.documents.index', [
-                                    'portal' => currentPortal(),
-                                    'folder' => $folder,
-                                ]) }}"
-                                class="group flex items-center gap-3 rounded-xl border border-gray-200 bg-white p-4 transition hover:border-blue-200 hover:bg-blue-50/30 hover:shadow-sm"
-                            >
-                                <div class="flex size-11 shrink-0 items-center justify-center rounded-lg bg-amber-50 text-amber-600">
-                                    <i data-lucide="folder" class="size-5"></i>
-                                </div>
-
-                                <div class="min-w-0 flex-1">
-                                    <p class="truncate text-sm font-medium text-gray-900">
-                                        {{ $folder->name }}
-                                    </p>
-                                    <p class="mt-1 text-xs text-gray-500">
-                                        Open folder
-                                    </p>
-                                </div>
-
-                                <i data-lucide="chevron-right" class="size-4 text-gray-400 transition group-hover:text-blue-600"></i>
-                            </a>
-                        @empty
-                            <div class="col-span-full rounded-xl border border-dashed border-gray-300 px-4 py-8 text-center">
-                                <x-lucide-folder-plus class="mx-auto size-8 text-gray-400" />
-                                <p class="mt-2 text-sm font-medium text-gray-700">
-                                    No folders yet
-                                </p>
-                                <p class="mt-1 text-sm text-gray-500">
-                                    Create a folder to organize your documents.
-                                </p>
-                            </div>
-                        @endforelse
-                    </div>
-                </div>
+{{--                                <i data-lucide="chevron-right" class="size-4 text-gray-400 transition group-hover:text-blue-600"></i>--}}
+{{--                            </a>--}}
+{{--                        @empty--}}
+{{--                            <div class="col-span-full rounded-xl border border-dashed border-gray-300 px-4 py-8 text-center">--}}
+{{--                                <x-lucide-folder-plus class="mx-auto size-8 text-gray-400" />--}}
+{{--                                <p class="mt-2 text-sm font-medium text-gray-700">--}}
+{{--                                    No folders yet--}}
+{{--                                </p>--}}
+{{--                                <p class="mt-1 text-sm text-gray-500">--}}
+{{--                                    Create a folder to organize your documents.--}}
+{{--                                </p>--}}
+{{--                            </div>--}}
+{{--                        @endforelse--}}
+{{--                    </div>--}}
+{{--                </div>--}}
 
                 {{-- Documents --}}
                 <div>
@@ -194,7 +187,7 @@
 
                                     <div class="flex items-center gap-2 text-sm text-gray-500">
                                         <x-lucide-users class="size-4" />
-                                        <span>Shared with jou</span>
+                                        <span>Shared with you</span>
                                     </div>
 
                                     <div class="text-sm text-gray-500">

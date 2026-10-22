@@ -11,7 +11,7 @@ class PortalObserver
     public const array FEATURES = [
         'projects',
         'invoices',
-        'document_sharing',
+        'document_hub',
         'conversations',
     ];
 
