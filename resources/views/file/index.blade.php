@@ -7,24 +7,26 @@
                 <p class="mt-1 text-sm text-gray-500">Manage and organize the documents in your portal.</p>
             </div>
 
-            <div class="flex flex-wrap items-center gap-2">
-                <a
-                    href="{{ route('portal.file.create', currentPortal()) }}"
-                    type="button"
-                    class="inline-flex items-center gap-2 rounded-lg border border-gray-200 bg-white px-4 py-2.5 text-sm font-medium text-gray-700 shadow-sm transition hover:bg-gray-50"
-                >
-                    <x-lucide-upload class="size-4" />
-                    Upload
-                </a>
+            @if (auth()->user()->hasRole('service_provider') || auth()->user()->hasRole('admin') || auth()->user()->hasRole('manager'))
+                <div class="flex flex-wrap items-center gap-2">
+                    <a
+                        href="{{ route('portal.file.create', currentPortal()) }}"
+                        type="button"
+                        class="inline-flex items-center gap-2 rounded-lg border border-gray-200 bg-white px-4 py-2.5 text-sm font-medium text-gray-700 shadow-sm transition hover:bg-gray-50"
+                    >
+                        <x-lucide-upload class="size-4" />
+                        Upload
+                    </a>
 
-                {{--                <button--}}
-                {{--                    type="button"--}}
-                {{--                    class="inline-flex items-center gap-2 rounded-lg bg-blue-600 px-4 py-2.5 text-sm font-medium text-white shadow-sm transition hover:bg-blue-700"--}}
-                {{--                >--}}
-                {{--                    <x-lucide-folder-plus class="size-4" />--}}
-                {{--                    New folder--}}
-                {{--                </button>--}}
-            </div>
+                    {{--                <button--}}
+                    {{--                    type="button"--}}
+                    {{--                    class="inline-flex items-center gap-2 rounded-lg bg-blue-600 px-4 py-2.5 text-sm font-medium text-white shadow-sm transition hover:bg-blue-700"--}}
+                    {{--                >--}}
+                    {{--                    <x-lucide-folder-plus class="size-4" />--}}
+                    {{--                    New folder--}}
+                    {{--                </button>--}}
+                </div>
+            @endif
         </div>
 
         {{-- Search --}}
