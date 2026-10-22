@@ -70,8 +70,7 @@
                         Users
                     </a>
                 @endif
-
-                @if ($features['invoices'] ?? false)
+                @if ($features['invoices'])
                     <!-- Invoices -->
                     <a
                         href="{{ route('portal.invoice.index', $portal) }}"
@@ -87,8 +86,7 @@
                         Invoices
                     </a>
                 @endif
-
-                @if ($features['projects'] ?? false)
+                @if ($features['projects'])
                     <!-- Projects -->
                     <a
                         href="{{ route('portal.project.index', $portal) }}"
@@ -104,25 +102,7 @@
                         Projects
                     </a>
                 @endif
-
-                @if ($features['document_sharing'] ?? false)
-                    <!-- Share files -->
-                    <a
-                        href="{{ route('portal.file.create', $portal) }}"
-                        wire:navigate.hover
-                        class="flex items-center gap-2 text-lg focus-visible:outline focus-visible:outline-2 focus-visible:outline-white transition
-                    {{
-                        request()->routeIs('portal.file.create')
-                        ? 'border-l-4 border-white pl-3'
-                        : 'pl-3 hover:border-l-4 hover:border-white'
-                    }}"
-                    >
-                        <x-lucide-upload width="22" height="22" />
-                        Share files/documents
-                    </a>
-                @endif
-
-                @if ($features['conversations'] ?? false)
+                @if ($features['conversations'])
                     <!-- Conversations -->
                     <a
                         href="{{
@@ -144,24 +124,7 @@
                     </a>
                 @endif
             @else
-                @if ($features['document_sharing'] ?? false)
-                    <!-- Shared files -->
-                    <a
-                        href="{{ route('portal.file.index', $portal) }}"
-                        wire:navigate.hover
-                        class="flex items-center gap-2 text-lg focus-visible:outline focus-visible:outline-2 focus-visible:outline-white transition
-                    {{
-                        request()->routeIs('portal.file.index')
-                        ? 'border-l-4 border-white pl-3'
-                        : 'pl-3 hover:border-l-4 hover:border-white'
-                    }}"
-                    >
-                        <x-lucide-folder width="22" height="22" />
-                        Shared files/documents
-                    </a>
-                @endif
-
-                @if ($features['conversations'] ?? false)
+                @if ($features['conversations'])
                     <!-- Conversations -->
                     <a
                         href="{{
@@ -182,8 +145,7 @@
                         Conversations
                     </a>
                 @endif
-
-                @if ($features['invoices'] ?? false)
+                @if ($features['invoices'])
                     <!-- Invoices -->
                     @foreach ($portal->invoices as $invoice)
                         @if ($invoice->user->id === auth()->id())
@@ -198,8 +160,7 @@
                         @endif
                     @endforeach
                 @endif
-
-                @if ($features['projects'] ?? false)
+                @if ($features['projects'])
                     <!-- Projects -->
                     @foreach ($portal->projects as $project)
                         @if ($project->customer->id === auth()->id())
@@ -214,7 +175,22 @@
                         @endif
                     @endforeach
                 @endif
-
+            @endif
+            @if ($features['document_hub'])
+                <!-- Share files -->
+                <a
+                    href="{{ route('portal.file.index', $portal) }}"
+                    wire:navigate.hover
+                    class="flex items-center gap-2 text-lg focus-visible:outline focus-visible:outline-2 focus-visible:outline-white transition
+                    {{
+                        request()->routeIs('portal.file.index')
+                        ? 'border-l-4 border-white pl-3'
+                        : 'pl-3 hover:border-l-4 hover:border-white'
+                    }}"
+                >
+                    <x-lucide-folder-open width="22" height="22" />
+                    Document hub
+                </a>
             @endif
 
             <!-- Version -->
