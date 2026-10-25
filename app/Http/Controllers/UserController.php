@@ -2,11 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\ActivateUserRequest;
 use App\Http\Requests\FileRequest;
 use App\Http\Requests\StoreUserRequest;
 use App\Http\Requests\UpdateUserRequest;
 use App\Models\Portal;
 use App\Models\User;
+use App\Notifications\ActivateAccount;
 use App\Services\ChatService;
 use App\Services\FileStorageService;
 use App\Services\UserService;
@@ -98,5 +100,12 @@ class UserController extends Controller
         $this->fileStorageService->storeUserProfilePicture($user, $validated->file('file'));
 
         return redirect()->back();
+    }
+
+    public function activate(ActivateUserRequest $request, Portal $portal)
+    {
+        $data = $request->validated();
+
+        new ActivateAccount();
     }
 }
