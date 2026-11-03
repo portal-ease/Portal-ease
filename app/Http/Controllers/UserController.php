@@ -2,14 +2,17 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\ActivateUserRequest;
 use App\Http\Requests\FileRequest;
 use App\Http\Requests\StoreUserRequest;
 use App\Http\Requests\UpdateUserRequest;
 use App\Models\Portal;
 use App\Models\User;
+use App\Notifications\ActivateAccount;
 use App\Services\ChatService;
 use App\Services\FileStorageService;
 use App\Services\UserService;
+use Illuminate\Support\Facades\Password;
 use Spatie\Permission\Models\Role;
 
 class UserController extends Controller
@@ -98,5 +101,24 @@ class UserController extends Controller
         $this->fileStorageService->storeUserProfilePicture($user, $validated->file('file'));
 
         return redirect()->back();
+    }
+
+    public function activate(ActivateUserRequest $request, Portal $portal)
+    {
+        $data = $request->validated();
+        $user = $this->userService->create([
+            'name' => $data['email'],
+            'email' => $data['email'],
+            'password' => bin2hex(random_bytes(32)),
+            'portal_id' => $portal->id,
+            'role' => $data['role'],
+        ]);
+
+        $token = Password::broker()->createToken($user);
+        $user->notify(new ActivateAccount($token, $portal));
+
+        return redirect()
+            ->route('portal.user.index', $portal)
+            ->with('status', 'Activation email sent successfully.');
     }
 }
