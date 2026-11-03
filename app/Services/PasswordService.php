@@ -18,10 +18,10 @@ class PasswordService
     {
         return Password::reset(
             [
-                'email' => $data->email,
-                'password' => $data->password,
-                'password_confirmation' => $data->password_confirmation,
-                'token' => $data->token,
+                'email' => $data['email'],
+                'password' => $data['password'],
+                'password_confirmation' => $data['password_confirmation'],
+                'token' => $data['token'],
             ],
             function ($user, $password) {
                 $user->forceFill([

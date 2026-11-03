@@ -12,6 +12,7 @@ use App\Notifications\ActivateAccount;
 use App\Services\ChatService;
 use App\Services\FileStorageService;
 use App\Services\UserService;
+use Illuminate\Support\Facades\Password;
 use Spatie\Permission\Models\Role;
 
 class UserController extends Controller
@@ -105,7 +106,19 @@ class UserController extends Controller
     public function activate(ActivateUserRequest $request, Portal $portal)
     {
         $data = $request->validated();
+        $user = $this->userService->create([
+            'name' => $data['email'],
+            'email' => $data['email'],
+            'password' => bin2hex(random_bytes(32)),
+            'portal_id' => $portal->id,
+            'role' => $data['role'],
+        ]);
 
-        new ActivateAccount();
+        $token = Password::broker()->createToken($user);
+        $user->notify(new ActivateAccount($token, $portal));
+
+        return redirect()
+            ->route('portal.user.index', $portal)
+            ->with('status', 'Activation email sent successfully.');
     }
 }

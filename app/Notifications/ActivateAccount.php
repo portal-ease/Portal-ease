@@ -11,14 +11,14 @@ class ActivateAccount extends Notification
 {
     use Queueable;
 
+    public function __construct(
+        private readonly string $token,
+        private readonly object $portal,
+    ) {}
+
     /**
      * Create a new notification instance.
      */
-    public function __construct()
-    {
-        //
-    }
-
     /**
      * Get the notification's delivery channels.
      *
@@ -35,9 +35,15 @@ class ActivateAccount extends Notification
     public function toMail(object $notifiable): MailMessage
     {
         return (new MailMessage)
-            ->line('The introduction to the notification.')
-            ->action('Notification Action', url('/'))
-            ->line('Thank you for using our application!');
+            ->subject('Activate your '.config('app.name').' account')
+            ->greeting('You have been invited to '.($this->portal->name ?? config('app.name')).'.')
+            ->line('Set your password to activate your account and access the portal.')
+            ->action('Activate account', route('activation.create', [
+                'portal' => $this->portal,
+                'token' => $this->token,
+                'email' => $notifiable->getEmailForPasswordReset(),
+            ]))
+            ->line('This activation link will expire in 60 minutes.');
     }
 
     /**

@@ -22,7 +22,7 @@
 
             {{-- Form --}}
             <form
-                action="{{ route('portal.user.store', ['portal' => currentPortal()]) }}"
+                action="{{ route('portal.user.activate', ['portal' => currentPortal()]) }}"
                 method="POST"
                 class="space-y-6 p-6 sm:p-8"
             >

@@ -7,6 +7,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
         Route::get('/{portal}/user', [UserController::class, 'index'])->name('portal.user.index');
         Route::get('/{portal}/user/create', [UserController::class, 'create'])->name('portal.user.create');
         Route::post('/{portal}/user', [UserController::class, 'store'])->name('portal.user.store');
+        Route::post('/{portal}/user/activate', [UserController::class, 'activate'])->name('portal.user.activate');
         Route::put('/{portal}/user/{user}', [UserController::class, 'update'])->name('portal.user.update');
         Route::delete('/{portal}/user/{user}', [UserController::class, 'destroy'])->name('portal.user.destroy');
 
