@@ -1,0 +1,100 @@
+name: Laravel CI
+
+on:
+  push:
+    branches:
+      - main
+      - develop
+
+  pull_request:
+    branches:
+      - main
+      - develop
+
+jobs:
+  tests:
+    name: Tests and Code Quality
+    runs-on: ubuntu-latest
+
+    services:
+      mysql:
+        image: mysql:8.0
+        env:
+          MYSQL_ROOT_PASSWORD: password
+          MYSQL_DATABASE: portal_ease_test
+        ports:
+          - 3306:3306
+        options: >-
+          --health-cmd="mysqladmin ping -h 127.0.0.1 -ppassword"
+          --health-interval=10s
+          --health-timeout=5s
+          --health-retries=5
+
+    steps:
+      # 1. Checkout repository
+      - name: Checkout repository
+        uses: actions/checkout@v6
+
+      # 2. Setup PHP
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.4'
+          extensions: mbstring, bcmath, curl, dom, fileinfo, gd, intl, pdo_mysql, xml, zip
+          coverage: none
+          tools: composer:v2
+
+      # 3. Setup Node.js
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: npm
+
+      # 4. Install PHP dependencies
+      - name: Install Composer dependencies
+        run: composer install --no-interaction --prefer-dist --optimize-autoloader
+
+      # 5. Install JavaScript dependencies
+      - name: Install NPM dependencies
+        run: npm ci
+
+      # 6. Build frontend assets
+      - name: Build frontend
+        run: npm run build
+
+      # 7. Prepare Laravel environment
+      - name: Prepare Laravel
+        run: |
+          cp .env.example .env
+          php artisan key:generate
+
+      # 8. Run database migrations
+      - name: Run migrations
+        env:
+          DB_CONNECTION: mysql
+          DB_HOST: 127.0.0.1
+          DB_PORT: 3306
+          DB_DATABASE: portal_ease_test
+          DB_USERNAME: root
+          DB_PASSWORD: password
+        run: php artisan migrate --force
+
+      # 9. Check code style
+      - name: Run Laravel Pint
+        run: vendor/bin/pint --test
+
+      # 10. Run automated tests
+      - name: Run tests
+        env:
+          DB_CONNECTION: mysql
+          DB_HOST: 127.0.0.1
+          DB_PORT: 3306
+          DB_DATABASE: portal_ease_test
+          DB_USERNAME: root
+          DB_PASSWORD: password
+        run: php artisan test
+
+      # 11. Run phpstan
+      - name: Run phpstan
+        run: composer phpstan

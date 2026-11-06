@@ -1,8 +1,8 @@
 <?php
 
+use App\Http\Controllers\ActivateAccountController;
 use App\Http\Controllers\ForgotPasswordController;
 use App\Http\Controllers\ResetPasswordController;
-use App\Http\Controllers\ActivateAccountController;
 
 Route::get('/{portal}/forgot-password', [ForgotPasswordController::class, 'create'])
     ->name('password.request');
