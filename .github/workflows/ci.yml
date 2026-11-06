@@ -94,3 +94,7 @@ jobs:
           DB_USERNAME: root
           DB_PASSWORD: password
         run: php artisan test
+
+      # 11. Run phpstan
+      - name: Run phpstan
+        run: composer phpstan
